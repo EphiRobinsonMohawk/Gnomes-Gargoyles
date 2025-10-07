@@ -4,6 +4,17 @@ class GridShell
 {
     const int Rows = 9;
     const int Columns = 5;
+    public string[] Lines;
+    public char[] Row1;
+    public char[] Row2;
+    public char[] Row3;
+    public char[] Row4;
+    public char[] Row5;
+    public char[] Row6;
+    public char[] Row7;
+    public char[] Row8;
+    
+
 
     static void Main()
     {
@@ -43,5 +54,11 @@ class GridShell
             Console.Write("|   ");
         }
         Console.WriteLine("|");
+        for (int col = 0; col < Columns; col++)
+        {
+            Console.Write("|   ");
+        }
+        Console.WriteLine("|");
+
     }
 }
