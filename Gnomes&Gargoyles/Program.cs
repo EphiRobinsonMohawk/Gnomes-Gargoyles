@@ -31,7 +31,7 @@ class GridShell
     {
         for (int col = 0; col < Columns; col++) // Loop that prints the lines to create the horizontal part in the grid
         {
-            Console.Write("+---"); 
+            Console.Write("+---");
         }
         Console.WriteLine("+"); // Outside of this loop this just finishes off the border 
     }
