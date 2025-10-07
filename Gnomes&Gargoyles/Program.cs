@@ -3,8 +3,7 @@ using System.Data;
 
 class GridShell
 {
-    //const int Rows = 9;
-    //const int Columns = 5;
+    
     //Character arrays for each line
     static char[] Row1 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
     static char[] Row2 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
@@ -34,6 +33,12 @@ class GridShell
     static char[] Row26 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row27 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row28 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
+    
+
+    static void Start()
+    {
+        //spawn Gargoyles here
+    }
 
     static void Main()
     {
@@ -51,74 +56,41 @@ class GridShell
     static void Update() //Happens Every Frame
     { //Clearing the past frame's lines before printing new lines 
         Console.Clear();
+
+
+
+
+
         { //Printing each line (Brackets solely so you can collapse it) 
-            Console.WriteLine(new string(Row1));
-            Console.WriteLine(new string(Row2));
-            Console.WriteLine(new string(Row3));
-            Console.WriteLine(new string(Row4));
-            Console.WriteLine(new string(Row5));
-            Console.WriteLine(new string(Row6));
-            Console.WriteLine(new string(Row7));
-            Console.WriteLine(new string(Row8));
-            Console.WriteLine(new string(Row9));
-            Console.WriteLine(new string(Row10));
-            Console.WriteLine(new string(Row11));
-            Console.WriteLine(new string(Row12));
-            Console.WriteLine(new string(Row13));
-            Console.WriteLine(new string(Row14));
-            Console.WriteLine(new string(Row15));
-            Console.WriteLine(new string(Row16));
-            Console.WriteLine(new string(Row17));
-            Console.WriteLine(new string(Row18));
-            Console.WriteLine(new string(Row19));
-            Console.WriteLine(new string(Row20));
-            Console.WriteLine(new string(Row21));
-            Console.WriteLine(new string(Row22));
-            Console.WriteLine(new string(Row23));
-            Console.WriteLine(new string(Row24));
-            Console.WriteLine(new string(Row25));
-            Console.WriteLine(new string(Row26));
-            Console.WriteLine(new string(Row27));
-            Console.WriteLine(new string(Row28));
+            Console.WriteLine("          ║{ GARGOYLES [ooooo∙∙∙] }║   ║{ Level 22 }║          ");
+            Console.WriteLine("          ║░░░░░░░░░░░░░░░░░░░░░░░░║   ║░░░░░░░░░░░░║          ");
+            Console.WriteLine("∙========<███████████████████████████████████████████>========∙");
+
+            //Framed Rows
+            Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
+            Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
+            Console.Write("║  ░024░  ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine("║▐▓▓▒▒░ <██░034/300░║");
+            Console.Write("║         ██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
+            Console.Write("║ ░Score░ ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██ ░Enemy░ ║");
+            Console.Write("║   «P»   ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
+            Console.Write("║  ░150░  ██> ░░▒▓▓▌║"); Console.Write(new string(Row7)); Console.WriteLine("║▐▓▓▒░░ <██ ░05/??░ ║");
+
+            Console.Write("∙========<██> ░▒▒▓▓▌║"); Console.Write(new string(Row8)); Console.WriteLine("║▐▓▓▒▒░ <██>========∙");
+
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row9)); Console.WriteLine("║▐▒▓▒▒░ <██          ");
+            Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row10)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+            Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row11)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+            Console.Write("          ██>  ░▒▓▓▌║"); Console.Write(new string(Row12)); Console.WriteLine("║▐▓▓▒░  <██          ");
+            Console.Write("          ██>  ░▒▒▓▌║"); Console.Write(new string(Row13)); Console.WriteLine("║▐▓▒▒░  <██          ");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row14)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row15)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+            Console.Write("          ██> ░▒▒▓▒▌║"); Console.Write(new string(Row16)); Console.WriteLine("║▐▓▒▒▒░ <██          ");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row17)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row18)); Console.WriteLine("║▐▓▓▒░░ <██          ");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row19)); Console.WriteLine("║▐▓▓▒░░ <██          ");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+            Console.WriteLine("          ███████████████████████████████████████████          ");
         }
-        
+
     }
-
-    
-    
-    /*
-    static void DrawGridShell()
-    {
-        Console.Clear();
-
-        for (int row = 0; row < Rows; row++)
-        {
-            // Top border of every single row
-            DrawHorizontalLine();
-
-            // Empty line so that te cells can be filled with ASCII text
-            DrawEmptyLine();
-        }
-
-        // Draw bottom border of the grid
-        DrawHorizontalLine();
-    }
-
-    static void DrawHorizontalLine()
-    {
-        for (int col = 0; col < Columns; col++) // Loop that prints the lines to create the horizontal part in the grid
-        {
-            Console.Write("+---");
-        }
-        Console.WriteLine("+"); // Outside of this loop this just finishes off the border 
-    }
-
-    static void DrawEmptyLine()  // Another loop that 
-    {
-        for (int col = 0; col < Columns; col++)
-        {
-            Console.Write("|   ");
-        }
-        Console.WriteLine("|");
-    } */
 }
