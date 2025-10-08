@@ -6,13 +6,15 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-
+    static int moveTimer;
+    static int movePeriod = 4;
+    static int tickTimer;
     static int enemyCount = 0;
     static int level = 1;
-    static int socks = 300;
+    static int socks = 30;
     static int score = 0;
     static float timer = 300;
-    static float timerMax = 300;
+    static float timerMax = timer;
 
 
     //Character arrays for each line
@@ -60,8 +62,9 @@ class GridShell
         while (true)
         {
             Update();
+            
 
-            timer -= 0.5f;
+            
             // Press ESC to break out
             if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
                 break;
@@ -75,11 +78,28 @@ class GridShell
 
         DrawGnomes();
 
+        tickTimer++;
+        if (tickTimer >= 2)
+        {
+            tickTimer = 0;
+            timer--;
+        }
 
-        { //Printing each line (Brackets solely so you can collapse it) 
+        moveTimer++;
+        if (moveTimer >= movePeriod)
+        {
+            foreach (var g in gnomes.Where(x => x.IsAlive))
+            {
+                moveTimer = 0;
+                g.Row++;
+            }
+        }
+        
+
+            { //Printing each line (Brackets solely so you can collapse it) 
             Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
-            Console.Write("║   «\U0001F9E6»  ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
-            Console.Write($"║  ░{socks}░  ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax}░║");
+            Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
+            Console.Write($"║  ░{socks}░  ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
             Console.Write("∙========<██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
             Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██░Enemies░║");
             Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
@@ -104,7 +124,7 @@ class GridShell
             Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ σ σ  ò ó  u u ║");
             Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ∙O∙  °O°  /:\\ ║");
             Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«\U0001f9e6»5«\U0001f9e6»5«\U0001f9e6»5║");
+            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
             Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
         }
 
