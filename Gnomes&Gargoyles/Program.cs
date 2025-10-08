@@ -31,14 +31,6 @@ class GridShell
     static char[] Row11 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row12 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row13 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
-    //============$$$$$$$===========================
-    // Gargoyle shells being displayed(3 columns × 2 rows each)
-    //============$$$$$$$======================
-    Console.Write("     GARGOYLE║██> ░▒▒▓▓▌║"); Console.Write(new string (Row14)); Console.WriteLine("║▐▓▓▒▒░ <██║╔|A|╗╔|B|╗╔|C|╗║");
-            Console.Write("             ██> ░▒▒▓▓▌║"); Console.Write(new string (Row15)); Console.WriteLine("║▐▓▓▒▒░ <██║     Gargoyles    ║");
-            Console.Write("             ██> ░▒▒▓▓▌║"); Console.Write(new string (Row16)); Console.WriteLine("║▐▓▓▒▒░ <██║«3x2 ASCII shell»║");
-            Console.Write("             ██> ░▒▒▓▓▌║"); Console.Write(new string (Row17)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-
     static char[] Row14 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row15 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row16 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
@@ -80,6 +72,9 @@ class GridShell
 
     static readonly List<Gnome> gnomes = new();
 
+    //============$$$$$$$===========================
+    // Gargoyle shells being displayed(3 columns × 2 rows each)
+    //============$$$$$$$======================
     static void Start()
     {
 
@@ -102,17 +97,15 @@ class GridShell
             Thread.Sleep(500); // 2 FPS
         }
     }
-    static void Update() //Happens Every Frame
-    { //Clearing the past frame's lines before printing new lines 
-        Console.SetCursorPosition(0, 0);
-        static void Update()
-        {
-            Console.SetCursorPosition(0, 0);
 
-            DrawGargoyles(); // Draws Gargoles first to set the stage
-            DrawGnomes();    // Then th
-                             // e gnomes
-            ...
+    static void Update()
+    {
+        Console.SetCursorPosition(0, 0);
+
+        DrawGargoyles(); // Draws Gargoles first to set the stage
+        DrawGnomes();    // Then th
+                         // e gnomes
+
 
         tickTimer++;
         if (tickTimer >= 2)
@@ -132,7 +125,7 @@ class GridShell
         }
 
 
-            { //Printing each line (Brackets solely so you can collapse it) 
+        { //Printing each line (Brackets solely so you can collapse it) 
             Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
             Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
             Console.Write($"║  ░{socks}░   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
@@ -171,7 +164,10 @@ class GridShell
         gnomes.Add(g);
         return g;
     }
+    static void DrawGargoyles()
+    {
 
+    }
     static void DrawGnomes()
     {
         foreach (var g in gnomes.Where(x => x.IsAlive))
