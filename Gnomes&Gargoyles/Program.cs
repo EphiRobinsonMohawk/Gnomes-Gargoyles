@@ -7,14 +7,21 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-    static float gargAttackMax = 5;
+    static int[] sockPileAmmounts = { 16, 16, 8 };
+    static bool[] sockPileCollected = { false, false, false };
+    static float gargAttackMax = 3;
+    static int[] enemyCounter = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static float[] gargAttackTimer = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    static int[] gargDamage = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
-    static int[] gargHealth = { 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
-    static bool[] gargIsAlive = { true, true, true, true, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
+    static int[] dropValue = { 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2 };
+    static int[] gargDamage = { 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2};
+    static int[] gargHealth = { 10, 10, 10, 10, 10, 8, 10, 16, 10, 8, 10, 10, 10, 10, 10}; //Array of gargoyles health stats
+    static bool[] gargIsAlive = { true, false, false, false, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
     static bool[] gargDeathPlayed = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
     //gargoyle    0, 1, 2, 3, 4
     //setup       5, 6, 7, 8, 9     Remember arrays start at 0 (I forgot this twice while coding this)
+    static char[] cooldownCharacters = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
+    static int cooldown = 8;
+    static bool cooldownReady = true;
 
     static bool isPlaying = false;
     static bool hasLost = false;
@@ -26,7 +33,7 @@ class GridShell
     static int laneFlashing;
     static int gnomePlacing;
     static int gnomeDamage = 3;
-    static int gnightDamage = 2;
+    static int gnightDamage = 3;
     static int gizardDamage = 1;
     static int gnomeMoveTimer; 
     static int gizardMoveTimer;
@@ -87,7 +94,7 @@ class GridShell
         Audio.Load("shatter", "Audio/shatter.wav"); // ✅
         Audio.Load("misc_sound", "Audio/miscsound.wav");
         Audio.Load("foot_step", "Audio/footstep.wav"); // ✅
-        Audio.Load("hit_sound", "Audio/hitsound.wav");
+        Audio.Load("hit_sound", "Audio/hitsound.wav"); // ✅
         Audio.Load("level_complete", "Audio/levelcomplete.wav"); // ✅
         Audio.Load("game_over", "Audio/gameover.wav"); // ✅
         Audio.Load("gnome_laugh", "Audio/gnomelaugh.wav"); // ✅
@@ -117,7 +124,165 @@ class GridShell
         //Code to keep screen current without flashing
         Console.SetCursorPosition(0, 0);
 
+        if (sockPileAmmounts[0] <= 0)
+        {
+            sockPileCollected[0] = true;
+        }
+        if (sockPileAmmounts[1] <= 0)
+        {
+            sockPileCollected[1] = true;
+        }
+        if (sockPileAmmounts[2] <= 0)
+        {
+            sockPileCollected[2] = true;
+        }
 
+
+
+
+        if (!cooldownReady)
+        {
+            cooldown++;
+        }
+
+        if (gargIsAlive[0])
+        {
+            enemyCounter[0] = 1;
+        }
+        else if (!gargIsAlive[0])
+        {
+            enemyCounter[0] = 0;
+        }
+
+        if (gargIsAlive[1])
+        {
+            enemyCounter[1] = 1;
+        }
+        else if (!gargIsAlive[1])
+        {
+            enemyCounter[1] = 0;
+        }
+
+        if (gargIsAlive[2])
+        {
+            enemyCounter[2] = 1;
+        }
+        else if (!gargIsAlive[2])
+        {
+            enemyCounter[2] = 0;
+        }
+
+        if (gargIsAlive[3])
+        {
+            enemyCounter[3] = 1;
+        }
+        else if (!gargIsAlive[3])
+        {
+            enemyCounter[3] = 0;
+        }
+
+        if (gargIsAlive[4])
+        {
+            enemyCounter[4] = 1;
+        }
+        else if (!gargIsAlive[4])
+        {
+            enemyCounter[4] = 0;
+        }
+
+        if (gargIsAlive[5])
+        {
+            enemyCounter[5] = 1;
+        }
+        else if (!gargIsAlive[5])
+        {
+            enemyCounter[5] = 0;
+        }
+
+        if (gargIsAlive[6])
+        {
+            enemyCounter[6] = 1;
+        }
+        else if (!gargIsAlive[6])
+        {
+            enemyCounter[6] = 0;
+        }
+
+        if (gargIsAlive[7])
+        {
+            enemyCounter[7] = 1;
+        }
+        else if (!gargIsAlive[7])
+        {
+            enemyCounter[7] = 0;
+        }
+
+        if (gargIsAlive[8])
+        {
+            enemyCounter[8] = 1;
+        }
+        else if (!gargIsAlive[8])
+        {
+            enemyCounter[8] = 0;
+        }
+
+        if (gargIsAlive[9])
+        {
+            enemyCounter[9] = 1;
+        }
+        else if (!gargIsAlive[9])
+        {
+            enemyCounter[9] = 0;
+        }
+
+        if (gargIsAlive[10])
+        {
+            enemyCounter[10] = 1;
+        }
+        else if (!gargIsAlive[10])
+        {
+            enemyCounter[10] = 0;
+        }
+
+        if (gargIsAlive[11])
+        {
+            enemyCounter[11] = 1;
+        }
+        else if (!gargIsAlive[11])
+        {
+            enemyCounter[11] = 0;
+        }
+
+        if (gargIsAlive[12])
+        {
+            enemyCounter[12] = 1;
+        }
+        else if (!gargIsAlive[12])
+        {
+            enemyCounter[12] = 0;
+        }
+
+        if (gargIsAlive[13])
+        {
+            enemyCounter[13] = 1;
+        }
+        else if (!gargIsAlive[13])
+        {
+            enemyCounter[13] = 0;
+        }
+
+        if (gargIsAlive[14])
+        {
+            enemyCounter[14] = 1;
+        }
+        else if (!gargIsAlive[14])
+        {
+            enemyCounter[14] = 0;
+        }
+
+
+        enemyCount = (enemyCounter[0] + enemyCounter[1] + enemyCounter[2] + enemyCounter[3] + enemyCounter[4] + enemyCounter[5] + enemyCounter[6] + enemyCounter[7] +
+            enemyCounter[8] + enemyCounter[9] + enemyCounter[10] + enemyCounter[11] + enemyCounter[12] + enemyCounter[13] + enemyCounter[14]);
 
         //Code for making UI stay clean
         if (socks < 10)
@@ -210,19 +375,19 @@ class GridShell
             Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░               ");
             Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /\, Gnome                  │▒│/[/ Gaurdgoyle              │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£                         │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ rr)                        │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /\, Gnome                  │▒│/|/ Gargoyle                │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£ (average melee unit)    │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ rr                         │▒│rr)                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /Σ, Gnight                 │▒│                            │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│                            │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ (+≡                        │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /Σ, Gnight                 │▒│◢║◣ Gardgoyle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│ΘxΘ (tanky melee unit)      │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ l l                        │▒│¿:¥                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /^\ Gnomagician            │▒│                            │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│                            │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ ¿:¥                        │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomagician            │▒│\]\ Gargurgle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│Θ⩌Θ (ranged unit)           │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ¥:¥                        │▒│(+≡                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░░░                                                             ░░░               ");
             Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒               ");
@@ -244,11 +409,13 @@ class GridShell
         if (isPlaying && !hasLost && !hasWon)
         {
             DrawGrid();
+            DrawBar();
             DrawGargoyles(); // Draws Gargoles first to set the stage
             DrawGnomes();    // Draws the default GNOMES
             DrawGizards(); //Draws the Gizards
             DrawGnights(); //Draws the Gnights
             DrawProjectiles(); //Draws the Projectiles
+            DrawSockPiles(); //Draws sock piles
 
 
             tickTimer++;
@@ -258,12 +425,57 @@ class GridShell
                 timer--;
             }
 
+            
             gnomeMoveTimer++;
             if (gnomeMoveTimer >= movePeriod)
             {
                 foreach (var g in gnomes.Where(x => x.IsAlive))
                 {
-                    if (g.Row >= 4)
+                    if (g.Row == 4 && g.Lane == 3)
+                    {
+                            if (sockPileCollected[2])
+                            {
+                                g.Row--;
+                            }
+                            else
+                            {
+                                gnomeMoveTimer = 0;
+                                sockPileAmmounts[2] -= 8;
+                                socks += 8;
+                                Audio.Play("misc_sound");
+                            }
+                    }
+                    else if (g.Row == 2 && g.Lane == 2)
+                    {
+                            if (sockPileCollected[0])
+                            {
+                                g.Row--;
+                            }
+                            else
+                            {
+                                gnomeMoveTimer = 0;
+                                sockPileAmmounts[0] -= 8;
+                                socks += 8;
+                                Audio.Play("misc_sound");
+                            }
+                    }
+                    else if (g.Row == 2 && g.Lane == 4)
+                    {
+                            if (sockPileCollected[1])
+                            {
+                                g.Row--;
+                            }
+                            else
+                            {
+                                gnomeMoveTimer = 0;
+                                sockPileAmmounts[1] -= 8;
+                                socks += 8;
+                                Audio.Play("misc_sound");
+                            }
+                    }
+
+
+                    else if (g.Row >= 4)
                     {
                         gnomeMoveTimer = 0;
                         g.Row--;
@@ -622,11 +834,11 @@ class GridShell
 
                 if (key.Key == ConsoleKey.Spacebar && isPlacing == true || key.Key == ConsoleKey.Enter && isPlacing == true)
                 {
-                    if (gnomePlacing == 1 && socks >= 3)
+                    if (gnomePlacing == 1 && socks >= 4)
                     {
                         isPlacing = false;
-                        socks -= 3;
-                        SpawnGnome(laneSelecting, 9, 4);
+                        socks -= 4;
+                        SpawnGnome(laneSelecting, 9, 3);
                         Audio.Play("place");
                     }
                     if (gnomePlacing == 2 && socks >= 6)
@@ -636,11 +848,11 @@ class GridShell
                         SpawnGnight(laneSelecting, 9, 3);
                         Audio.Play("place");
                     }
-                    if (gnomePlacing == 3 && socks >= 9)
+                    if (gnomePlacing == 3 && socks >= 10)
                     {
                         isPlacing = false;
-                        socks -= 9;
-                        SpawnGizard(laneSelecting, 9, 4);
+                        socks -= 10;
+                        SpawnGizard(laneSelecting, 9, 5);
                         Audio.Play("gnome_laugh");
                     }
                 }
@@ -864,12 +1076,12 @@ class GridShell
             Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
             Console.Write("     C║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
             Console.Write("     O║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
-            Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║Press ↓ Recruit║");
+            Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║Press  ↓Recruit║");
             Console.Write("     L║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║╔|1|╗╔|2|╗╔|3|╗║");
             Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ /\\,  /Σ,  /^\\ ║");
             Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ouo  ò∩ó  0¬0 ║");
             Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
+            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»4 «ß»6 «ß»10║");
             Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
         }
 
@@ -993,9 +1205,78 @@ class GridShell
         return p;
     }
 
+    static void DrawBar()
+    { 
+        /*if (cooldown == 1)
+        {
+            Row28[] = '░';
+        }
+        else if (cooldown == 2)
+        {
 
+        }
+        else if (cooldown == 3)
+        {
 
-    static void DrawGargoyles()
+        }
+        else if (cooldown == 4)
+        {
+
+        }
+        else if (cooldown == 5)
+        {
+
+        }
+        else if (cooldown == 6)
+        {
+
+        }
+        else if (cooldown == 7)
+        {
+
+        }
+        else if (cooldown == 8)
+        {
+
+        }*/
+
+    }
+
+    static void DrawSockPiles()
+    {
+        if (!sockPileCollected[0])
+        {
+            Row2[5] = 'ß';
+            Row2[6] = 'ß';
+            Row2[7] = 'ß';
+            Row3[5] = 'ß';
+            Row3[6] = 'ß';
+            Row3[7] = 'ß';
+
+        }
+        if (!sockPileCollected[1])
+        {
+            Row2[13] = 'ß';
+            Row2[14] = 'ß';
+            Row2[15] = 'ß';
+            Row3[13] = 'ß';
+            Row3[14] = 'ß';
+            Row3[15] = 'ß';
+
+        }
+        if (!sockPileCollected[2])
+        {
+            Row8[9] = 'ß';
+            Row8[10] = 'ß';
+            Row8[11] = 'ß';
+            Row9[9] = 'ß';
+            Row9[10] = 'ß';
+            Row9[11] = 'ß';
+
+        }
+    }
+
+        static void DrawGargoyles()
     {
         if (gargHealth[0] <= 0)
         {
@@ -1003,6 +1284,7 @@ class GridShell
             {
                 gargDeathPlayed[0] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[0];
             }
             gargIsAlive[0] = false;
         }
@@ -1012,6 +1294,7 @@ class GridShell
             {
                 gargDeathPlayed[1] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[1];
             }
             gargIsAlive[1] = false;
         }
@@ -1021,6 +1304,7 @@ class GridShell
             {
                 gargDeathPlayed[2] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[2];
             }
             gargIsAlive[2] = false;
         }
@@ -1030,6 +1314,7 @@ class GridShell
             {
                 gargDeathPlayed[3] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[3];
             }
             gargIsAlive[3] = false;
         }
@@ -1039,6 +1324,7 @@ class GridShell
             {
                 gargDeathPlayed[4] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[4];
             }
             gargIsAlive[4] = false;
         }
@@ -1048,6 +1334,7 @@ class GridShell
             {
                 gargDeathPlayed[5] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[5];
             }
             gargIsAlive[5] = false;
         }
@@ -1057,6 +1344,7 @@ class GridShell
             {
                 gargDeathPlayed[6] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[6];
             }
             gargIsAlive[6] = false;
         }
@@ -1066,6 +1354,7 @@ class GridShell
             {
                 gargDeathPlayed[7] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[7];
             }
             gargIsAlive[7] = false;
         }
@@ -1075,6 +1364,7 @@ class GridShell
             {
                 gargDeathPlayed[8] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[8];
             }
             gargIsAlive[8] = false;
         }
@@ -1084,6 +1374,7 @@ class GridShell
             {
                 gargDeathPlayed[9] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[9];
             }
             gargIsAlive[9] = false;
         }
@@ -1093,6 +1384,7 @@ class GridShell
             {
                 gargDeathPlayed[10] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[10];
             }
             gargIsAlive[10] = false;
         }
@@ -1102,6 +1394,7 @@ class GridShell
             {
                 gargDeathPlayed[11] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[11];
             }
             gargIsAlive[11] = false;
         }
@@ -1111,6 +1404,7 @@ class GridShell
             {
                 gargDeathPlayed[12] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[12];
             }
             gargIsAlive[12] = false;
         }
@@ -1120,6 +1414,7 @@ class GridShell
             {
                 gargDeathPlayed[13] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[13];
             }
             gargIsAlive[13] = false;
         }
@@ -1129,16 +1424,211 @@ class GridShell
             {
                 gargDeathPlayed[14] = true;
                 Audio.Play("gargoyle_roar");
+                socks += dropValue[14];
             }
             gargIsAlive[14] = false;
         }
+        
+            if (gargIsAlive[0] && gargHealth[0] == 10)
+            {
+                Row3[1] = 'Θ';
+                Row3[2] = 'Θ';
+                Row3[3] = '£';
+                Row2[1] = '/';
+                Row2[2] = '|';
+                Row2[3] = '/';
+            } 
 
+            else if (gargIsAlive[0] && gargHealth[0] < 10)
+            {
+                Row3[1] = 'Θ';
+                Row3[2] = 'Θ';
+                Row3[3] = '£';
+                Row2[1] = '⸝';
+                Row2[2] = '|';
+                Row2[3] = '⸝';
+            }
 
+            if (gargIsAlive[1] && gargHealth[1] == 10)
+            {
+                Row3[5] = 'o';
+                Row3[6] = 'u';
+                Row3[7] = 'o';
+                Row2[5] = '/';
+                Row2[6] = '|';
+                Row2[7] = '/';
+            }
 
+            else if (gargIsAlive[1] && gargHealth[1] < 10)
+            {
+                Row3[5] = 'o';
+                Row3[6] = 'u';
+                Row3[7] = 'o';
+                Row2[5] = ' ';
+                Row2[6] = '|';
+                Row2[7] = ' ';
+            }
+            if (gargIsAlive[2] && gargHealth[2] == 10)
+            {
+                Row3[9] = 'o';
+                Row3[10] = 'u';
+                Row3[11] = 'o';
+                Row2[9] = '/';
+                Row2[10] = '|';
+                Row2[11] = '/';
+            }
 
+            else if (gargIsAlive[2] && gargHealth[2] < 10)
+            {
+                Row3[9] = 'o';
+                Row3[10] = 'u';
+                Row3[11] = 'o';
+                Row2[9] = ' ';
+                Row2[10] = '|';
+                Row2[11] = ' ';
+            }
 
+            if (gargIsAlive[3] && gargHealth[3] == 10)
+            {
+                Row3[13] = 'o';
+                Row3[14] = 'u';
+                Row3[15] = 'o';
+                Row2[13] = '/';
+                Row2[14] = '|';
+                Row2[15] = '/';
+            }
+
+            else if (gargIsAlive[3] && gargHealth[3] < 10)
+            {
+                Row3[13] = 'o';
+                Row3[14] = 'u';
+                Row3[15] = 'o';
+                Row2[13] = ' ';
+                Row2[14] = '|';
+                Row2[15] = ' ';
+            }
+            if (gargIsAlive[4] && gargHealth[4] == 10)
+            {
+                Row3[17] = 'Θ'; 
+                Row3[18] = 'Θ';
+                Row3[19] = '£';
+                Row2[17] = '/';
+                Row2[18] = '|';
+                Row2[19] = '/';
+            }
+
+            else if (gargIsAlive[4] && gargHealth[4] < 10)
+            {
+                Row3[17] = 'Θ'; 
+                Row3[18] = 'Θ';
+                Row3[19] = '£';
+                Row2[17] = '⸝';
+                Row2[18] = '|';
+                Row2[19] = '⸝';
+            }
+
+            if (gargIsAlive[5] && gargHealth[5] == 8)
+            {
+                Row6[1] = 'Θ';
+                Row6[2] = '⩌';
+                Row6[3] = 'Θ';
+                Row5[1] = '\\';
+                Row5[2] = ']';
+                Row5[3] = '\\';
+            }
+
+            else if (gargIsAlive[5] && gargHealth[5] < 8)
+            {
+                Row6[1] = 'Θ';
+                Row6[2] = '⩌';
+                Row6[3] = 'Θ';
+                Row5[1] = '⸜';
+                Row5[2] = ']';
+                Row5[3] = '⸜';
+            }
+
+            if (gargIsAlive[6] && gargHealth[6] == 10)
+            {
+                Row6[5] = 'Θ'; 
+                Row6[6] = 'Θ';
+                Row6[7] = '£';
+                Row5[5] = '/';
+                Row5[6] = '|';
+                Row5[7] = '/';
+            }
+
+            else if (gargIsAlive[6] && gargHealth[6] < 10)
+            {
+                Row6[5] = 'Θ'; 
+                Row6[6] = 'Θ';
+                Row6[7] = '£';
+                Row5[5] = '⸝';
+                Row5[6] = '|';
+                Row5[7] = '⸝';
+            }
+
+            if (gargIsAlive[7] && gargHealth[7] >= 13)
+            {
+                Row6[9] = 'Θ';
+                Row6[10] = 'x';
+                Row6[11] = 'Θ';
+                Row5[9] = '◢';
+                Row5[10] = '║';
+                Row5[11] = '◣';
+            }
+
+            else if (gargIsAlive[7] && gargHealth[7] < 13)
+            {
+                Row6[9] = 'Θ';
+                Row6[10] = 'x';
+                Row6[11] = 'Θ';
+                Row5[9] = '⸝';
+                Row5[10] = '║';
+                Row5[11] = '⸜';
+            }
+
+            if (gargIsAlive[8] && gargHealth[8] == 10)
+            {
+                Row6[13] = 'Θ'; 
+                Row6[14] = 'Θ';
+                Row6[15] = '£';
+                Row5[13] = '/';
+                Row5[14] = '|';
+                Row5[15] = '/';
+            }
+
+            else if (gargIsAlive[8] && gargHealth[8] < 10)
+            {
+                Row6[13] = 'Θ';
+                Row6[14] = 'Θ';
+                Row6[15] = '£';
+                Row5[13] = '⸝';
+                Row5[14] = '|';
+                Row5[15] = '⸝';
+            }
+
+            if (gargIsAlive[9] && gargHealth[9] == 8)
+            {
+                Row6[17] = 'Θ'; 
+                Row6[18] = '⩌';
+                Row6[19] = 'Θ';
+                Row5[17] = '\\';
+                Row5[18] = ']';
+                Row5[19] = '\\';
+            }
+
+            else if (gargIsAlive[9] && gargHealth[9] < 8)
+            {
+                Row6[17] = 'Θ'; 
+                Row6[18] = '⩌';
+                Row6[19] = 'Θ';
+                Row5[17] = '\\';
+                Row5[18] = ']';
+                Row5[19] = '\\';
+            }
 
     }
+
 
 
     static void DrawGrid()
@@ -1633,23 +2123,23 @@ class GridShell
         gizardMoveTimer = 0;
         gnightMoveTimer = 0;
 
-        gargAttackTimer[0] = 0; gargHealth[0] = 5; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
-        gargAttackTimer[1] = 0; gargHealth[1] = 5; gargIsAlive[1] = true; gargDeathPlayed[1] = false;
-        gargAttackTimer[2] = 0; gargHealth[2] = 5; gargIsAlive[2] = true; gargDeathPlayed[2] = false;
-        gargAttackTimer[3] = 0; gargHealth[3] = 5; gargIsAlive[3] = true; gargDeathPlayed[3] = false;
-        gargAttackTimer[4] = 0; gargHealth[4] = 5; gargIsAlive[4] = true; gargDeathPlayed[4] = false;
+        gargAttackTimer[0] = 0; gargHealth[0] = 10; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
+        gargAttackTimer[1] = 0; gargHealth[1] = 10; gargIsAlive[1] = false; gargDeathPlayed[1] = false;
+        gargAttackTimer[2] = 0; gargHealth[2] = 10; gargIsAlive[2] = false; gargDeathPlayed[2] = false;
+        gargAttackTimer[3] = 0; gargHealth[3] = 10; gargIsAlive[3] = false; gargDeathPlayed[3] = false;
+        gargAttackTimer[4] = 0; gargHealth[4] = 10; gargIsAlive[4] = true; gargDeathPlayed[4] = false;
 
-        gargAttackTimer[5] = 0; gargHealth[5] = 10; gargIsAlive[5] = true; gargDeathPlayed[5] = false;
+        gargAttackTimer[5] = 0; gargHealth[5] = 8; gargIsAlive[5] = true; gargDeathPlayed[5] = false;
         gargAttackTimer[6] = 0; gargHealth[6] = 10; gargIsAlive[6] = true; gargDeathPlayed[6] = false;
-        gargAttackTimer[7] = 0; gargHealth[7] = 10; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
+        gargAttackTimer[7] = 0; gargHealth[7] = 16; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
         gargAttackTimer[8] = 0; gargHealth[8] = 10; gargIsAlive[8] = true; gargDeathPlayed[8] = false;
-        gargAttackTimer[9] = 0; gargHealth[9] = 10; gargIsAlive[9] = true; gargDeathPlayed[9] = false;
+        gargAttackTimer[9] = 0; gargHealth[9] = 8; gargIsAlive[9] = true; gargDeathPlayed[9] = false;
 
-        gargAttackTimer[10] = 0; gargHealth[10] = 3; gargIsAlive[10] = false; gargDeathPlayed[10] = false;
-        gargAttackTimer[11] = 0; gargHealth[11] = 3; gargIsAlive[11] = false; gargDeathPlayed[11] = false;
-        gargAttackTimer[12] = 0; gargHealth[12] = 3; gargIsAlive[12] = false; gargDeathPlayed[12] = false;
-        gargAttackTimer[13] = 0; gargHealth[13] = 3; gargIsAlive[13] = false; gargDeathPlayed[13] = false;
-        gargAttackTimer[14] = 0; gargHealth[14] = 3; gargIsAlive[14] = false; gargDeathPlayed[14] = false;
+        gargAttackTimer[10] = 0; gargHealth[10] = 10; gargIsAlive[10] = false; gargDeathPlayed[10] = false;
+        gargAttackTimer[11] = 0; gargHealth[11] = 10; gargIsAlive[11] = false; gargDeathPlayed[11] = false;
+        gargAttackTimer[12] = 0; gargHealth[12] = 10; gargIsAlive[12] = false; gargDeathPlayed[12] = false;
+        gargAttackTimer[13] = 0; gargHealth[13] = 10; gargIsAlive[13] = false; gargDeathPlayed[13] = false;
+        gargAttackTimer[14] = 0; gargHealth[14] = 10; gargIsAlive[14] = false; gargDeathPlayed[14] = false;
     }
 
 
