@@ -1,4 +1,9 @@
-﻿using System;
+﻿static void InitializeUnits()
+{
+    gridContent[0, 0] = "unit1";
+
+}
+using System;
 using System.Data;
 using System.Text;
 using System.Threading;
