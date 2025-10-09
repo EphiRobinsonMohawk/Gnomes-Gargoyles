@@ -78,7 +78,7 @@ class GridShell
     
     static void Start()
     {
-        Audio.Load("gargyole_pain", "Audio/gargoylepain.wav");
+        Audio.Load("gargoyle_pain", "Audio/gargoylepain.wav");
         Audio.Load("gargoyle_roar", "Audio/gargoyleroar.wav");
         Audio.Load("shatter", "Audio/shatter.wav"); 
         Audio.Load("misc_sound", "Audio/miscsound.wav");
@@ -215,43 +215,63 @@ class GridShell
                     }
                     else if (g.Row == 3 && gargIsAlive[6] && g.Lane == 1)
                     {
+                        moveTimer = 0;
                         gargHealth[6] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 3 && gargIsAlive[7] && g.Lane == 2)
                     {
+                        moveTimer = 0;
                         gargHealth[7] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 3 && gargIsAlive[8] && g.Lane == 3)
                     {
+                        moveTimer = 0;
                         gargHealth[8] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 3 && gargIsAlive[9] && g.Lane == 4)
                     {
+                        moveTimer = 0;
                         gargHealth[9] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 3 && gargIsAlive[10] && g.Lane == 5)
                     {
+                        moveTimer = 0;
                         gargHealth[10] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 2 && gargIsAlive[1] && g.Lane == 1)
                     {
+                        moveTimer = 0;
                         gargHealth[1] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 2 && gargIsAlive[2] && g.Lane == 2)
                     {
+                        moveTimer = 0;
                         gargHealth[2] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 2 && gargIsAlive[3] && g.Lane == 3)
                     {
+                        moveTimer = 0;
                         gargHealth[3] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 2 && gargIsAlive[4] && g.Lane == 4)
                     {
+                        moveTimer = 0;
                         gargHealth[4] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 2 && gargIsAlive[5] && g.Lane == 5)
                     {
+                        moveTimer = 0;
                         gargHealth[5] -= gnomeDamage;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (g.Row == 3 && !gargIsAlive[6] && g.Lane == 1)
                     {
@@ -365,11 +385,135 @@ class GridShell
             gnightMoveTimer++;
             if (gnightMoveTimer >= gnightMovePeriod)
             {
-                foreach (var g in gnights.Where(x => x.IsAlive))
+                foreach (var g in gnomes.Where(x => x.IsAlive))
                 {
-                    gnightMoveTimer = 0;
-                    g.Row--;
-                    Audio.Play("foot_step");
+                    if (g.Row >= 4)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && gargIsAlive[6] && g.Lane == 1)
+                    {
+                        moveTimer = 0;
+                        gargHealth[6] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 3 && gargIsAlive[7] && g.Lane == 2)
+                    {
+                        moveTimer = 0;
+                        gargHealth[7] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 3 && gargIsAlive[8] && g.Lane == 3)
+                    {
+                        moveTimer = 0;
+                        gargHealth[8] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 3 && gargIsAlive[9] && g.Lane == 4)
+                    {
+                        moveTimer = 0;
+                        gargHealth[9] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 3 && gargIsAlive[10] && g.Lane == 5)
+                    {
+                        moveTimer = 0;
+                        gargHealth[10] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 2 && gargIsAlive[1] && g.Lane == 1)
+                    {
+                        moveTimer = 0;
+                        gargHealth[1] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 2 && gargIsAlive[2] && g.Lane == 2)
+                    {
+                        moveTimer = 0;
+                        gargHealth[2] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 2 && gargIsAlive[3] && g.Lane == 3)
+                    {
+                        moveTimer = 0;
+                        gargHealth[3] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 2 && gargIsAlive[4] && g.Lane == 4)
+                    {
+                        moveTimer = 0;
+                        gargHealth[4] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 2 && gargIsAlive[5] && g.Lane == 5)
+                    {
+                        moveTimer = 0;
+                        gargHealth[5] -= gnightDamage;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[6] && g.Lane == 1)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[7] && g.Lane == 2)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[8] && g.Lane == 3)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[9] && g.Lane == 4)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[10] && g.Lane == 5)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[1] && g.Lane == 1)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[2] && g.Lane == 2)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[3] && g.Lane == 3)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[4] && g.Lane == 4)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[5] && g.Lane == 5)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+
                 }
             }
 
