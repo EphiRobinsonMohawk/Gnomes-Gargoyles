@@ -9,6 +9,8 @@ class GridShell
 {
     static int[] gargHealth = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
     static bool[] gargIsAlive = { true, true, true, true, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
+    //gargoyle    1, 2, 3, 4, 5
+    //setup       6, 7, 8, 9, 10
 
     static bool isPlaying = false;
     static bool hasLost = false;
