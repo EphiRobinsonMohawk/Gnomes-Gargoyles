@@ -199,100 +199,100 @@ class GridShell
             }
         }
 
-        static void Update()
+    static void Update()
+    {
+        Console.SetCursorPosition(0, 0);
+        if (!isPlaying && !hasLost && !hasWon)
         {
-            Console.SetCursorPosition(0, 0);
-            if (!isPlaying && !hasLost && !hasWon)
+            Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██");
+            Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█");
+            Console.WriteLine(@"▓▓▓▓▓▒▒▒░░░░░░░░░░░░░░█░█▒█░█▒█░█▒█▒█▒█▀▀▒▀▀█░░░░░░░░░░░░░░▒▒▒▓▓▓▓▓");
+            Console.WriteLine(@"▓▓▓▓▓▒▒░░░░░░░░░░░░░░░▀▀▀▒▀▒▀▒▀▀▀▒▀▒▀▒▀▀▀▒▀▀▀░░░░░░░░░░░░░░░▒▒▓▓▓▓▓");
+            Console.WriteLine(@"▓▓▓▒▒▒░░░░░                  ░░▒▄▀▒░░░                  ░░░░░▒▒▒▓▓▓");
+            Console.WriteLine(@"▒▒▒▒▒░░░░░                   ░░▒▄█▀▒░░                   ░░░░░▒▒▒▒▒");
+            Console.WriteLine(@"▒░░░░░░░                     ░░░▒▀▀▒░░                     ░░░░░░░▒");
+            Console.WriteLine(@"░░░░░          ░█▀▀░█▀█░█▀▄░█▀▀░█▀█░█░█░█░▒░█▀▀░█▀▀░          ░░░░░");
+            Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░");
+            Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
+            Console.WriteLine(@"▒░▒│ /\, Gnimble Gnome          │▒│/[/ Gaurdgoyle              │▒░▒");
+            Console.WriteLine(@"▒░▒│ σ σ                        │▒│ΘΘ£                         │▒░▒");
+            Console.WriteLine(@"▒░▒│ ∙O∙                        │▒│                            │▒░▒");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
+            Console.WriteLine(@"▒░▒│ /E, Gnight Gnome           │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ ò ó                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ °O°                        │▒│                            │▒░▒");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomage/Gnomagician    │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ u u                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ /:\                        │▒│                            │▒░▒");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
+            Console.WriteLine(@"░░░                                                             ░░░");
+            Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒");
+            Console.WriteLine("");
+            if (Console.KeyAvailable)
             {
-                Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██");
-                Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█");
-                Console.WriteLine(@"▓▓▓▓▓▒▒▒░░░░░░░░░░░░░░█░█▒█░█▒█░█▒█▒█▒█▀▀▒▀▀█░░░░░░░░░░░░░░▒▒▒▓▓▓▓▓");
-                Console.WriteLine(@"▓▓▓▓▓▒▒░░░░░░░░░░░░░░░▀▀▀▒▀▒▀▒▀▀▀▒▀▒▀▒▀▀▀▒▀▀▀░░░░░░░░░░░░░░░▒▒▓▓▓▓▓");
-                Console.WriteLine(@"▓▓▓▒▒▒░░░░░                  ░░▒▄▀▒░░░                  ░░░░░▒▒▒▓▓▓");
-                Console.WriteLine(@"▒▒▒▒▒░░░░░                   ░░▒▄█▀▒░░                   ░░░░░▒▒▒▒▒");
-                Console.WriteLine(@"▒░░░░░░░                     ░░░▒▀▀▒░░                     ░░░░░░░▒");
-                Console.WriteLine(@"░░░░░          ░█▀▀░█▀█░█▀▄░█▀▀░█▀█░█░█░█░▒░█▀▀░█▀▀░          ░░░░░");
-                Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░");
-                Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░");
-                Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-                Console.WriteLine(@"▒░▒│ /\, Gnimble Gnome          │▒│/[/ Gaurdgoyle              │▒░▒");
-                Console.WriteLine(@"▒░▒│ σ σ                        │▒│ΘΘ£                         │▒░▒");
-                Console.WriteLine(@"▒░▒│ ∙O∙                        │▒│                            │▒░▒");
-                Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
-                Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-                Console.WriteLine(@"▒░▒│ /E, Gnight Gnome           │▒│                            │▒░▒");
-                Console.WriteLine(@"▒░▒│ ò ó                        │▒│                            │▒░▒");
-                Console.WriteLine(@"▒░▒│ °O°                        │▒│                            │▒░▒");
-                Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
-                Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-                Console.WriteLine(@"▒░▒│ /^\ Gnomage/Gnomagician    │▒│                            │▒░▒");
-                Console.WriteLine(@"▒░▒│ u u                        │▒│                            │▒░▒");
-                Console.WriteLine(@"▒░▒│ /:\                        │▒│                            │▒░▒");
-                Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
-                Console.WriteLine(@"░░░                                                             ░░░");
-                Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒");
-                Console.WriteLine("");
-                if (Console.KeyAvailable)
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
                 {
-                    var key = Console.ReadKey(intercept: true);
-                    if (key.Key == ConsoleKey.Spacebar)
-                    {
-                        isPlaying = true;
-                    }
+                    isPlaying = true;
+                }
+            }
+        }
+
+
+        if (isPlaying && !hasLost && !hasWon)
+        {
+            DrawGargoyles(); // Draws Gargoles first to set the stage
+            DrawGnomes();    // Draws the GNOMES
+            DrawGizards();
+            DrawGnights();
+
+
+            tickTimer++;
+            if (tickTimer >= 2 && timer > 0)
+            {
+                tickTimer = 0;
+                timer--;
+            }
+
+            moveTimer++;
+            if (moveTimer >= movePeriod)
+            {
+                foreach (var g in gnomes.Where(x => x.IsAlive))
+                {
+                    moveTimer = 0;
+                    g.Row++;
                 }
             }
 
-
-            if (isPlaying && !hasLost && !hasWon)
+            gizardMoveTimer++;
+            if (gizardMoveTimer >= gizardMovePeriod)
             {
-                DrawGargoyles(); // Draws Gargoles first to set the stage
-                DrawGnomes();    // Draws the GNOMES
-                DrawGizards();
-                DrawGnights();
-
-
-                tickTimer++;
-                if (tickTimer >= 2 && timer > 0)
+                foreach (var g in gizards.Where(x => x.IsAlive))
                 {
-                    tickTimer = 0;
-                    timer--;
+                    gizardMoveTimer = 0;
+                    g.Row++;
                 }
+            }
 
-                moveTimer++;
-                if (moveTimer >= movePeriod)
+            gnightMoveTimer++;
+            if (gnightMoveTimer >= gnightMovePeriod)
+            {
+                foreach (var g in gnights.Where(x => x.IsAlive))
                 {
-                    foreach (var g in gnomes.Where(x => x.IsAlive))
-                    {
-                        moveTimer = 0;
-                        g.Row++;
-                    }
+                    gnightMoveTimer = 0;
+                    g.Row++;
                 }
+            }
 
-                gizardMoveTimer++;
-                if (gizardMoveTimer >= gizardMovePeriod)
-                {
-                    foreach (var g in gizards.Where(x => x.IsAlive))
-                    {
-                        gizardMoveTimer = 0;
-                        g.Row++;
-                    }
-                }
+            if (timer <= 0)
+            {
+                hasLost = true;
 
-                gnightMoveTimer++;
-                if (gnightMoveTimer >= gnightMovePeriod)
-                {
-                    foreach (var g in gnights.Where(x => x.IsAlive))
-                    {
-                        gnightMoveTimer = 0;
-                        g.Row++;
-                    }
-                }
-
-                if (timer <= 0)
-                {
-                    hasLost = true;
-
-                }
+            }
 
                 if (enemyCount <= 0)
                 {
@@ -300,96 +300,96 @@ class GridShell
 
                 }
 
-                //Gnome spawning input
+            //Gnome spawning input
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    isPlacing = true;
+                }
+            }
+
+            if (isPlacing)
+            {
+                laneFlashing++;
+                if (laneFlashing == 2)
+                {
+                    isFlash = !isFlash;
+                    laneFlashing = 0;
+                }
+
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey(intercept: true);
-                    if (key.Key == ConsoleKey.Spacebar)
+                    if (key.Key == ConsoleKey.LeftArrow && laneSelecting > 1)
                     {
-                        isPlacing = true;
+                        laneSelecting--;
+                    }
+
+                    if (key.Key == ConsoleKey.RightArrow && laneSelecting < 5)
+                    {
+                        laneSelecting++;
                     }
                 }
 
-                if (isPlacing)
+                if (laneSelecting == 1)
                 {
-                    laneFlashing++;
-                    if (laneFlashing == 2)
-                    {
-                        isFlash = !isFlash;
-                        laneFlashing = 0;
-                    }
-
-                    if (Console.KeyAvailable)
-                    {
-                        var key = Console.ReadKey(intercept: true);
-                        if (key.Key == ConsoleKey.LeftArrow && laneSelecting > 1)
-                        {
-                            laneSelecting--;
-                        }
-
-                        if (key.Key == ConsoleKey.RightArrow && laneSelecting < 5)
-                        {
-                            laneSelecting++;
-                        }
-                    }
-
-                    if (laneSelecting == 1)
-                    {
 
 
-                    }
-                    else if (laneSelecting == 2)
-                    {
+                }
+                else if (laneSelecting == 2)
+                {
 
-                    }
-                    else if (laneSelecting == 3)
-                    {
+                }
+                else if (laneSelecting == 3)
+                {
 
-                    }
-                    else if (laneSelecting == 4)
-                    {
+                }
+                else if (laneSelecting == 4)
+                {
 
-                    }
-                    else if (laneSelecting == 5)
-                    {
-
-                    }
+                }
+                else if (laneSelecting == 5)
+                {
 
                 }
 
-
-
-                //Printing each line (Brackets solely so you can collapse it) 
-                Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
-                Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
-                Console.Write($"║  ░{socks}░   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
-                Console.Write("∙========<██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
-                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██░Enemies░║");
-                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
-                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row7)); Console.WriteLine($"║▐▓▓▒░░ <██  ░{enemyCount}/??░ ║");
-                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row8)); Console.WriteLine("║▐▓▓▒▒░ <██>========∙");
-                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row9)); Console.WriteLine("║▐▒▓▒▒░ <██          ");
-                Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row10)); Console.WriteLine("║▐▓▒▒░░ <██          ");
-                Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row11)); Console.WriteLine("║▐▓▒▒░░ <██          ");
-                Console.Write("          ██>  ░▒▓▓▌║"); Console.Write(new string(Row12)); Console.WriteLine("║▐▓▓▒░  <██          ");
-                Console.Write("          ██>  ░▒▒▓▌║"); Console.Write(new string(Row13)); Console.WriteLine("║▐▓▒▒░  <██          ");
-                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row14)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
-                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row15)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
-                Console.Write("          ██> ░▒▒▓▒▌║"); Console.Write(new string(Row16)); Console.WriteLine("║▐▓▒▒▒░ <██          ");
-                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row17)); Console.WriteLine("║▐▓▒▒░░ <██          ");
-                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row18)); Console.WriteLine("║▐▓▓▒░░ <██          ");
-                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row19)); Console.WriteLine("║▐▓▓▒░░ <██          ");
-                Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
-                Console.Write("     C║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
-                Console.Write("     O║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
-                Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║╔|1|╗╔|2|╗╔|3|╗║");
-                Console.Write("     L║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║ /\\,  /Σ,  /^\\ ║");
-                Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ σ σ  ò ó  u u ║");
-                Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ∙O∙  °O°  /:\\ ║");
-                Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-                Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
-                Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
             }
+
+
+
+            //Printing each line (Brackets solely so you can collapse it) 
+            Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
+            Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
+            Console.Write($"║  ░{socks}░   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
+            Console.Write("∙========<██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██░Enemies░║");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row7)); Console.WriteLine($"║▐▓▓▒░░ <██  ░{enemyCount}/??░ ║");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row8)); Console.WriteLine("║▐▓▓▒▒░ <██>========∙");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row9)); Console.WriteLine("║▐▒▓▒▒░ <██          ");
+            Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row10)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+            Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row11)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+            Console.Write("          ██>  ░▒▓▓▌║"); Console.Write(new string(Row12)); Console.WriteLine("║▐▓▓▒░  <██          ");
+            Console.Write("          ██>  ░▒▒▓▌║"); Console.Write(new string(Row13)); Console.WriteLine("║▐▓▒▒░  <██          ");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row14)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row15)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+            Console.Write("          ██> ░▒▒▓▒▌║"); Console.Write(new string(Row16)); Console.WriteLine("║▐▓▒▒▒░ <██          ");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row17)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row18)); Console.WriteLine("║▐▓▓▒░░ <██          ");
+            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row19)); Console.WriteLine("║▐▓▓▒░░ <██          ");
+            Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
+            Console.Write("     C║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
+            Console.Write("     O║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
+            Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║╔|1|╗╔|2|╗╔|3|╗║");
+            Console.Write("     L║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║ /\\,  /Σ,  /^\\ ║");
+            Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ σ σ  ò ó  u u ║");
+            Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ∙O∙  °O°  /:\\ ║");
+            Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
+            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
+            Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
+        }
 
             if (hasLost)
             {
