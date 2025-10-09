@@ -7,8 +7,9 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
+    static float[] gargAttackTimer = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     static int[] gargDamage = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
-    static int[] gargHealth = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
+    static int[] gargHealth = { 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
     static bool[] gargIsAlive = { true, true, true, true, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
     //gargoyle    0, 1, 2, 3, 4
     //setup       5, 6, 7, 8, 9     Remember arrays start at 0 (I forgot this twice while coding this)
@@ -1067,7 +1068,7 @@ class GridShell
 
 
             }
-            // LANE 2 (index [6], garg indices +1: 5->6, 0->1)
+
             if (p.Lane == 2)
             {
                 if (p.Stage == 1)
@@ -1149,7 +1150,6 @@ class GridShell
                 }
             }
 
-            // LANE 3 (index [10], garg indices +2: 5->7, 0->2)
             if (p.Lane == 3)
             {
                 if (p.Stage == 1)
@@ -1231,7 +1231,6 @@ class GridShell
                 }
             }
 
-            // LANE 4 (index [14], garg indices +3: 5->8, 0->3)
             if (p.Lane == 4)
             {
                 if (p.Stage == 1)
@@ -1313,7 +1312,6 @@ class GridShell
                 }
             }
 
-            // LANE 5 (index [18], garg indices +4: 5->9, 0->4)
             if (p.Lane == 5)
             {
                 if (p.Stage == 1)
@@ -1439,6 +1437,10 @@ class GridShell
                     Row9[1] = 'o';
                     Row9[2] = 'u';
                     Row9[3] = '0';
+                    if (gargIsAlive[5] )
+                    {
+                        
+                    }
                 }
                 else if (g.Row == 4)
                 {
