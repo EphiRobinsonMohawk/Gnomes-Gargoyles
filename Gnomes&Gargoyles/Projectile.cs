@@ -9,7 +9,7 @@ namespace Gnomes_Gargoyles
     class Projectile
     {
         public int Lane { get; }
-        public bool hasHit;
+        public bool hasHit = false;
         public int Stage;
 
         public Projectile(int lane, int stage)

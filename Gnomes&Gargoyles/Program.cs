@@ -372,7 +372,7 @@ class GridShell
                             if (gargIsAlive[5] || gargIsAlive[0])
                             {
                                 gizardMoveTimer = 0;
-                                SpawnProjectile(1, 1);
+                                SpawnProjectile(1, 0);
                             }
                         }
                         else if (g.Lane == 2)
@@ -380,7 +380,7 @@ class GridShell
                             if (gargIsAlive[6] || gargIsAlive[1])
                             {
                                 gizardMoveTimer = 0;
-                                SpawnProjectile(2, 1);
+                                SpawnProjectile(2, 0);
                             }
 
                         }
@@ -389,7 +389,7 @@ class GridShell
                             if (gargIsAlive[7] || gargIsAlive[2])
                             {
                                 gizardMoveTimer = 0;
-                                SpawnProjectile(3, 1);
+                                SpawnProjectile(3, 0);
                             }
 
                         }
@@ -398,7 +398,7 @@ class GridShell
                             if (gargIsAlive[8] || gargIsAlive[3])
                             {
                                 gizardMoveTimer = 0;
-                                SpawnProjectile(4, 1);
+                                SpawnProjectile(4, 0);
                             }
 
                         }
@@ -407,7 +407,7 @@ class GridShell
                             if (gargIsAlive[9] || gargIsAlive[4])
                             {
                                 gizardMoveTimer = 0;
-                                SpawnProjectile(5, 1);
+                                SpawnProjectile(5, 0);
                             }
 
                         }
@@ -976,11 +976,42 @@ class GridShell
     {
         foreach (var p in projectiles)
         {
+            
             p.Stage++;
             if (p.Lane == 1)
             {
+                if (p.Stage == 1)
+                {
+                    Row10[2] = '¤';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row10[2] = '-';
+                    Row9[2] = '¤';
+                }
+                else if (p.Stage == 3)
+                {
+                    Row9[2] = ' ';
+                    Row8[2] = '¤';
+                }
+                else if (p.Stage == 4)
+                {
+                    Row8[2] = ' ';
+                    Row7[2] = '¤';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[2] = '-';
+                    if (gargIsAlive[5])
+                    {
+                        p.hasHit = true;
+                    }
+                    else if (!gargIsAlive[5])
+                    {
+                        Row6[2] = '¤';
+                    }
+                }
 
-                //¤
             }
         }
     }
