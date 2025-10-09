@@ -199,34 +199,35 @@ class GridShell
 
         if (!isPlaying && !hasLost && !hasWon)
         {
-            Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██");
-            Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█");
-            Console.WriteLine(@"▓▓▓▓▓▒▒▒░░░░░░░░░░░░░░█░█▒█░█▒█░█▒█▒█▒█▀▀▒▀▀█░░░░░░░░░░░░░░▒▒▒▓▓▓▓▓");
-            Console.WriteLine(@"▓▓▓▓▓▒▒░░░░░░░░░░░░░░░▀▀▀▒▀▒▀▒▀▀▀▒▀▒▀▒▀▀▀▒▀▀▀░░░░░░░░░░░░░░░▒▒▓▓▓▓▓");
-            Console.WriteLine(@"▓▓▓▒▒▒░░░░░                  ░░▒▄▀▒░░░                  ░░░░░▒▒▒▓▓▓");
-            Console.WriteLine(@"▒▒▒▒▒░░░░░                   ░░▒▄█▀▒░░                   ░░░░░▒▒▒▒▒");
-            Console.WriteLine(@"▒░░░░░░░                     ░░░▒▀▀▒░░                     ░░░░░░░▒");
-            Console.WriteLine(@"░░░░░          ░█▀▀░█▀█░█▀▄░█▀▀░█▀█░█░█░█░▒░█▀▀░█▀▀░          ░░░░░");
-            Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░");
-            Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░");
-            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-            Console.WriteLine(@"▒░▒│ /\, Gnome                  │▒│/[/ Gaurdgoyle              │▒░▒");
-            Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£                         │▒░▒");
-            Console.WriteLine(@"▒░▒│ rr)                        │▒│                            │▒░▒");
-            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
-            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-            Console.WriteLine(@"▒░▒│ /Σ, Gnight                 │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ (+≡                        │▒│                            │▒░▒");
-            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
-            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-            Console.WriteLine(@"▒░▒│ /^\ Gnomagician            │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ ¿:¥                        │▒│                            │▒░▒");
-            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
-            Console.WriteLine(@"░░░                                                             ░░░");
-            Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒");
-            Console.WriteLine("");
+            Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██               ");
+            Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█               ");
+            Console.WriteLine(@"▓▓▓▓▓▒▒▒░░░░░░░░░░░░░░█░█▒█░█▒█░█▒█▒█▒█▀▀▒▀▀█░░░░░░░░░░░░░░▒▒▒▓▓▓▓▓               ");
+            Console.WriteLine(@"▓▓▓▓▓▒▒░░░░░░░░░░░░░░░▀▀▀▒▀▒▀▒▀▀▀▒▀▒▀▒▀▀▀▒▀▀▀░░░░░░░░░░░░░░░▒▒▓▓▓▓▓               ");
+            Console.WriteLine(@"▓▓▓▒▒▒░░░░░                  ░░▒▄▀▒░░░                  ░░░░░▒▒▒▓▓▓               ");
+            Console.WriteLine(@"▒▒▒▒▒░░░░░                   ░░▒▄█▀▒░░                   ░░░░░▒▒▒▒▒               ");
+            Console.WriteLine(@"▒░░░░░░░                     ░░░▒▀▀▒░░                     ░░░░░░░▒               ");
+            Console.WriteLine(@"░░░░░          ░█▀▀░█▀█░█▀▄░█▀▀░█▀█░█░█░█░▒░█▀▀░█▀▀░          ░░░░░               ");
+            Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░               ");
+            Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░               ");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
+            Console.WriteLine(@"▒░▒│ /\, Gnome                  │▒│/[/ Gaurdgoyle              │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£                         │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ rr)                        │▒│                            │▒░▒               ");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
+            Console.WriteLine(@"▒░▒│ /Σ, Gnight                 │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ (+≡                        │▒│                            │▒░▒               ");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomagician            │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│                            │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ¿:¥                        │▒│                            │▒░▒               ");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
+            Console.WriteLine(@"░░░                                                             ░░░               ");
+            Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒               ");
+            Console.WriteLine("                                                                                   ");
+            Console.WriteLine("                                                                                   ");
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true);
