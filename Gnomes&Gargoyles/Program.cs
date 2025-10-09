@@ -29,7 +29,8 @@ class GridShell
     static bool hasWon = false;
     static bool isPlacing = false;
     static bool isFlash = false;
-    
+    static bool hasReinforced = false;
+
     static int laneSelecting = 1;
     static int laneFlashing;
     static int gnomePlacing;
@@ -46,8 +47,8 @@ class GridShell
     static int tickTimer;
     static int enemyCount = 10;
     static int level = 1;
-    static int socks = 30;
-    static float timer = 300;
+    static int socks = 8;
+    static float timer = 240;
     static float timerMax = timer;
     static char socksSpace;
     static char socksSpace2;
@@ -138,7 +139,42 @@ class GridShell
             sockPileCollected[2] = true;
         }
 
+        if (timer <= 90 && hasReinforced == false)
+        {
+            hasReinforced = true;
+            Audio.Play("hit_sound");
+            if (!gargIsAlive[5])
+            {
+                gargIsAlive[5] = true;
+                gargDeathPlayed[5] = false;
+                gargHealth[5] = 4;
+            }
+            if (!gargIsAlive[6])
+            {
+                gargIsAlive[6] = true;
+                gargDeathPlayed[6] = false;
+                gargHealth[6] = 5;
+            }
+            else if (!gargIsAlive[7])
+            {
+                gargIsAlive[7] = true;
+                gargDeathPlayed[7] = false;
+                gargHealth[7] = 8;
+            }
+            else if (!gargIsAlive[8])
+            {
+                gargIsAlive[8] = true;
+                gargDeathPlayed[8] = false;
+                gargHealth[8] = 5;
+            }
+            else if (!gargIsAlive[9])
+            {
+                gargIsAlive[9] = true;
+                gargDeathPlayed[9] = false;
+                gargHealth[9] = 4;
+            }
 
+        }
 
 
         if (!cooldownReady)
@@ -1690,9 +1726,9 @@ class GridShell
                 Row6[17] = 'Θ'; 
                 Row6[18] = '⩌';
                 Row6[19] = 'Θ';
-                Row5[17] = '\\';
+                Row5[17] = '⸜';
                 Row5[18] = ']';
-                Row5[19] = '\\';
+                Row5[19] = '⸜';
             }
 
     }
