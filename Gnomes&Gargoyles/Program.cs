@@ -16,7 +16,6 @@ class GridShell
     //gargoyle    0, 1, 2, 3, 4
     //setup       5, 6, 7, 8, 9     Remember arrays start at 0 (I forgot this twice while coding this)
 
-    static bool iWantToHideThis = true;
     static bool isPlaying = false;
     static bool hasLost = false;
     static bool hasWon = false;
@@ -28,12 +27,12 @@ class GridShell
     static int gnomePlacing;
     static int gnomeDamage = 3;
     static int gnightDamage = 2;
-    static int gizardDamage = 2;
+    static int gizardDamage = 1;
     static int gnomeMoveTimer; 
     static int gizardMoveTimer;
     static int gnightMoveTimer;
     static int movePeriod = 4;
-    static int gizardMovePeriod = 12;
+    static int gizardMovePeriod = 15;
     static int gnightMovePeriod = 2;
 
     static int tickTimer;
@@ -117,7 +116,8 @@ class GridShell
     {
         //Code to keep screen current without flashing
         Console.SetCursorPosition(0, 0);
-        
+
+
 
         //Code for making UI stay clean
         if (socks < 10)
@@ -169,6 +169,7 @@ class GridShell
                 {
                     g.HasPlayed = true;
                     Audio.Play("shatter");
+
                 }
 
                 g.IsAlive = false;
@@ -232,7 +233,9 @@ class GridShell
                 if (key.Key == ConsoleKey.Spacebar)
                 {
                     isPlaying = true;
+                    Audio.Play("hit_sound");
                 }
+                
             }
         }
 
@@ -616,7 +619,7 @@ class GridShell
                     gnomePlacing = 3;
                 }
 
-                if (key.Key == ConsoleKey.Spacebar || key.Key == ConsoleKey.Enter)
+                if (key.Key == ConsoleKey.Spacebar && isPlacing == true || key.Key == ConsoleKey.Enter && isPlacing == true)
                 {
                     if (gnomePlacing == 1 && socks >= 3)
                     {
@@ -632,13 +635,17 @@ class GridShell
                         SpawnGnight(laneSelecting, 9, 3);
                         Audio.Play("place");
                     }
-                    if (gnomePlacing == 3 && socks >= 3)
+                    if (gnomePlacing == 3 && socks >= 9)
                     {
                         isPlacing = false;
                         socks -= 9;
                         SpawnGizard(laneSelecting, 9, 4);
                         Audio.Play("gnome_laugh");
                     }
+                }
+                if (key.Key == ConsoleKey.R)
+                {
+                    ResetGame();
                 }
 
                 if (key.Key == ConsoleKey.LeftArrow && laneSelecting > 1)
@@ -893,7 +900,7 @@ class GridShell
             Console.WriteLine("·▀▀▀▀  ▀  ▀ ▀▀  █▪▀▀▀ ▀▀▀      ▀█▄▀▪. ▀   ▀▀▀ .▀  ▀");
             Console.WriteLine("                                                   ");
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                    Space to Exit                  ");
+            Console.WriteLine("                    Space to Reset                 ");
             Console.WriteLine("                                                   ");
             Console.WriteLine("                                                   ");
             Console.WriteLine("                                                   ");
@@ -905,7 +912,7 @@ class GridShell
                 var key = Console.ReadKey(intercept: true);
                 if (key.Key == ConsoleKey.Spacebar)
                 {
-                    Environment.Exit(0);
+                    ResetGame();
                 }
             }
         }
@@ -938,12 +945,21 @@ class GridShell
             Console.WriteLine("                                                       ");
             Console.WriteLine($"   Time - {timer}                                         ");
             Console.WriteLine("                                                       ");
-            Console.WriteLine("                                                       ");
+            Console.WriteLine("    Play Again? - Hit Space!                           ");
             Console.WriteLine("                                                       ");
             Console.WriteLine("                                                       ");
             Console.WriteLine("                                                       ");
 
             Audio.Play("level_complete");
+
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    ResetGame();
+                }
+            }
         }
 
     }
@@ -1122,6 +1138,8 @@ class GridShell
 
 
     }
+
+
     static void DrawGrid()
     {
         Row1[0] = '+'; Row1[1] = '-'; Row1[2] = '-'; Row1[3] = '-'; Row1[4] = '+'; Row1[5] = '-'; Row1[6] = '-'; Row1[7] = '-'; Row1[8] = '+'; Row1[9] = '-'; Row1[10] = '-'; Row1[11] = '-'; Row1[12] = '+'; Row1[13] = '-'; Row1[14] = '-'; Row1[15] = '-'; Row1[16] = '+'; Row1[17] = '-'; Row1[18] = '-'; Row1[19] = '-'; Row1[20] = '+';
@@ -1217,7 +1235,7 @@ class GridShell
                     if (gargIsAlive[5])
                     {
                         p.hasHit = true;
-                        gargHealth[5] -= 1;
+                        gargHealth[5] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[5])
@@ -1246,7 +1264,7 @@ class GridShell
                     if (gargIsAlive[0])
                     {
                         p.hasHit = true;
-                        gargHealth[0] -= 1;
+                        gargHealth[0] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[0])
@@ -1300,7 +1318,7 @@ class GridShell
                     if (gargIsAlive[6])
                     {
                         p.hasHit = true;
-                        gargHealth[6] -= 1;
+                        gargHealth[6] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[6])
@@ -1329,7 +1347,7 @@ class GridShell
                     if (gargIsAlive[1])
                     {
                         p.hasHit = true;
-                        gargHealth[1] -= 1;
+                        gargHealth[1] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[1])
@@ -1381,7 +1399,7 @@ class GridShell
                     if (gargIsAlive[7])
                     {
                         p.hasHit = true;
-                        gargHealth[7] -= 1;
+                        gargHealth[7] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[7])
@@ -1410,7 +1428,7 @@ class GridShell
                     if (gargIsAlive[2])
                     {
                         p.hasHit = true;
-                        gargHealth[2] -= 1;
+                        gargHealth[2] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[2])
@@ -1462,7 +1480,7 @@ class GridShell
                     if (gargIsAlive[8])
                     {
                         p.hasHit = true;
-                        gargHealth[8] -= 1;
+                        gargHealth[8] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[8])
@@ -1491,7 +1509,7 @@ class GridShell
                     if (gargIsAlive[3])
                     {
                         p.hasHit = true;
-                        gargHealth[3] -= 1;
+                        gargHealth[3] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[3])
@@ -1543,7 +1561,7 @@ class GridShell
                     if (gargIsAlive[9])
                     {
                         p.hasHit = true;
-                        gargHealth[9] -= 1;
+                        gargHealth[9] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[9])
@@ -1572,7 +1590,7 @@ class GridShell
                     if (gargIsAlive[4])
                     {
                         p.hasHit = true;
-                        gargHealth[4] -= 1;
+                        gargHealth[4] -= gizardDamage;
                         Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[4])
@@ -1598,6 +1616,39 @@ class GridShell
             }
 
         }
+    }
+
+
+
+    static void ResetGame()
+    {
+        isPlaying = false;
+        timer = timerMax;
+        hasLost = false;
+        hasWon = false;
+        isPlacing = false;
+        tickTimer = 0;
+        gnomeMoveTimer = 0;
+        gizardMoveTimer = 0;
+        gnightMoveTimer = 0;
+
+        gargAttackTimer[0] = 0; gargHealth[0] = 5; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
+        gargAttackTimer[1] = 0; gargHealth[1] = 5; gargIsAlive[1] = true; gargDeathPlayed[1] = false;
+        gargAttackTimer[2] = 0; gargHealth[2] = 5; gargIsAlive[2] = true; gargDeathPlayed[2] = false;
+        gargAttackTimer[3] = 0; gargHealth[3] = 5; gargIsAlive[3] = true; gargDeathPlayed[3] = false;
+        gargAttackTimer[4] = 0; gargHealth[4] = 5; gargIsAlive[4] = true; gargDeathPlayed[4] = false;
+
+        gargAttackTimer[5] = 0; gargHealth[5] = 10; gargIsAlive[5] = true; gargDeathPlayed[5] = false;
+        gargAttackTimer[6] = 0; gargHealth[6] = 10; gargIsAlive[6] = true; gargDeathPlayed[6] = false;
+        gargAttackTimer[7] = 0; gargHealth[7] = 10; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
+        gargAttackTimer[8] = 0; gargHealth[8] = 10; gargIsAlive[8] = true; gargDeathPlayed[8] = false;
+        gargAttackTimer[9] = 0; gargHealth[9] = 10; gargIsAlive[9] = true; gargDeathPlayed[9] = false;
+
+        gargAttackTimer[10] = 0; gargHealth[10] = 3; gargIsAlive[10] = false; gargDeathPlayed[10] = false;
+        gargAttackTimer[11] = 0; gargHealth[11] = 3; gargIsAlive[11] = false; gargDeathPlayed[11] = false;
+        gargAttackTimer[12] = 0; gargHealth[12] = 3; gargIsAlive[12] = false; gargDeathPlayed[12] = false;
+        gargAttackTimer[13] = 0; gargHealth[13] = 3; gargIsAlive[13] = false; gargDeathPlayed[13] = false;
+        gargAttackTimer[14] = 0; gargHealth[14] = 3; gargIsAlive[14] = false; gargDeathPlayed[14] = false;
     }
 
 
