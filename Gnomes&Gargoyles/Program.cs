@@ -6,6 +6,8 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
+    static bool isPlaying = true;
+
     static int moveTimer;
     static int movePeriod = 4;
     static int tickTimer;
@@ -102,30 +104,35 @@ class GridShell
     {
         Console.SetCursorPosition(0, 0);
 
-        DrawGargoyles(); // Draws Gargoles first to set the stage
-        DrawGnomes();    // Then th
-                         // e gnomes
+        
 
 
-        tickTimer++;
-        if (tickTimer >= 2)
+
+        if (isPlaying)
         {
-            tickTimer = 0;
-            timer--;
-        }
+            DrawGargoyles(); // Draws Gargoles first to set the stage
+            DrawGnomes();    // Then th
+                             // e gnomes
 
-        moveTimer++;
-        if (moveTimer >= movePeriod)
-        {
-            foreach (var g in gnomes.Where(x => x.IsAlive))
+
+            tickTimer++;
+            if (tickTimer >= 2 & timer > 0)
             {
-                moveTimer = 0;
-                g.Row++;
+                tickTimer = 0;
+                timer--;
             }
-        }
 
-
-        { //Printing each line (Brackets solely so you can collapse it) 
+            moveTimer++;
+            if (moveTimer >= movePeriod)
+            {
+                foreach (var g in gnomes.Where(x => x.IsAlive))
+                {
+                    moveTimer = 0;
+                    g.Row++;
+                }
+            }
+            
+            //Printing each line (Brackets solely so you can collapse it) 
             Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
             Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
             Console.Write($"║  ░{socks}░   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
