@@ -2684,7 +2684,7 @@ class GridShell
                     Row2[3] = ',';
                     Row3[1] = 'o';
                     Row3[2] = 'u';
-                    Row3[3] = '0';
+                    Row3[3] = 'o';
                 }
                 else if (g.Row == 2)
                 {
@@ -2695,7 +2695,7 @@ class GridShell
                     Row5[3] = ',';
                     Row6[1] = 'o';
                     Row6[2] = 'u';
-                    Row6[3] = '0';
+                    Row6[3] = 'o';
                     if (gargIsAlive[0])
                     {
                         gargAttackTimer[0]++;
@@ -2716,7 +2716,7 @@ class GridShell
                     Row8[3] = ',';
                     Row9[1] = 'o';
                     Row9[2] = 'u';
-                    Row9[3] = '0';
+                    Row9[3] = 'o';
                     if (gargIsAlive[5])
                     {
                         gargAttackTimer[5]++;
@@ -2736,7 +2736,7 @@ class GridShell
                     Row11[3] = ',';
                     Row12[1] = 'o';
                     Row12[2] = 'u';
-                    Row12[3] = '0';
+                    Row12[3] = 'o';
                     if (gargIsAlive[5])
                     {
                         gargAttackTimer[5]++;
@@ -2756,7 +2756,7 @@ class GridShell
                     Row14[3] = ',';
                     Row15[1] = 'o';
                     Row15[2] = 'u';
-                    Row15[3] = '0';
+                    Row15[3] = 'o';
                 }
                 else if (g.Row == 6)
                 {
@@ -2767,7 +2767,7 @@ class GridShell
                     Row17[3] = ',';
                     Row18[1] = 'o';
                     Row18[2] = 'u';
-                    Row18[3] = '0';
+                    Row18[3] = 'o';
                 }
                 else if (g.Row == 7)
                 {
@@ -2778,7 +2778,7 @@ class GridShell
                     Row20[3] = ',';
                     Row21[1] = 'o';
                     Row21[2] = 'u';
-                    Row21[3] = '0';
+                    Row21[3] = 'o';
                 }
                 else if (g.Row == 8)
                 {
@@ -2789,7 +2789,7 @@ class GridShell
                     Row23[3] = ',';
                     Row24[1] = 'o';
                     Row24[2] = 'u';
-                    Row24[3] = '0';
+                    Row24[3] = 'o';
                 }
                 else if (g.Row == 9)
                 {
@@ -2798,7 +2798,7 @@ class GridShell
                     Row26[3] = ',';
                     Row27[1] = 'o';
                     Row27[2] = 'u';
-                    Row27[3] = '0';
+                    Row27[3] = 'o';
                 }
             }
             else if (g.Lane == 2)
@@ -2810,7 +2810,7 @@ class GridShell
                     Row2[7] = ',';
                     Row3[5] = 'o';
                     Row3[6] = 'u';
-                    Row3[7] = '0';
+                    Row3[7] = 'o';
 
                     Row5[5] = ' '; Row5[6] = ' '; Row5[7] = ' ';
                     Row6[5] = ' '; Row6[6] = ' '; Row6[7] = ' ';
@@ -2824,7 +2824,7 @@ class GridShell
                     Row5[7] = ',';
                     Row6[5] = 'o';
                     Row6[6] = 'u';
-                    Row6[7] = '0';
+                    Row6[7] = 'o';
                     if (gargIsAlive[1])
                     {
                         gargAttackTimer[1]++;
@@ -2845,7 +2845,7 @@ class GridShell
                     Row8[7] = ',';
                     Row9[5] = 'o';
                     Row9[6] = 'u';
-                    Row9[7] = '0';
+                    Row9[7] = 'o';
                     if (gargIsAlive[6])
                     {
                         gargAttackTimer[6]++;
@@ -2866,7 +2866,7 @@ class GridShell
                     Row11[7] = ',';
                     Row12[5] = 'o';
                     Row12[6] = 'u';
-                    Row12[7] = '0';
+                    Row12[7] = 'o';
                 }
                 else if (g.Row == 5)
                 {
@@ -2877,7 +2877,7 @@ class GridShell
                     Row14[7] = ',';
                     Row15[5] = 'o';
                     Row15[6] = 'u';
-                    Row15[7] = '0';
+                    Row15[7] = 'o';
                 }
                 else if (g.Row == 6)
                 {
@@ -2888,7 +2888,7 @@ class GridShell
                     Row17[7] = ',';
                     Row18[5] = 'o';
                     Row18[6] = 'u';
-                    Row18[7] = '0';
+                    Row18[7] = 'o';
                 }
                 else if (g.Row == 7)
                 {
@@ -2899,7 +2899,7 @@ class GridShell
                     Row20[7] = ',';
                     Row21[5] = 'o';
                     Row21[6] = 'u';
-                    Row21[7] = '0';
+                    Row21[7] = 'o';
                 }
                 else if (g.Row == 8)
                 {
@@ -2910,7 +2910,7 @@ class GridShell
                     Row23[7] = ',';
                     Row24[5] = 'o';
                     Row24[6] = 'u';
-                    Row24[7] = '0';
+                    Row24[7] = 'o';
                 }
                 else if (g.Row == 9)
                 {
@@ -2919,7 +2919,7 @@ class GridShell
                     Row26[7] = ',';
                     Row27[5] = 'o';
                     Row27[6] = 'u';
-                    Row27[7] = '0';
+                    Row27[7] = 'o';
                 }
 
             }
@@ -2932,7 +2932,7 @@ class GridShell
                     Row2[11] = ',';
                     Row3[9] = 'o';
                     Row3[10] = 'u';
-                    Row3[11] = '0';
+                    Row3[11] = 'o';
 
                     Row5[9] = ' '; Row5[10] = ' '; Row5[11] = ' ';
                     Row6[9] = ' '; Row6[10] = ' '; Row6[11] = ' ';
@@ -2946,7 +2946,7 @@ class GridShell
                     Row5[11] = ',';
                     Row6[9] = 'o';
                     Row6[10] = 'u';
-                    Row6[11] = '0';
+                    Row6[11] = 'o';
                     if (gargIsAlive[2])
                     {
                         gargAttackTimer[2]++;
@@ -2967,7 +2967,7 @@ class GridShell
                     Row8[11] = ',';
                     Row9[9] = 'o';
                     Row9[10] = 'u';
-                    Row9[11] = '0';
+                    Row9[11] = 'o';
                     if (gargIsAlive[7])
                     {
                         gargAttackTimer[7]++;
@@ -2988,7 +2988,7 @@ class GridShell
                     Row11[11] = ',';
                     Row12[9] = 'o';
                     Row12[10] = 'u';
-                    Row12[11] = '0';
+                    Row12[11] = 'o';
                 }
                 else if (g.Row == 5)
                 {
@@ -2999,7 +2999,7 @@ class GridShell
                     Row14[11] = ',';
                     Row15[9] = 'o';
                     Row15[10] = 'u';
-                    Row15[11] = '0';
+                    Row15[11] = 'o';
                 }
                 else if (g.Row == 6)
                 {
@@ -3010,7 +3010,7 @@ class GridShell
                     Row17[11] = ',';
                     Row18[9] = 'o';
                     Row18[10] = 'u';
-                    Row18[11] = '0';
+                    Row18[11] = 'o';
                 }
                 else if (g.Row == 7)
                 {
@@ -3021,7 +3021,7 @@ class GridShell
                     Row20[11] = ',';
                     Row21[9] = 'o';
                     Row21[10] = 'u';
-                    Row21[11] = '0';
+                    Row21[11] = 'o';
                 }
                 else if (g.Row == 8)
                 {
@@ -3032,7 +3032,7 @@ class GridShell
                     Row23[11] = ',';
                     Row24[9] = 'o';
                     Row24[10] = 'u';
-                    Row24[11] = '0';
+                    Row24[11] = 'o';
                 }
                 else if (g.Row == 9)
                 {
@@ -3041,7 +3041,7 @@ class GridShell
                     Row26[11] = ',';
                     Row27[9] = 'o';
                     Row27[10] = 'u';
-                    Row27[11] = '0';
+                    Row27[11] = 'o';
                 }
 
             }
@@ -3054,7 +3054,7 @@ class GridShell
                     Row2[15] = ',';
                     Row3[13] = 'o';
                     Row3[14] = 'u';
-                    Row3[15] = '0';
+                    Row3[15] = 'o';
 
                     Row5[13] = ' '; Row5[14] = ' '; Row5[15] = ' ';
                     Row6[13] = ' '; Row6[14] = ' '; Row6[15] = ' ';
@@ -3068,7 +3068,7 @@ class GridShell
                     Row5[15] = ',';
                     Row6[13] = 'o';
                     Row6[14] = 'u';
-                    Row6[15] = '0';
+                    Row6[15] = 'o';
                     if (gargIsAlive[3])
                     {
                         gargAttackTimer[3]++;
@@ -3089,7 +3089,7 @@ class GridShell
                     Row8[15] = ',';
                     Row9[13] = 'o';
                     Row9[14] = 'u';
-                    Row9[15] = '0';
+                    Row9[15] = 'o';
                     if (gargIsAlive[8])
                     {
                         gargAttackTimer[8]++;
@@ -3110,7 +3110,7 @@ class GridShell
                     Row11[15] = ',';
                     Row12[13] = 'o';
                     Row12[14] = 'u';
-                    Row12[15] = '0';
+                    Row12[15] = 'o';
                 }
                 else if (g.Row == 5)
                 {
@@ -3121,7 +3121,7 @@ class GridShell
                     Row14[15] = ',';
                     Row15[13] = 'o';
                     Row15[14] = 'u';
-                    Row15[15] = '0';
+                    Row15[15] = 'o';
                 }
                 else if (g.Row == 6)
                 {
@@ -3132,7 +3132,7 @@ class GridShell
                     Row17[15] = ',';
                     Row18[13] = 'o';
                     Row18[14] = 'u';
-                    Row18[15] = '0';
+                    Row18[15] = 'o';
                 }
                 else if (g.Row == 7)
                 {
@@ -3143,7 +3143,7 @@ class GridShell
                     Row20[15] = ',';
                     Row21[13] = 'o';
                     Row21[14] = 'u';
-                    Row21[15] = '0';
+                    Row21[15] = 'o';
                 }
                 else if (g.Row == 8)
                 {
@@ -3154,7 +3154,7 @@ class GridShell
                     Row23[15] = ',';
                     Row24[13] = 'o';
                     Row24[14] = 'u';
-                    Row24[15] = '0';
+                    Row24[15] = 'o';
                 }
                 else if (g.Row == 9)
                 {
@@ -3163,7 +3163,7 @@ class GridShell
                     Row26[15] = ',';
                     Row27[13] = 'o';
                     Row27[14] = 'u';
-                    Row27[15] = '0';
+                    Row27[15] = 'o';
                 }
 
             }
@@ -3176,7 +3176,7 @@ class GridShell
                     Row2[19] = ',';
                     Row3[17] = 'o';
                     Row3[18] = 'u';
-                    Row3[19] = '0';
+                    Row3[19] = 'o';
 
                     Row5[17] = ' '; Row5[18] = ' '; Row5[19] = ' ';
                     Row6[17] = ' '; Row6[18] = ' '; Row6[19] = ' ';
@@ -3190,7 +3190,7 @@ class GridShell
                     Row5[19] = ',';
                     Row6[17] = 'o';
                     Row6[18] = 'u';
-                    Row6[19] = '0';
+                    Row6[19] = 'o';
                     if (gargIsAlive[4])
                     {
                         gargAttackTimer[4]++;
@@ -3211,7 +3211,7 @@ class GridShell
                     Row8[19] = ',';
                     Row9[17] = 'o';
                     Row9[18] = 'u';
-                    Row9[19] = '0';
+                    Row9[19] = 'o';
                     if (gargIsAlive[9])
                     {
                         gargAttackTimer[9]++;
@@ -3231,7 +3231,7 @@ class GridShell
                     Row11[19] = ',';
                     Row12[17] = 'o';
                     Row12[18] = 'u';
-                    Row12[19] = '0';
+                    Row12[19] = 'o';
                     if (gargIsAlive[9])
                     {
                         gargAttackTimer[9]++;
@@ -3251,7 +3251,7 @@ class GridShell
                     Row14[19] = ',';
                     Row15[17] = 'o';
                     Row15[18] = 'u';
-                    Row15[19] = '0';
+                    Row15[19] = 'o';
                 }
                 else if (g.Row == 6)
                 {
@@ -3262,7 +3262,7 @@ class GridShell
                     Row17[19] = ',';
                     Row18[17] = 'o';
                     Row18[18] = 'u';
-                    Row18[19] = '0';
+                    Row18[19] = 'o';
                 }
                 else if (g.Row == 7)
                 {
@@ -3273,7 +3273,7 @@ class GridShell
                     Row20[19] = ',';
                     Row21[17] = 'o';
                     Row21[18] = 'u';
-                    Row21[19] = '0';
+                    Row21[19] = 'o';
                 }
                 else if (g.Row == 8)
                 {
@@ -3284,7 +3284,7 @@ class GridShell
                     Row23[19] = ',';
                     Row24[17] = 'o';
                     Row24[18] = 'u';
-                    Row24[19] = '0';
+                    Row24[19] = 'o';
                 }
                 else if (g.Row == 9)
                 {
@@ -3293,7 +3293,7 @@ class GridShell
                     Row26[19] = ',';
                     Row27[17] = 'o';
                     Row27[18] = 'u';
-                    Row27[19] = '0';
+                    Row27[19] = 'o';
                 }
 
             }
