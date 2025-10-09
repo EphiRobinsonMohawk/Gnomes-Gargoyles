@@ -7,6 +7,7 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
+    static float gargAttackMax = 5;
     static float[] gargAttackTimer = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     static int[] gargDamage = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
     static int[] gargHealth = { 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
@@ -1426,6 +1427,16 @@ class GridShell
                     Row6[1] = 'o';
                     Row6[2] = 'u';
                     Row6[3] = '0';
+                    if (gargIsAlive[0])
+                    {
+                        gargAttackTimer[0]++;
+                        if (gargAttackTimer[0] >= gargAttackMax)
+                        {
+                            gargAttackTimer[0] = 0;
+                            g.Health -= gargDamage[0];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -1437,9 +1448,15 @@ class GridShell
                     Row9[1] = 'o';
                     Row9[2] = 'u';
                     Row9[3] = '0';
-                    if (gargIsAlive[5] )
+                    if (gargIsAlive[5])
                     {
-                        
+                        gargAttackTimer[5]++;
+                        if (gargAttackTimer[5] >= gargAttackMax)
+                        {
+                            gargAttackTimer[5] = 0;
+                            g.Health -= gargDamage[5];
+                            Audio.Play("gnome_hurt");
+                        }
                     }
                 }
                 else if (g.Row == 4)
@@ -1531,6 +1548,16 @@ class GridShell
                     Row6[5] = 'o';
                     Row6[6] = 'u';
                     Row6[7] = '0';
+                    if (gargIsAlive[1])
+                    {
+                        gargAttackTimer[1]++;
+                        if (gargAttackTimer[1] >= gargAttackMax)
+                        {
+                            gargAttackTimer[1] = 1;
+                            g.Health -= gargDamage[1];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -1542,6 +1569,16 @@ class GridShell
                     Row9[5] = 'o';
                     Row9[6] = 'u';
                     Row9[7] = '0';
+                    if (gargIsAlive[6])
+                    {
+                        gargAttackTimer[6]++;
+                        if (gargAttackTimer[6] >= gargAttackMax)
+                        {
+                            gargAttackTimer[6] = 0;
+                            g.Health -= gargDamage[6];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -1633,6 +1670,16 @@ class GridShell
                     Row6[9] = 'o';
                     Row6[10] = 'u';
                     Row6[11] = '0';
+                    if (gargIsAlive[2])
+                    {
+                        gargAttackTimer[2]++;
+                        if (gargAttackTimer[2] >= gargAttackMax)
+                        {
+                            gargAttackTimer[2] = 0;
+                            g.Health -= gargDamage[2];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -1644,6 +1691,16 @@ class GridShell
                     Row9[9] = 'o';
                     Row9[10] = 'u';
                     Row9[11] = '0';
+                    if (gargIsAlive[7])
+                    {
+                        gargAttackTimer[7]++;
+                        if (gargAttackTimer[7] >= gargAttackMax)
+                        {
+                            gargAttackTimer[7] = 0;
+                            g.Health -= gargDamage[7];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -1735,6 +1792,16 @@ class GridShell
                     Row6[13] = 'o';
                     Row6[14] = 'u';
                     Row6[15] = '0';
+                    if (gargIsAlive[3])
+                    {
+                        gargAttackTimer[3]++;
+                        if (gargAttackTimer[3] >= gargAttackMax)
+                        {
+                            gargAttackTimer[3] = 0;
+                            g.Health -= gargDamage[3];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -1746,6 +1813,16 @@ class GridShell
                     Row9[13] = 'o';
                     Row9[14] = 'u';
                     Row9[15] = '0';
+                    if (gargIsAlive[8])
+                    {
+                        gargAttackTimer[8]++;
+                        if (gargAttackTimer[8] >= gargAttackMax)
+                        {
+                            gargAttackTimer[8] = 0;
+                            g.Health -= gargDamage[8];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -1837,6 +1914,16 @@ class GridShell
                     Row6[17] = 'o';
                     Row6[18] = 'u';
                     Row6[19] = '0';
+                    if (gargIsAlive[4])
+                    {
+                        gargAttackTimer[4]++;
+                        if (gargAttackTimer[4] >= gargAttackMax)
+                        {
+                            gargAttackTimer[4] = 0;
+                            g.Health -= gargDamage[4];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -1848,6 +1935,16 @@ class GridShell
                     Row9[17] = 'o';
                     Row9[18] = 'u';
                     Row9[19] = '0';
+                    if (gargIsAlive[9])
+                    {
+                        gargAttackTimer[9]++;
+                        if (gargAttackTimer[9] >= gargAttackMax)
+                        {
+                            gargAttackTimer[9] = 0;
+                            g.Health -= gargDamage[9];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -1949,6 +2046,16 @@ class GridShell
                     Row6[1] = 'ò';
                     Row6[2] = '∩';
                     Row6[3] = 'ó';
+                    if (gargIsAlive[0])
+                    {
+                        gargAttackTimer[0]++;
+                        if (gargAttackTimer[0] >= gargAttackMax)
+                        {
+                            gargAttackTimer[0] = 0;
+                            g.Health -= gargDamage[0];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -1960,6 +2067,16 @@ class GridShell
                     Row9[1] = 'ò';
                     Row9[2] = '∩';
                     Row9[3] = 'ó';
+                    if (gargIsAlive[5])
+                    {
+                        gargAttackTimer[5]++;
+                        if (gargAttackTimer[5] >= gargAttackMax)
+                        {
+                            gargAttackTimer[5] = 0;
+                            g.Health -= gargDamage[5];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2050,6 +2167,16 @@ class GridShell
                     Row6[5] = 'ò';
                     Row6[6] = '∩';
                     Row6[7] = 'ó';
+                    if (gargIsAlive[1])
+                    {
+                        gargAttackTimer[1]++;
+                        if (gargAttackTimer[1] >= gargAttackMax)
+                        {
+                            gargAttackTimer[1] = 0;
+                            g.Health -= gargDamage[1];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2061,6 +2188,16 @@ class GridShell
                     Row9[5] = 'ò';
                     Row9[6] = '∩';
                     Row9[7] = 'ó';
+                    if (gargIsAlive[6])
+                    {
+                        gargAttackTimer[6]++;
+                        if (gargAttackTimer[6] >= gargAttackMax)
+                        {
+                            gargAttackTimer[6] = 0;
+                            g.Health -= gargDamage[6];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2152,6 +2289,16 @@ class GridShell
                     Row6[9] = 'ò';
                     Row6[10] = '∩';
                     Row6[11] = 'ó';
+                    if (gargIsAlive[2])
+                    {
+                        gargAttackTimer[2]++;
+                        if (gargAttackTimer[2] >= gargAttackMax)
+                        {
+                            gargAttackTimer[2] = 0;
+                            g.Health -= gargDamage[2];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2163,6 +2310,16 @@ class GridShell
                     Row9[9] = 'ò';
                     Row9[10] = '∩';
                     Row9[11] = 'ó';
+                    if (gargIsAlive[7])
+                    {
+                        gargAttackTimer[7]++;
+                        if (gargAttackTimer[7] >= gargAttackMax)
+                        {
+                            gargAttackTimer[7] = 0;
+                            g.Health -= gargDamage[7];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2254,6 +2411,16 @@ class GridShell
                     Row6[13] = 'ò';
                     Row6[14] = '∩';
                     Row6[15] = 'ó';
+                    if (gargIsAlive[3])
+                    {
+                        gargAttackTimer[3]++;
+                        if (gargAttackTimer[3] >= gargAttackMax)
+                        {
+                            gargAttackTimer[3] = 0;
+                            g.Health -= gargDamage[3];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2265,6 +2432,16 @@ class GridShell
                     Row9[13] = 'ò';
                     Row9[14] = '∩';
                     Row9[15] = 'ó';
+                    if (gargIsAlive[8])
+                    {
+                        gargAttackTimer[8]++;
+                        if (gargAttackTimer[8] >= gargAttackMax)
+                        {
+                            gargAttackTimer[8] = 0;
+                            g.Health -= gargDamage[8];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2356,6 +2533,16 @@ class GridShell
                     Row6[17] = 'ò';
                     Row6[18] = '∩';
                     Row6[19] = 'ó';
+                    if (gargIsAlive[4])
+                    {
+                        gargAttackTimer[4]++;
+                        if (gargAttackTimer[4] >= gargAttackMax)
+                        {
+                            gargAttackTimer[4] = 0;
+                            g.Health -= gargDamage[4];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2367,6 +2554,16 @@ class GridShell
                     Row9[17] = 'ò';
                     Row9[18] = '∩';
                     Row9[19] = 'ó';
+                    if (gargIsAlive[9])
+                    {
+                        gargAttackTimer[9]++;
+                        if (gargAttackTimer[9] >= gargAttackMax)
+                        {
+                            gargAttackTimer[9] = 0;
+                            g.Health -= gargDamage[9];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2466,6 +2663,16 @@ class GridShell
                     Row6[1] = '0';
                     Row6[2] = '¬';
                     Row6[3] = '0';
+                    if (gargIsAlive[0])
+                    {
+                        gargAttackTimer[0]++;
+                        if (gargAttackTimer[0] >= gargAttackMax)
+                        {
+                            gargAttackTimer[0] = 0;
+                            g.Health -= gargDamage[0];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2477,6 +2684,16 @@ class GridShell
                     Row9[1] = '0';
                     Row9[2] = '¬';
                     Row9[3] = '0';
+                    if (gargIsAlive[5])
+                    {
+                        gargAttackTimer[5]++;
+                        if (gargAttackTimer[5] >= gargAttackMax)
+                        {
+                            gargAttackTimer[5] = 0;
+                            g.Health -= gargDamage[5];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2567,6 +2784,16 @@ class GridShell
                     Row6[5] = '0';
                     Row6[6] = '¬';
                     Row6[7] = '0';
+                    if (gargIsAlive[1])
+                    {
+                        gargAttackTimer[1]++;
+                        if (gargAttackTimer[1] >= gargAttackMax)
+                        {
+                            gargAttackTimer[1] = 0;
+                            g.Health -= gargDamage[1];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2578,6 +2805,16 @@ class GridShell
                     Row9[5] = '0';
                     Row9[6] = '¬';
                     Row9[7] = '0';
+                    if (gargIsAlive[6])
+                    {
+                        gargAttackTimer[6]++;
+                        if (gargAttackTimer[6] >= gargAttackMax)
+                        {
+                            gargAttackTimer[6] = 0;
+                            g.Health -= gargDamage[6];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2668,6 +2905,16 @@ class GridShell
                     Row6[9] = '0';
                     Row6[10] = '¬';
                     Row6[11] = '0';
+                    if (gargIsAlive[2])
+                    {
+                        gargAttackTimer[2]++;
+                        if (gargAttackTimer[2] >= gargAttackMax)
+                        {
+                            gargAttackTimer[2] = 0;
+                            g.Health -= gargDamage[2];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2679,6 +2926,16 @@ class GridShell
                     Row9[9] = '0';
                     Row9[10] = '¬';
                     Row9[11] = '0';
+                    if (gargIsAlive[7])
+                    {
+                        gargAttackTimer[7]++;
+                        if (gargAttackTimer[7] >= gargAttackMax)
+                        {
+                            gargAttackTimer[7] = 0;
+                            g.Health -= gargDamage[7];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2769,6 +3026,16 @@ class GridShell
                     Row6[13] = '0';
                     Row6[14] = '¬';
                     Row6[15] = '0';
+                    if (gargIsAlive[3])
+                    {
+                        gargAttackTimer[3]++;
+                        if (gargAttackTimer[3] >= gargAttackMax)
+                        {
+                            gargAttackTimer[3] = 0;
+                            g.Health -= gargDamage[3];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2780,6 +3047,16 @@ class GridShell
                     Row9[13] = '0';
                     Row9[14] = '¬';
                     Row9[15] = '0';
+                    if (gargIsAlive[8])
+                    {
+                        gargAttackTimer[8]++;
+                        if (gargAttackTimer[8] >= gargAttackMax)
+                        {
+                            gargAttackTimer[8] = 0;
+                            g.Health -= gargDamage[8];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
@@ -2870,6 +3147,16 @@ class GridShell
                     Row6[17] = '0';
                     Row6[18] = '¬';
                     Row6[19] = '0';
+                    if (gargIsAlive[4])
+                    {
+                        gargAttackTimer[4]++;
+                        if (gargAttackTimer[4] >= gargAttackMax)
+                        {
+                            gargAttackTimer[4] = 0;
+                            g.Health -= gargDamage[4];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 3)
                 {
@@ -2881,6 +3168,16 @@ class GridShell
                     Row9[17] = '0';
                     Row9[18] = '¬';
                     Row9[19] = '0';
+                    if (gargIsAlive[9])
+                    {
+                        gargAttackTimer[9]++;
+                        if (gargAttackTimer[9] >= gargAttackMax)
+                        {
+                            gargAttackTimer[9] = 0;
+                            g.Health -= gargDamage[9];
+                            Audio.Play("gnome_hurt");
+                        }
+                    }
                 }
                 else if (g.Row == 4)
                 {
