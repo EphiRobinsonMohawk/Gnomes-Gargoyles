@@ -2,6 +2,7 @@
 using System.Data;
 using System.Text;
 using System.Threading;
+using System.Timers;
 using Gnomes_Gargoyles;
 
 class GridShell
@@ -13,7 +14,7 @@ class GridShell
     static int moveTimer;
     static int movePeriod = 4;
     static int tickTimer;
-    static int enemyCount = 10;
+    static int enemyCount = 0;
     static int level = 1;
     static int socks = 30;
     static int score = 0;
@@ -240,6 +241,11 @@ class GridShell
             Console.WriteLine("                                                   ");
             Console.WriteLine("                                                   ");
             Console.WriteLine("                    Space to Exit                  ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                                                   ");
 
             if (Console.KeyAvailable)
             {
@@ -250,6 +256,8 @@ class GridShell
                 }
             }
         }
+
+
         if (hasWon)
         {
             Console.WriteLine("                                     █▓           ┌───┐");
@@ -269,9 +277,18 @@ class GridShell
             Console.WriteLine("  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ████ ██████▓▓████         ");
             Console.WriteLine("                            ▓   ▓ ▓▓▓▓▓▓█▓▓▓▓▓         ");
             Console.WriteLine("                            ▓   ▓ ████████████         ");
-            Console.WriteLine("   Time - _____              ▓▓▓    ███  ███           ");
+            Console.WriteLine("                             ▓▓▓    ███  ███           ");
             Console.WriteLine("                                  █▓███  ███▓█         ");
-            Console.WriteLine("  Score - _____                   █████  █████         ");
+            Console.WriteLine("                                  █████  █████         ");
+            Console.WriteLine("                                                       ");
+            Console.WriteLine($"  Score - {(socks * 10) + (timer * 5)}                            ");
+            Console.WriteLine("                                                       ");
+            Console.WriteLine($"   Time - {timer}                                         ");
+            Console.WriteLine("                                                       ");
+            Console.WriteLine("                                                       ");
+            Console.WriteLine("                                                       ");
+            Console.WriteLine("                                                       ");
+            Console.WriteLine("                                                       ");
 
         }
 
