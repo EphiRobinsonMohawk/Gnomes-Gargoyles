@@ -24,6 +24,8 @@ class GridShell
     static int cooldown = 8;
     static bool cooldownReady = true;
 
+    static bool winHasPlayed = false;
+    static bool lossHasPlayed = false;
     static bool isPage2 = false;
     static bool isPlaying = false;
     static bool hasLost = false;
@@ -1263,8 +1265,6 @@ class GridShell
         if (hasLost)
         {
 
-            Audio.Play("game_over");
-
             Console.WriteLine("           ▓▓▓██                  ██▓▓▓            ");
             Console.WriteLine("          █▓▒▒▒▓███            ███▓▒▒▒▓█           ");
             Console.WriteLine("          ▓▒▒▒▒▓██▒██        ██▒██▓▒▒▒▒▓           ");
@@ -1294,7 +1294,11 @@ class GridShell
             Console.WriteLine("                                                   ");
             Console.WriteLine("                                                   ");
             Console.WriteLine("                                                   ");
-
+            if (!lossHasPlayed)
+            {
+                lossHasPlayed = true;
+                Audio.Play("game_over");
+            }
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(intercept: true);
@@ -1337,8 +1341,11 @@ class GridShell
             Console.WriteLine("                                                       ");
             Console.WriteLine("                                                       ");
             Console.WriteLine("                                                       ");
-
-            Audio.Play("level_complete");
+            if (!winHasPlayed)
+            {
+                winHasPlayed = true;
+                Audio.Play("level_complete");
+            }
 
             if (Console.KeyAvailable)
             {
