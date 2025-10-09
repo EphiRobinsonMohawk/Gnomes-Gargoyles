@@ -12,6 +12,7 @@ class GridShell
     static int[] gargDamage = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
     static int[] gargHealth = { 5, 5, 5, 5, 5, 10, 10, 10, 10, 10, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
     static bool[] gargIsAlive = { true, true, true, true, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
+    static bool[] gargDeathPlayed = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
     //gargoyle    0, 1, 2, 3, 4
     //setup       5, 6, 7, 8, 9     Remember arrays start at 0 (I forgot this twice while coding this)
 
@@ -82,9 +83,9 @@ class GridShell
     
     static void Start()
     {
-        Audio.Load("gargoyle_pain", "Audio/gargoylepain.wav");
-        Audio.Load("gargoyle_roar", "Audio/gargoyleroar.wav");
-        Audio.Load("shatter", "Audio/shatter.wav"); 
+        Audio.Load("gargoyle_pain", "Audio/gargoylepain.wav"); // ✅
+        Audio.Load("gargoyle_roar", "Audio/gargoyleroar.wav"); // ✅
+        Audio.Load("shatter", "Audio/shatter.wav"); // ✅
         Audio.Load("misc_sound", "Audio/miscsound.wav");
         Audio.Load("foot_step", "Audio/footstep.wav"); // ✅
         Audio.Load("hit_sound", "Audio/hitsound.wav");
@@ -92,7 +93,7 @@ class GridShell
         Audio.Load("game_over", "Audio/gameover.wav"); // ✅
         Audio.Load("gnome_laugh", "Audio/gnomelaugh.wav"); // ✅
         Audio.Load("place", "Audio/gnomeplace.wav"); // ✅
-        Audio.Load("gnome_hurt", "Audio/gnomepain.wav"); 
+        Audio.Load("gnome_hurt", "Audio/gnomepain.wav");  // ✅
     }
     static void Main()
     {
@@ -979,21 +980,142 @@ class GridShell
 
     static void DrawGargoyles()
     {
-        if (gargHealth[0] <= 0) gargIsAlive[0] = false;
-        if (gargHealth[1] <= 0) gargIsAlive[1] = false;
-        if (gargHealth[2] <= 0) gargIsAlive[2] = false;
-        if (gargHealth[3] <= 0) gargIsAlive[3] = false;
-        if (gargHealth[4] <= 0) gargIsAlive[4] = false;
-        if (gargHealth[5] <= 0) gargIsAlive[5] = false;
-        if (gargHealth[6] <= 0) gargIsAlive[6] = false;
-        if (gargHealth[7] <= 0) gargIsAlive[7] = false;
-        if (gargHealth[8] <= 0) gargIsAlive[8] = false;
-        if (gargHealth[9] <= 0) gargIsAlive[9] = false;
-        if (gargHealth[10] <= 0) gargIsAlive[10] = false;
-        if (gargHealth[11] <= 0) gargIsAlive[11] = false;
-        if (gargHealth[12] <= 0) gargIsAlive[12] = false;
-        if (gargHealth[13] <= 0) gargIsAlive[13] = false;
-        if (gargHealth[14] <= 0) gargIsAlive[14] = false;
+        if (gargHealth[0] <= 0)
+        {
+            if (!gargDeathPlayed[0])
+            {
+                gargDeathPlayed[0] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[0] = false;
+        }
+        if (gargHealth[1] <= 0)
+        {
+            if (!gargDeathPlayed[1])
+            {
+                gargDeathPlayed[1] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[1] = false;
+        }
+        if (gargHealth[2] <= 0)
+        {
+            if (!gargDeathPlayed[2])
+            {
+                gargDeathPlayed[2] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[2] = false;
+        }
+        if (gargHealth[3] <= 0)
+        {
+            if (!gargDeathPlayed[3])
+            {
+                gargDeathPlayed[3] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[3] = false;
+        }
+        if (gargHealth[4] <= 0)
+        {
+            if (!gargDeathPlayed[4])
+            {
+                gargDeathPlayed[4] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[4] = false;
+        }
+        if (gargHealth[5] <= 0)
+        {
+            if (!gargDeathPlayed[5])
+            {
+                gargDeathPlayed[5] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[5] = false;
+        }
+        if (gargHealth[6] <= 0)
+        {
+            if (!gargDeathPlayed[6])
+            {
+                gargDeathPlayed[6] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[6] = false;
+        }
+        if (gargHealth[7] <= 0)
+        {
+            if (!gargDeathPlayed[7])
+            {
+                gargDeathPlayed[7] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[7] = false;
+        }
+        if (gargHealth[8] <= 0)
+        {
+            if (!gargDeathPlayed[8])
+            {
+                gargDeathPlayed[8] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[8] = false;
+        }
+        if (gargHealth[9] <= 0)
+        {
+            if (!gargDeathPlayed[9])
+            {
+                gargDeathPlayed[9] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[9] = false;
+        }
+        if (gargHealth[10] <= 0)
+        {
+            if (!gargDeathPlayed[10])
+            {
+                gargDeathPlayed[10] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[10] = false;
+        }
+        if (gargHealth[11] <= 0)
+        {
+            if (!gargDeathPlayed[11])
+            {
+                gargDeathPlayed[11] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[11] = false;
+        }
+        if (gargHealth[12] <= 0)
+        {
+            if (!gargDeathPlayed[12])
+            {
+                gargDeathPlayed[12] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[12] = false;
+        }
+        if (gargHealth[13] <= 0)
+        {
+            if (!gargDeathPlayed[13])
+            {
+                gargDeathPlayed[13] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[13] = false;
+        }
+        if (gargHealth[14] <= 0)
+        {
+            if (!gargDeathPlayed[14])
+            {
+                gargDeathPlayed[14] = true;
+                Audio.Play("gargoyle_roar");
+            }
+            gargIsAlive[14] = false;
+        }
+
 
 
 
