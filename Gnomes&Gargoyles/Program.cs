@@ -150,6 +150,12 @@ class GridShell
         {
             if (g.Health <= 0)
             {
+                if (g.HasPlayed == false)
+                {
+                    g.HasPlayed = true;
+                    Audio.Play("shatter");
+                }
+
                 g.IsAlive = false;
             }
         }
@@ -158,6 +164,12 @@ class GridShell
         {
             if (g.Health <= 0)
             {
+                if (g.HasPlayed == false)
+                {
+                    g.HasPlayed = true;
+                    Audio.Play("shatter");
+                }
+
                 g.IsAlive = false;
             }
         }
@@ -166,6 +178,11 @@ class GridShell
         {
             if (g.Health <= 0)
             {
+                if (g.HasPlayed == false)
+                {
+                    g.HasPlayed = true;
+                    Audio.Play("shatter");
+                }
                 g.IsAlive = false;
             }
         }

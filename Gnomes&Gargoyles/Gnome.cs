@@ -14,6 +14,7 @@ namespace Gnomes_Gargoyles
 
         public bool IsAlive = true;
 
+        public bool HasPlayed = false;
         public Gnome(int lane, int row, int health)
         {
             Lane = lane;
