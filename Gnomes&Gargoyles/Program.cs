@@ -1065,7 +1065,336 @@ class GridShell
                     p.hasHit = true;
                 }
 
+
             }
+            // LANE 2 (index [6], garg indices +1: 5->6, 0->1)
+            if (p.Lane == 2)
+            {
+                if (p.Stage == 1)
+                {
+                    Row10[6] = '¤';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row10[6] = '-';
+                    Row9[6] = '¤';
+                }
+                else if (p.Stage == 3)
+                {
+                    Row9[6] = ' ';
+                    Row8[6] = '¤';
+                }
+                else if (p.Stage == 4)
+                {
+                    Row8[6] = ' ';
+                    Row7[6] = '¤';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[6] = '-';
+                    if (gargIsAlive[6])
+                    {
+                        p.hasHit = true;
+                        gargHealth[6] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[6])
+                    {
+                        Row6[6] = '¤';
+                    }
+                }
+                else if (p.Stage == 6)
+                {
+                    Row6[6] = ' ';
+                    Row5[6] = '¤';
+                }
+                else if (p.Stage == 7)
+                {
+                    Row6[6] = ' ';
+                    Row5[6] = '¤';
+                }
+                else if (p.Stage == 8)
+                {
+                    Row5[6] = ' ';
+                    Row4[6] = '¤';
+                }
+                else if (p.Stage == 9)
+                {
+                    Row4[6] = '-';
+                    if (gargIsAlive[1])
+                    {
+                        p.hasHit = true;
+                        gargHealth[1] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[1])
+                    {
+                        Row3[6] = '¤';
+                    }
+                }
+                else if (p.Stage == 10)
+                {
+                    Row3[6] = ' ';
+                    Row2[6] = '¤';
+                }
+                else if (p.Stage == 11)
+                {
+                    Row2[6] = ' ';
+                    Row1[6] = '¤';
+                }
+                else if (p.Stage == 12)
+                {
+                    Row1[6] = '-';
+                    p.hasHit = true;
+                }
+            }
+
+            // LANE 3 (index [10], garg indices +2: 5->7, 0->2)
+            if (p.Lane == 3)
+            {
+                if (p.Stage == 1)
+                {
+                    Row10[10] = '¤';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row10[10] = '-';
+                    Row9[10] = '¤';
+                }
+                else if (p.Stage == 3)
+                {
+                    Row9[10] = ' ';
+                    Row8[10] = '¤';
+                }
+                else if (p.Stage == 4)
+                {
+                    Row8[10] = ' ';
+                    Row7[10] = '¤';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[10] = '-';
+                    if (gargIsAlive[7])
+                    {
+                        p.hasHit = true;
+                        gargHealth[7] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[7])
+                    {
+                        Row6[10] = '¤';
+                    }
+                }
+                else if (p.Stage == 6)
+                {
+                    Row6[10] = ' ';
+                    Row5[10] = '¤';
+                }
+                else if (p.Stage == 7)
+                {
+                    Row6[10] = ' ';
+                    Row5[10] = '¤';
+                }
+                else if (p.Stage == 8)
+                {
+                    Row5[10] = ' ';
+                    Row4[10] = '¤';
+                }
+                else if (p.Stage == 9)
+                {
+                    Row4[10] = '-';
+                    if (gargIsAlive[2])
+                    {
+                        p.hasHit = true;
+                        gargHealth[2] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[2])
+                    {
+                        Row3[10] = '¤';
+                    }
+                }
+                else if (p.Stage == 10)
+                {
+                    Row3[10] = ' ';
+                    Row2[10] = '¤';
+                }
+                else if (p.Stage == 11)
+                {
+                    Row2[10] = ' ';
+                    Row1[10] = '¤';
+                }
+                else if (p.Stage == 12)
+                {
+                    Row1[10] = '-';
+                    p.hasHit = true;
+                }
+            }
+
+            // LANE 4 (index [14], garg indices +3: 5->8, 0->3)
+            if (p.Lane == 4)
+            {
+                if (p.Stage == 1)
+                {
+                    Row10[14] = '¤';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row10[14] = '-';
+                    Row9[14] = '¤';
+                }
+                else if (p.Stage == 3)
+                {
+                    Row9[14] = ' ';
+                    Row8[14] = '¤';
+                }
+                else if (p.Stage == 4)
+                {
+                    Row8[14] = ' ';
+                    Row7[14] = '¤';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[14] = '-';
+                    if (gargIsAlive[8])
+                    {
+                        p.hasHit = true;
+                        gargHealth[8] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[8])
+                    {
+                        Row6[14] = '¤';
+                    }
+                }
+                else if (p.Stage == 6)
+                {
+                    Row6[14] = ' ';
+                    Row5[14] = '¤';
+                }
+                else if (p.Stage == 7)
+                {
+                    Row6[14] = ' ';
+                    Row5[14] = '¤';
+                }
+                else if (p.Stage == 8)
+                {
+                    Row5[14] = ' ';
+                    Row4[14] = '¤';
+                }
+                else if (p.Stage == 9)
+                {
+                    Row4[14] = '-';
+                    if (gargIsAlive[3])
+                    {
+                        p.hasHit = true;
+                        gargHealth[3] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[3])
+                    {
+                        Row3[14] = '¤';
+                    }
+                }
+                else if (p.Stage == 10)
+                {
+                    Row3[14] = ' ';
+                    Row2[14] = '¤';
+                }
+                else if (p.Stage == 11)
+                {
+                    Row2[14] = ' ';
+                    Row1[14] = '¤';
+                }
+                else if (p.Stage == 12)
+                {
+                    Row1[14] = '-';
+                    p.hasHit = true;
+                }
+            }
+
+            // LANE 5 (index [18], garg indices +4: 5->9, 0->4)
+            if (p.Lane == 5)
+            {
+                if (p.Stage == 1)
+                {
+                    Row10[18] = '¤';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row10[18] = '-';
+                    Row9[18] = '¤';
+                }
+                else if (p.Stage == 3)
+                {
+                    Row9[18] = ' ';
+                    Row8[18] = '¤';
+                }
+                else if (p.Stage == 4)
+                {
+                    Row8[18] = ' ';
+                    Row7[18] = '¤';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[18] = '-';
+                    if (gargIsAlive[9])
+                    {
+                        p.hasHit = true;
+                        gargHealth[9] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[9])
+                    {
+                        Row6[18] = '¤';
+                    }
+                }
+                else if (p.Stage == 6)
+                {
+                    Row6[18] = ' ';
+                    Row5[18] = '¤';
+                }
+                else if (p.Stage == 7)
+                {
+                    Row6[18] = ' ';
+                    Row5[18] = '¤';
+                }
+                else if (p.Stage == 8)
+                {
+                    Row5[18] = ' ';
+                    Row4[18] = '¤';
+                }
+                else if (p.Stage == 9)
+                {
+                    Row4[18] = '-';
+                    if (gargIsAlive[4])
+                    {
+                        p.hasHit = true;
+                        gargHealth[4] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[4])
+                    {
+                        Row3[18] = '¤';
+                    }
+                }
+                else if (p.Stage == 10)
+                {
+                    Row3[18] = ' ';
+                    Row2[18] = '¤';
+                }
+                else if (p.Stage == 11)
+                {
+                    Row2[18] = ' ';
+                    Row1[18] = '¤';
+                }
+                else if (p.Stage == 12)
+                {
+                    Row1[18] = '-';
+                    p.hasHit = true;
+                }
+            }
+
         }
     }
 
