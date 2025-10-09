@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace Gnomes_Gargoyles
 {
-    public class Gnome
+    class Gnight
     {
-        public int Lane { get;  }
+        public int Lane { get; }
         public int Row { get; set; }
         public int Health { get; set; }
 
         public bool IsAlive = true;
 
         public bool HasPlayed = false;
-        public Gnome(int lane, int row, int health)
+
+        public Gnight(int lane, int row, int health)
         {
             Lane = lane;
             Row = row;
             Health = health;
         }
-
     }
 }
