@@ -409,6 +409,30 @@ class GridShell
 
         if (isPlaying && !hasLost && !hasWon)
         {
+            foreach (var g in gnomes.Where(x => x.IsAlive))
+            {
+                if (g.Row == 1)
+                {
+                    Audio.Play("gnome_laugh");
+                    g.IsAlive = false;
+                }
+            }
+            foreach (var g in gnights.Where(x => x.IsAlive))
+            {
+                if (g.Row == 1)
+                {
+                    Audio.Play("gnome_laugh");
+                    g.IsAlive = false;
+                }
+            }
+            foreach (var g in gizards.Where(x => x.IsAlive))
+            {
+                if (g.Row == 1)
+                {
+                    Audio.Play("gnome_laugh");
+                    g.IsAlive = false;
+                }
+            }
             DrawGrid();
             DrawBar();
             DrawGargoyles(); // Draws Gargoles first to set the stage
