@@ -27,13 +27,13 @@ class GridShell
     static int gnomePlacing;
     static int gnomeDamage = 3;
     static int gnightDamage = 2;
-    static int gizardDamage = 3;
+    static int gizardDamage = 2;
     static int gnomeMoveTimer; 
     static int gizardMoveTimer;
     static int gnightMoveTimer;
     static int movePeriod = 4;
-    static int gizardMovePeriod = 2;
-    static int gnightMovePeriod = 6;
+    static int gizardMovePeriod = 12;
+    static int gnightMovePeriod = 2;
 
     static int tickTimer;
     static int enemyCount = 10;
@@ -114,10 +114,11 @@ class GridShell
 
     static void Update()
     {
+        //Code to keep screen current without flashing
         Console.SetCursorPosition(0, 0);
         
 
-
+        //Code for making UI stay clean
         if (socks < 10)
         {
             socksSpace = ' ';
@@ -143,6 +144,8 @@ class GridShell
             timerSpace = '\0';
         }
 
+
+        //Code to make gnomes die :O
         foreach (var g in gnomes)
         {
             if (g.Health <= 0)
