@@ -7,11 +7,13 @@ using Gnomes_Gargoyles;
 class GridShell
 {
     static bool isPlaying = false;
+    static bool hasLost = false;
+    static bool hasWon = false;
 
     static int moveTimer;
     static int movePeriod = 4;
     static int tickTimer;
-    static int enemyCount = 0;
+    static int enemyCount = 10;
     static int level = 1;
     static int socks = 30;
     static int score = 0;
@@ -103,7 +105,7 @@ class GridShell
     static void Update()
     {
         Console.SetCursorPosition(0, 0);
-        if (!isPlaying)
+        if (!isPlaying & !hasLost & !hasWon)
         {
             Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██");
             Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█");
@@ -144,7 +146,7 @@ class GridShell
         }
 
 
-        if (isPlaying)
+        if (isPlaying & !hasLost & !hasWon)
         {
             DrawGargoyles(); // Draws Gargoles first to set the stage
             DrawGnomes();    // Then th
@@ -168,6 +170,18 @@ class GridShell
                 }
             }
             
+            if (timer <= 0)
+            {
+                hasLost = true;
+                
+            }
+
+            if (enemyCount <= 0)
+            {
+                hasWon = true;
+
+            }
+
             //Printing each line (Brackets solely so you can collapse it) 
             Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
             Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
@@ -199,6 +213,74 @@ class GridShell
             Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
             Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
         }
+
+        if (hasLost)
+        {
+            Console.WriteLine("           ▓▓▓██                  ██▓▓▓            ");
+            Console.WriteLine("          █▓▒▒▒▓███            ███▓▒▒▒▓█           ");
+            Console.WriteLine("          ▓▒▒▒▒▓██▒██        ██▒██▓▒▒▒▒▓           ");
+            Console.WriteLine("          ▓▒▒▒▒▓██░▒▓█      █▓▒▒██▓▒▒▒▒▓           ");
+            Console.WriteLine("           ▓▒▒▒▓█▒░░▒▒▓█  █▓▒▒░░▒█▓▒▒▒▓            ");
+            Console.WriteLine("            █▓▒▒▓▒▒▒▒░▒    ▒░▒▒▒▒▓▒▒▓█             ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("            ░▒░                     ░█░            ");
+            Console.WriteLine("            ░█▒█▒▒░░▒░░░░░▒▒▒░▒▒░▓▓░▓█░            ");
+            Console.WriteLine("             ░░█▓██▓█▓█▒▓█▓██░█████▓█░             ");
+            Console.WriteLine("               ▒▒██▒███▓▓████▒███▓█░░              ");
+            Console.WriteLine("                ░▓█▒███▓▓████▓██▓▓▓                ");
+            Console.WriteLine("                 ░▒▒███▓▓████▓▓█▒░                 ");
+            Console.WriteLine("                  ░▒█▓█▓▓████▒▓█░                  ");
+            Console.WriteLine("                   ░▒▒▓▒▒█▒░▒░░░                   ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine(" ▄▄ •  ▄▄▄· • ▌ ▄ ·. ▄▄▄ .     ▄█▀▄  ▌ ▐·▄▄▄ .▄▄▄  ");
+            Console.WriteLine("▐█·▀ ▪▐█ ▀█ ·██ ▐███▪▀▄.▀·    ▐█▌.▐▌▪█·█▌▀▄.▀·▀▄ █·");
+            Console.WriteLine("▄█ ▀█▄▄█▀▀█ ▐█ ▌▐▌▐█·▐▀▀▪▄    ▐█· ▐▌▐█▐█•▐▀▀▪▄▐▀▀▄ ");
+            Console.WriteLine("▐█▄▪▐█▐█· ▐▌██ ██▌▐█▌▐█▄▄▌    ▐█▄ █  ███ ▐█▄▄▌▐█ █▌");
+            Console.WriteLine("·▀▀▀▀  ▀  ▀ ▀▀  █▪▀▀▀ ▀▀▀      ▀█▄▀▪. ▀   ▀▀▀ .▀  ▀");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                    Space to Exit                  ");
+
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    Environment.Exit(0);
+                }
+            }
+        }
+        if (hasWon)
+        {
+            Console.WriteLine("                                     █▓           ┌───┐");
+            Console.WriteLine("                                    ███▓          ├───┤");
+            Console.WriteLine("██╗   ██╗ ██████╗ ██╗   ██╗        ▓████▓         │   │");
+            Console.WriteLine("╚██╗ ██╔╝██╔═══██╗██║   ██║        ██████▓       _⌡   │");
+            Console.WriteLine(" ╚████╔╝ ██║   ██║██║   ██║       ▓██████▓▓     /     ⌡");
+            Console.WriteLine("  ╚██╔╝  ██║   ██║██║   ██║       ████████▓     \\____/ ");
+            Console.WriteLine("   ██║   ╚██████╔╝╚██████╔╝      ▓▓████████▓           ");
+            Console.WriteLine("   ╚═╝    ╚═════╝  ╚═════╝      ▓    ▄    ▄ ▓    ▓▓▓   ");
+            Console.WriteLine("                                ▓   █▄▌  █▄▌ ░▓ ▓   ▓  ");
+            Console.WriteLine(" ██╗    ██╗██╗███╗   ██╗██╗     ▓            ▓ █▓   ▓  ");
+            Console.WriteLine(" ██║    ██║██║████╗  ██║██║     ▓▒   ▒▒▒▒▒▒ ▒▓█████▓   ");
+            Console.WriteLine(" ██║ █╗ ██║██║██╔██╗ ██║██║    ███▓▒▒▒▒▒▒▒▒▒▓████▓     ");
+            Console.WriteLine(" ██║███╗██║██║██║╚██╗██║╚═╝   ▓████▓▒▒▒▒▒▒▒▓███▓       ");
+            Console.WriteLine(" ╚███╔███╔╝██║██║ ╚████║██╗  ▓████▓█████▓▓███▓         ");
+            Console.WriteLine("  ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ████ ██████▓▓████         ");
+            Console.WriteLine("                            ▓   ▓ ▓▓▓▓▓▓█▓▓▓▓▓         ");
+            Console.WriteLine("                            ▓   ▓ ████████████         ");
+            Console.WriteLine("   Time - _____              ▓▓▓    ███  ███           ");
+            Console.WriteLine("                                  █▓███  ███▓█         ");
+            Console.WriteLine("  Score - _____                   █████  █████         ");
+
+        }
+
+
+
+
+
+
+
     }
 
     public static Gnome SpawnGnome(int lane, int row, int health)
