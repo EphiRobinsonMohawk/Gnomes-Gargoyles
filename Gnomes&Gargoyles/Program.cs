@@ -57,6 +57,7 @@ class GridShell
     static readonly List<Gnight> gnights = new();
     static readonly List<Gizard> gizards = new();
     static readonly List<Projectile> projectiles = new();
+    static readonly List<EnemyProjectile> enemyProjectiles = new();
 
 
     //Character arrays for each line
@@ -390,6 +391,7 @@ class GridShell
                 g.IsAlive = false;
             }
         }
+        enemyProjectiles.RemoveAll(p => p.hasHit);
 
         projectiles.RemoveAll(p => p.hasHit);
 
@@ -412,17 +414,17 @@ class GridShell
             Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░               ");
             Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /\, Gnome                  │▒│/|/ Gargoyle                │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /\, Gnome - press 1        │▒│/|/ Gargoyle                │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£ (average melee unit)    │▒░▒               ");
             Console.WriteLine(@"▒░▒│ rr                         │▒│rr)                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /Σ, Gnight                 │▒│◢║◣ Gardgoyle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /Σ, Gnight - press 2       │▒│◢║◣ Gardgoyle               │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│ΘxΘ (tanky melee unit)      │▒░▒               ");
             Console.WriteLine(@"▒░▒│ l l                        │▒│¿:¥                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /^\ Gnomagician            │▒│\]\ Gargurgle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomagician - press 3  │▒│\]\ Gargurgle               │▒░▒               ");
             Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│Θ⩌Θ (ranged unit)           │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ¥:¥                        │▒│(+≡                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
@@ -479,6 +481,7 @@ class GridShell
             DrawGizards(); //Draws the Gizards
             DrawGnights(); //Draws the Gnights
             DrawProjectiles(); //Draws the Projectiles
+            DrawEnemyProjectiles(); //Draws enemy's projectiles;
             DrawSockPiles(); //Draws sock piles
 
 
@@ -1333,6 +1336,332 @@ class GridShell
         return p;
     }
 
+    public static EnemyProjectile SpawnEnemyProjectile(int lane, int stage)
+    {
+        var p = new EnemyProjectile(lane, stage);
+        enemyProjectiles.Add(p);
+        return p;
+    }
+
+    static void DrawEnemyProjectiles()
+    {
+        foreach (var p in enemyProjectiles)
+        {
+
+            p.Stage++;
+            if (p.Lane == 1)
+            {
+                if (p.Stage == 1)
+                {
+                    Row7[2] = '▲';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row7[2] = '▲';
+                    Row8[1] = '◢'; Row8[2] = '█'; Row8[3] = '◣';
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 1 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 1 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 1 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                }
+                else if (p.Stage == 3)
+                {
+                    Row7[2] = '▲';
+                    Row8[1] = '◢'; Row8[2] = '█'; Row8[3] = '◣';
+                    Row9[1] = '█'; Row9[2] = '█'; Row9[3] = '█';
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 1 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 1 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 1 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                }
+                else if (p.Stage == 4)
+                {
+
+                    Row7[2] = '▲';
+                    Row8[1] = '◢'; Row8[2] = '█'; Row8[3] = '◣';
+                    Row9[1] = '█'; Row9[2] = '█'; Row9[3] = '█';
+                    Row10[1] = '█'; Row10[2] = '█'; Row10[3] = '█';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[2] = '▲';
+                    Row8[1] = '◢'; Row8[2] = '█'; Row8[3] = '◣';
+                    Row9[1] = '█'; Row9[2] = '█'; Row9[3] = '█';
+                    Row10[1] = '█'; Row10[2] = '█'; Row10[3] = '█';
+                    Row11[1] = '█'; Row11[2] = '█'; Row11[3] = '█';
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 1 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 1 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 1 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                }
+                else if (p.Stage >= 6)
+                {
+                    Row7[2] = '▲';
+                    Row8[1] = '◢'; Row8[2] = '█'; Row8[3] = '◣';
+                    Row9[1] = '█'; Row9[2] = '█'; Row9[3] = '█';
+                    Row10[1] = '█'; Row10[2] = '█'; Row10[3] = '█';
+                    Row11[1] = '█'; Row11[2] = '█'; Row11[3] = '█';
+                    Row11[1] = '█'; Row11[2] = '█'; Row11[3] = '█'; //+16
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 1 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 1 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 1 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[5];
+                        }
+                    }
+
+                }
+
+
+            }
+            else if (p.Lane == 5)
+            {
+                if (p.Stage == 1)
+                {
+                    Row7[18] = '▲';
+                }
+                else if (p.Stage == 2)
+                {
+                    Row7[18] = '▲';
+                    Row8[17] = '◢'; Row8[18] = '█'; Row8[19] = '◣';
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 5 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 5 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 5 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                }
+                else if (p.Stage == 3)
+                {
+                    Row7[18] = '▲';
+                    Row8[17] = '◢'; Row8[18] = '█'; Row8[19] = '◣';
+                    Row9[17] = '█'; Row9[18] = '█'; Row9[19] = '█';
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 5 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 5 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 5 && g.Row == 3)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                }
+                else if (p.Stage == 4)
+                {
+
+                    Row7[18] = '▲';
+                    Row8[17] = '◢'; Row8[18] = '█'; Row8[19] = '◣';
+                    Row9[17] = '█'; Row9[18] = '█'; Row9[19] = '█';
+                    Row10[17] = '█'; Row10[18] = '█'; Row10[19] = '█';
+                }
+                else if (p.Stage == 5)
+                {
+                    Row7[18] = '▲';
+                    Row8[17] = '◢'; Row8[18] = '█'; Row8[19] = '◣';
+                    Row9[17] = '█'; Row9[18] = '█'; Row9[19] = '█';
+                    Row10[17] = '█'; Row10[18] = '█'; Row10[19] = '█';
+                    Row11[17] = '█'; Row11[18] = '█'; Row11[19] = '█';
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 5 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 5 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 5 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                }
+                else if (p.Stage >= 6)
+                {
+                    Row7[18] = '▲';
+                    Row8[17] = '◢'; Row8[18] = '█'; Row8[19] = '◣';
+                    Row9[17] = '█'; Row9[18] = '█'; Row9[19] = '█';
+                    Row10[17] = '█'; Row10[18] = '█'; Row10[19] = '█';
+                    Row11[17] = '█'; Row11[18] = '█'; Row11[19] = '█';
+                    Row11[17] = '█'; Row11[18] = '█'; Row11[19] = '█'; // +16
+                    foreach (var g in gnomes)
+                    {
+                        if (g.Lane == 5 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gnights)
+                    {
+                        if (g.Lane == 5 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+                    foreach (var g in gizards)
+                    {
+                        if (g.Lane == 5 && g.Row == 4)
+                        {
+                            p.hasHit = true;
+                            Audio.Play("gnome_hurt");
+                            g.Health -= gargDamage[9];
+                        }
+                    }
+
+                }
+            }
+
+
+        }
+    }
+
+
+
     static void DrawBar()
     { 
         if (cooldown == 1)
@@ -1434,6 +1763,8 @@ class GridShell
 
     }
 
+
+
     static void DrawSockPiles()
     {
         if (!sockPileCollected[0])
@@ -1468,7 +1799,9 @@ class GridShell
         }
     }
 
-        static void DrawGargoyles()
+
+
+     static void DrawGargoyles()
     {
         if (gargHealth[0] <= 0)
         {
@@ -2387,11 +2720,10 @@ class GridShell
                     if (gargIsAlive[5])
                     {
                         gargAttackTimer[5]++;
-                        if (gargAttackTimer[5] >= gargAttackMax)
+                        if (gargAttackTimer[5] >= (gargAttackMax+2))
                         {
                             gargAttackTimer[5] = 0;
-                            g.Health -= gargDamage[5];
-                            Audio.Play("gnome_hurt");
+                            SpawnEnemyProjectile(1, 0);
                         }
                     }
                 }
@@ -2405,6 +2737,15 @@ class GridShell
                     Row12[1] = 'o';
                     Row12[2] = 'u';
                     Row12[3] = '0';
+                    if (gargIsAlive[5])
+                    {
+                        gargAttackTimer[5]++;
+                        if (gargAttackTimer[5] >= (gargAttackMax))
+                        {
+                            gargAttackTimer[5] = 0;
+                            SpawnEnemyProjectile(1, 0);
+                        }
+                    }
                 }
                 else if (g.Row == 5)
                 {
@@ -2874,11 +3215,10 @@ class GridShell
                     if (gargIsAlive[9])
                     {
                         gargAttackTimer[9]++;
-                        if (gargAttackTimer[9] >= gargAttackMax)
+                        if (gargAttackTimer[9] >= (gargAttackMax + 2))
                         {
                             gargAttackTimer[9] = 0;
-                            g.Health -= gargDamage[9];
-                            Audio.Play("gnome_hurt");
+                            SpawnEnemyProjectile(5, 0);
                         }
                     }
                 }
@@ -2892,6 +3232,15 @@ class GridShell
                     Row12[17] = 'o';
                     Row12[18] = 'u';
                     Row12[19] = '0';
+                    if (gargIsAlive[9])
+                    {
+                        gargAttackTimer[9]++;
+                        if (gargAttackTimer[9] >= (gargAttackMax))
+                        {
+                            gargAttackTimer[9] = 0;
+                            SpawnEnemyProjectile(5, 0);
+                        }
+                    }
                 }
                 else if (g.Row == 5)
                 {
@@ -3006,11 +3355,10 @@ class GridShell
                     if (gargIsAlive[5])
                     {
                         gargAttackTimer[5]++;
-                        if (gargAttackTimer[5] >= gargAttackMax)
+                        if (gargAttackTimer[5] >= (gargAttackMax + 2))
                         {
                             gargAttackTimer[5] = 0;
-                            g.Health -= gargDamage[5];
-                            Audio.Play("gnome_hurt");
+                            SpawnEnemyProjectile(1, 0);
                         }
                     }
                 }
@@ -3024,6 +3372,15 @@ class GridShell
                     Row12[1] = 'ò';
                     Row12[2] = '∩';
                     Row12[3] = 'ó';
+                    if (gargIsAlive[5])
+                    {
+                        gargAttackTimer[5]++;
+                        if (gargAttackTimer[5] >= (gargAttackMax))
+                        {
+                            gargAttackTimer[5] = 0;
+                            SpawnEnemyProjectile(1, 0);
+                        }
+                    }
                 }
                 else if (g.Row == 5)
                 {
@@ -3493,11 +3850,10 @@ class GridShell
                     if (gargIsAlive[9])
                     {
                         gargAttackTimer[9]++;
-                        if (gargAttackTimer[9] >= gargAttackMax)
+                        if (gargAttackTimer[9] >= (gargAttackMax + 2))
                         {
                             gargAttackTimer[9] = 0;
-                            g.Health -= gargDamage[9];
-                            Audio.Play("gnome_hurt");
+                            SpawnEnemyProjectile(5, 0);
                         }
                     }
                 }
@@ -3511,6 +3867,15 @@ class GridShell
                     Row12[17] = 'ò';
                     Row12[18] = '∩';
                     Row12[19] = 'ó';
+                    if (gargIsAlive[9])
+                    {
+                        gargAttackTimer[9]++;
+                        if (gargAttackTimer[9] >= (gargAttackMax))
+                        {
+                            gargAttackTimer[9] = 0;
+                            SpawnEnemyProjectile(5, 0);
+                        }
+                    }
                 }
                 else if (g.Row == 5)
                 {
@@ -3623,11 +3988,10 @@ class GridShell
                     if (gargIsAlive[5])
                     {
                         gargAttackTimer[5]++;
-                        if (gargAttackTimer[5] >= gargAttackMax)
+                        if (gargAttackTimer[5] >= (gargAttackMax + 2))
                         {
                             gargAttackTimer[5] = 0;
-                            g.Health -= gargDamage[5];
-                            Audio.Play("gnome_hurt");
+                            SpawnEnemyProjectile(1, 0);
                         }
                     }
                 }
@@ -3641,6 +4005,15 @@ class GridShell
                     Row12[1] = '0';
                     Row12[2] = '¬';
                     Row12[3] = '0';
+                    if (gargIsAlive[5])
+                    {
+                        gargAttackTimer[5]++;
+                        if (gargAttackTimer[5] >= (gargAttackMax))
+                        {
+                            gargAttackTimer[5] = 0;
+                            SpawnEnemyProjectile(1, 0);
+                        }
+                    }
                 }
                 else if (g.Row == 5)
                 {
@@ -4107,11 +4480,10 @@ class GridShell
                     if (gargIsAlive[9])
                     {
                         gargAttackTimer[9]++;
-                        if (gargAttackTimer[9] >= gargAttackMax)
+                        if (gargAttackTimer[9] >= (gargAttackMax + 2))
                         {
                             gargAttackTimer[9] = 0;
-                            g.Health -= gargDamage[9];
-                            Audio.Play("gnome_hurt");
+                            SpawnEnemyProjectile(5, 0);
                         }
                     }
                 }
@@ -4125,6 +4497,15 @@ class GridShell
                     Row12[17] = '0';
                     Row12[18] = '¬';
                     Row12[19] = '0';
+                    if (gargIsAlive[9])
+                    {
+                        gargAttackTimer[9]++;
+                        if (gargAttackTimer[9] >= (gargAttackMax))
+                        {
+                            gargAttackTimer[9] = 0;
+                            SpawnEnemyProjectile(5, 0);
+                        }
+                    }
                 }
                 else if (g.Row == 5)
                 {
