@@ -22,12 +22,16 @@ class GridShell
     static int laneFlashing;
     static int gnomePlacing;
 
+    static int gnomeDamage = 3;
+    static int gnightDamage = 2;
+    static int gizardDamage = 3;
     static int moveTimer; 
     static int gizardMoveTimer;
     static int gnightMoveTimer;
     static int movePeriod = 4;
     static int gizardMovePeriod = 2;
     static int gnightMovePeriod = 6;
+
     static int tickTimer;
     static int enemyCount = 10;
     static int level = 1;
@@ -139,6 +143,7 @@ class GridShell
                 g.IsAlive = false;
             }
         }
+
         gnomes.RemoveAll(g => !g.IsAlive);
 
         if (!isPlaying && !hasLost && !hasWon)
@@ -202,9 +207,113 @@ class GridShell
             {
                 foreach (var g in gnomes.Where(x => x.IsAlive))
                 {
-                    moveTimer = 0;
-                    g.Row--;
-                    Audio.Play("foot_step");
+                    if (g.Row >= 4)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && gargIsAlive[6] && g.Lane == 1)
+                    {
+                        gargHealth[6] -= gnomeDamage;
+                    }
+                    else if (g.Row == 3 && gargIsAlive[7] && g.Lane == 2)
+                    {
+                        gargHealth[7] -= gnomeDamage;
+                    }
+                    else if (g.Row == 3 && gargIsAlive[8] && g.Lane == 3)
+                    {
+                        gargHealth[8] -= gnomeDamage;
+                    }
+                    else if (g.Row == 3 && gargIsAlive[9] && g.Lane == 4)
+                    {
+                        gargHealth[9] -= gnomeDamage;
+                    }
+                    else if (g.Row == 3 && gargIsAlive[10] && g.Lane == 5)
+                    {
+                        gargHealth[10] -= gnomeDamage;
+                    }
+                    else if (g.Row == 2 && gargIsAlive[1] && g.Lane == 1)
+                    {
+                        gargHealth[1] -= gnomeDamage;
+                    }
+                    else if (g.Row == 2 && gargIsAlive[2] && g.Lane == 2)
+                    {
+                        gargHealth[2] -= gnomeDamage;
+                    }
+                    else if (g.Row == 2 && gargIsAlive[3] && g.Lane == 3)
+                    {
+                        gargHealth[3] -= gnomeDamage;
+                    }
+                    else if (g.Row == 2 && gargIsAlive[4] && g.Lane == 4)
+                    {
+                        gargHealth[4] -= gnomeDamage;
+                    }
+                    else if (g.Row == 2 && gargIsAlive[5] && g.Lane == 5)
+                    {
+                        gargHealth[5] -= gnomeDamage;
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[6] && g.Lane == 1)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[7] && g.Lane == 2)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[8] && g.Lane == 3)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[9] && g.Lane == 4)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 3 && !gargIsAlive[10] && g.Lane == 5)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[1] && g.Lane == 1)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[2] && g.Lane == 2)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[3] && g.Lane == 3)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[4] && g.Lane == 4)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+                    else if (g.Row == 2 && !gargIsAlive[5] && g.Lane == 5)
+                    {
+                        moveTimer = 0;
+                        g.Row--;
+                        Audio.Play("foot_step");
+                    }
+
                 }
             }
 
@@ -224,7 +333,14 @@ class GridShell
                         //INSERT RANGED ATTACK CODE HERE
                         if (g.Lane == 1)
                         {
+                            if (gargIsAlive[6])
+                            {
 
+                            }
+                            else if (gargIsAlive[1])
+                            {
+
+                            }
                         }
                         else if (g.Lane == 2)
                         {
@@ -646,10 +762,35 @@ class GridShell
         return g;
     }
 
+
+
+
     static void DrawGargoyles()
     {
-        
+        if (gargHealth[1] <= 0) gargIsAlive[1] = false;
+        if (gargHealth[2] <= 0) gargIsAlive[2] = false;
+        if (gargHealth[3] <= 0) gargIsAlive[3] = false;
+        if (gargHealth[4] <= 0) gargIsAlive[4] = false;
+        if (gargHealth[5] <= 0) gargIsAlive[5] = false;
+        if (gargHealth[6] <= 0) gargIsAlive[6] = false;
+        if (gargHealth[7] <= 0) gargIsAlive[7] = false;
+        if (gargHealth[8] <= 0) gargIsAlive[8] = false;
+        if (gargHealth[9] <= 0) gargIsAlive[9] = false;
+        if (gargHealth[10] <= 0) gargIsAlive[10] = false;
+        if (gargHealth[11] <= 0) gargIsAlive[11] = false;
+        if (gargHealth[12] <= 0) gargIsAlive[12] = false;
+        if (gargHealth[13] <= 0) gargIsAlive[13] = false;
+        if (gargHealth[14] <= 0) gargIsAlive[14] = false;
+        if (gargHealth[15] <= 0) gargIsAlive[15] = false;
+
+
+
+
+
     }
+
+
+
 
 
     static void DrawGnomes()
