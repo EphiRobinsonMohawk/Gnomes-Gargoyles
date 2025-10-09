@@ -8,7 +8,7 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-    static int[] sockPileAmmounts = { 16, 16, 8 };
+    static int[] sockPileAmmounts = { 12, 12, 6 };
     static bool[] sockPileCollected = { false, false, false };
     static float gargAttackMax = 3;
     static int[] enemyCounter = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -501,8 +501,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[2] -= 8;
-                                socks += 8;
+                                sockPileAmmounts[2] -= 6;
+                                socks += 6;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -515,8 +515,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[0] -= 8;
-                                socks += 8;
+                                sockPileAmmounts[0] -= 6;
+                                socks += 6;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -529,8 +529,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[1] -= 8;
-                                socks += 8;
+                                sockPileAmmounts[1] -= 6;
+                                socks += 6;
                                 Audio.Play("misc_sound");
                             }
                     }
