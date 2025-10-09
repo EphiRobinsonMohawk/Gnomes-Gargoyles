@@ -7,6 +7,7 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
+    static int[] gargDamage = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
     static int[] gargHealth = { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}; //Array of gargoyles health stats
     static bool[] gargIsAlive = { true, true, true, true, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
     //gargoyle    0, 1, 2, 3, 4
@@ -161,7 +162,13 @@ class GridShell
             }
         }
 
+        projectiles.RemoveAll(p => p.hasHit);
+
         gnomes.RemoveAll(g => !g.IsAlive);
+
+        gizards.RemoveAll(g => !g.IsAlive);
+
+        gnights.RemoveAll(g => !g.IsAlive);
 
         if (!isPlaying && !hasLost && !hasWon)
         {
@@ -177,18 +184,18 @@ class GridShell
             Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
             Console.WriteLine(@"▒░▒│ /\, Gnome                  │▒│/[/ Gaurdgoyle              │▒░▒");
-            Console.WriteLine(@"▒░▒│ σ σ                        │▒│ΘΘ£                         │▒░▒");
-            Console.WriteLine(@"▒░▒│ ∙O∙                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£                         │▒░▒");
+            Console.WriteLine(@"▒░▒│ rr)                        │▒│                            │▒░▒");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
-            Console.WriteLine(@"▒░▒│ /E, Gnight                 │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ ò ó                        │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ °O°                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ /Σ, Gnight                 │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ (+≡                        │▒│                            │▒░▒");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
             Console.WriteLine(@"▒░▒│ /^\ Gnomagician            │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ u u                        │▒│                            │▒░▒");
-            Console.WriteLine(@"▒░▒│ /:\                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ ¿:¥                        │▒│                            │▒░▒");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
             Console.WriteLine(@"░░░                                                             ░░░");
             Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒");
@@ -1005,11 +1012,57 @@ class GridShell
                     if (gargIsAlive[5])
                     {
                         p.hasHit = true;
+                        gargHealth[5] -= 1;
+                        Audio.Play("gargoyle_pain");
                     }
                     else if (!gargIsAlive[5])
                     {
                         Row6[2] = '¤';
                     }
+                }
+                else if (p.Stage == 6)
+                {
+                    Row6[2] = ' ';
+                    Row5[2] = '¤';
+                }
+                else if (p.Stage == 7)
+                {
+                    Row6[2] = ' ';
+                    Row5[2] = '¤';
+                }
+                else if (p.Stage == 8)
+                {
+                    Row5[2] = ' ';
+                    Row4[2] = '¤';
+                }
+                else if (p.Stage == 9)
+                {
+                    Row4[2] = '-';
+                    if (gargIsAlive[0])
+                    {
+                        p.hasHit = true;
+                        gargHealth[0] -= 1;
+                        Audio.Play("gargoyle_pain");
+                    }
+                    else if (!gargIsAlive[0])
+                    {
+                        Row3[2] = '¤';
+                    }
+                }
+                else if (p.Stage == 10)
+                {
+                    Row3[2] = ' ';
+                    Row2[2] = '¤';
+                }
+                else if (p.Stage == 11)
+                {
+                    Row2[2] = ' ';
+                    Row1[2] = '¤';
+                }
+                else if (p.Stage == 12)
+                {
+                    Row1[2] = '-';
+                    p.hasHit = true;
                 }
 
             }
