@@ -6,7 +6,7 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-    static bool isPlaying = true;
+    static bool isPlaying = false;
 
     static int moveTimer;
     static int movePeriod = 4;
@@ -79,8 +79,8 @@ class GridShell
     //============$$$$$$$======================
     static void Start()
     {
+        
 
-        //spawn Gargoyles here
     }
 
     static void Main()
@@ -103,9 +103,45 @@ class GridShell
     static void Update()
     {
         Console.SetCursorPosition(0, 0);
-
-        
-
+        if (!isPlaying)
+        {
+            Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██");
+            Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█");
+            Console.WriteLine(@"▓▓▓▓▓▒▒▒░░░░░░░░░░░░░░█░█▒█░█▒█░█▒█▒█▒█▀▀▒▀▀█░░░░░░░░░░░░░░▒▒▒▓▓▓▓▓");
+            Console.WriteLine(@"▓▓▓▓▓▒▒░░░░░░░░░░░░░░░▀▀▀▒▀▒▀▒▀▀▀▒▀▒▀▒▀▀▀▒▀▀▀░░░░░░░░░░░░░░░▒▒▓▓▓▓▓");
+            Console.WriteLine(@"▓▓▓▒▒▒░░░░░                  ░░▒▄▀▒░░░                  ░░░░░▒▒▒▓▓▓");
+            Console.WriteLine(@"▒▒▒▒▒░░░░░                   ░░▒▄█▀▒░░                   ░░░░░▒▒▒▒▒");
+            Console.WriteLine(@"▒░░░░░░░                     ░░░▒▀▀▒░░                     ░░░░░░░▒");
+            Console.WriteLine(@"░░░░░          ░█▀▀░█▀█░█▀▄░█▀▀░█▀█░█░█░█░▒░█▀▀░█▀▀░          ░░░░░");
+            Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░");
+            Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
+            Console.WriteLine(@"▒░▒│ /\, Gnimble Gnome          │▒│/[/ Gaurdgoyle              │▒░▒");
+            Console.WriteLine(@"▒░▒│ σ σ                        │▒│ΘΘ£                         │▒░▒");
+            Console.WriteLine(@"▒░▒│ ∙O∙                        │▒│                            │▒░▒");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
+            Console.WriteLine(@"▒░▒│ /E, Gnight Gnome           │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ ò ó                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ °O°                        │▒│                            │▒░▒");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
+            Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomage/Gnomagician    │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ u u                        │▒│                            │▒░▒");
+            Console.WriteLine(@"▒░▒│ /:\                        │▒│                            │▒░▒");
+            Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░");
+            Console.WriteLine(@"░░░                                                             ░░░");
+            Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒");
+            Console.WriteLine("");
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    isPlaying = true;
+                }
+            }
+        }
 
 
         if (isPlaying)
