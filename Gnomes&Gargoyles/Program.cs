@@ -8,9 +8,9 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-    static int[] sockPileAmmounts = { 12, 12, 6 };
+    static int[] sockPileAmmounts = { 12, 12, 8 };
     static bool[] sockPileCollected = { false, false, false };
-    static float gargAttackMax = 3;
+    static float gargAttackMax = 4;
     static int[] enemyCounter = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static float[] gargAttackTimer = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     static int[] dropValue = { 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2 };
@@ -24,6 +24,7 @@ class GridShell
     static int cooldown = 8;
     static bool cooldownReady = true;
 
+    static bool isPage2 = false;
     static bool isPlaying = false;
     static bool hasLost = false;
     static bool hasWon = false;
@@ -401,7 +402,7 @@ class GridShell
 
         gnights.RemoveAll(g => !g.IsAlive);
 
-        if (!isPlaying && !hasLost && !hasWon)
+        if (!isPlaying && !hasLost && !hasWon && !isPage2)
         {
             Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██               ");
             Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█               ");
@@ -414,22 +415,22 @@ class GridShell
             Console.WriteLine(@"░░░            ░█░█▒█▀█▒█▀▄▒█░█▒█░█▒░█░▒█▒▒▒█▀▀▒▀▀█░            ░░░               ");
             Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /\, Gnome - press 1        │▒│/|/ Gargoyle                │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /\, Gnome: 4 socks ß       │▒│/|/ Gargoyle                │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£ (average melee unit)    │▒░▒               ");
             Console.WriteLine(@"▒░▒│ rr                         │▒│rr)                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /Σ, Gnight - press 2       │▒│◢║◣ Gardgoyle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /Σ, Gnight: 6 socks ß      │▒│◢║◣ Gardgoyle               │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│ΘxΘ (tanky melee unit)      │▒░▒               ");
             Console.WriteLine(@"▒░▒│ l l                        │▒│¿:¥                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /^\ Gnomagician - press 3  │▒│\]\ Gargurgle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomagician: 10 socks ß│▒│\]\ Gargurgle               │▒░▒               ");
             Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│Θ⩌Θ (ranged unit)           │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ¥:¥                        │▒│(+≡                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░░░                                                             ░░░               ");
-            Console.WriteLine(@"▒░░░                   !Press Space to Play!                   ░░░▒               ");
+            Console.WriteLine(@"▒░░░                  -Press Space to Proceed-                 ░░░▒               ");
             Console.WriteLine("                                                                                   ");
             Console.WriteLine("                                                                                   ");
             if (Console.KeyAvailable)
@@ -437,10 +438,53 @@ class GridShell
                 var key = Console.ReadKey(intercept: true);
                 if (key.Key == ConsoleKey.Spacebar)
                 {
-                    isPlaying = true;
+                    isPage2 = true;
                     Audio.Play("hit_sound");
                 }
                 
+            }
+        }
+        else if (!isPlaying && !hasLost && !hasWon && isPage2)
+        {
+            Console.WriteLine(@"     x     .    +              .                      °                               ");
+            Console.WriteLine(@"  ┼                                         .                  +    x   .      °      ");
+            Console.WriteLine(@" °   æ╒════════════════════════════════════════════════════════════════════════╕æ     ");
+            Console.WriteLine(@"   æ╒════════════════════════════════════════════════════════════════════════════╕æ   ");
+            Console.WriteLine(@"   ╒╛▓ ░The Gnome Kings royal treasury of socks once served as the foundation░  ▓╘╕ X ");
+            Console.WriteLine(@" . │▓ ▒       ░for the development and prosperity in the gnome kingdom░        ▒ ▓│   ");
+            Console.WriteLine(@"   ║ ▒       ░But in their ever watchful stone-cold gaze, the Gargoyles░        ▒ ║  .");
+            Console.WriteLine(@"   ║                 ░stuck to their Stone Age ways, serving to░                  ║   ");
+            Console.WriteLine(@"   ║                 ░deny the growth of the gnome kings empire░                  ║   ");
+            Console.WriteLine(@"   ║                                                                              ║°  ");
+            Console.WriteLine(@"   ║         ░The gargoyles employ a daring raid on the royal treasury,░          ║   ");
+            Console.WriteLine(@"   ║     ░stealing a large sum of socks from the humble gnomish people and░       ║   ");
+            Console.WriteLine(@"  °║                   ░crippling their retaliatory efforts.░                     ║ . ");
+            Console.WriteLine(@"   ║                                                                              ║   ");
+            Console.WriteLine(@"   ║░In a desperate effort to recover the lost treasure and stabilize his kingdom░║   ");
+            Console.WriteLine(@"   ║       ░Gnomus the King has deployed the remaining gnome warriors to░         ║  °");
+            Console.WriteLine(@"° .║ ░retrieve any remaining socks from the gargoyles before their dusty talons░  ║   ");
+            Console.WriteLine(@"   ║        ░ruin the fresh laundry. All pairs must be accounted for and░         ║   ");
+            Console.WriteLine(@".  ║ ▒               ░will be utilized towards the war effort.░                 ▒ ║   ");
+            Console.WriteLine(@"   │▓ ▒                                                                        ▒ ▓│.  ");
+            Console.WriteLine(@"   ╘╕▓                      = Crack them to dust, hero. =                       ▓╒╛   ");
+            Console.WriteLine(@"   æ╘════════════════════════════════════════════════════════════════════════════╛æ   ");
+            Console.WriteLine(@"     æ╘════════════════════════════════════════════════════════════════════════╛æ     ");
+            Console.WriteLine(@"         .     +                   ~Space To Begin~      °            .        x      ");
+            Console.WriteLine(@"                                       Controls:                                      ");
+            Console.WriteLine(@"                                1-2-3 to select a gnome                               ");
+            Console.WriteLine(@"                                 ←  → to move the gnome                               ");
+            Console.WriteLine(@"                               Space to place the gnome                               ");
+
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    isPlaying = true;
+                    isPage2 = false;
+                    Audio.Play("hit_sound");
+                }
+
             }
         }
 
@@ -507,8 +551,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[2] -= 6;
-                                socks += 6;
+                                sockPileAmmounts[2] -= 4;
+                                socks += 4;
                                 Audio.Play("misc_sound");
                             }
                     }
