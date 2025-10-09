@@ -917,124 +917,145 @@ class GridShell
             }
 
             //Gnome spawning input
-            if (Console.KeyAvailable)
-            {
-                var key = Console.ReadKey(intercept: true);
-                if (key.Key == ConsoleKey.D1 || key.Key == ConsoleKey.NumPad1)
+            
+                if (Console.KeyAvailable)
                 {
-                    isPlacing = true;
-                    gnomePlacing = 1;
-                }
-                if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
-                {
-                    isPlacing = true;
-                    gnomePlacing = 2;
-                }
-                if (key.Key == ConsoleKey.D3 || key.Key == ConsoleKey.NumPad3)
-                {
-                    isPlacing = true;
-                    gnomePlacing = 3;
-                }
-
-                if (key.Key == ConsoleKey.Spacebar && isPlacing == true || key.Key == ConsoleKey.Enter && isPlacing == true)
-                {
-                    if (gnomePlacing == 1 && socks >= 4)
+                        var key = Console.ReadKey(intercept: true);
+                        if (key.Key == ConsoleKey.D1 || key.Key == ConsoleKey.NumPad1)
+                        {
+                            if (cooldownReady)
+                             {
+                                  isPlacing = true;
+                                  gnomePlacing = 1;
+                             }
+                        }
+                        if (key.Key == ConsoleKey.D2 || key.Key == ConsoleKey.NumPad2)
+                        {
+                    if (cooldownReady)
                     {
-                        isPlacing = false;
-                        socks -= 4;
-                        SpawnGnome(laneSelecting, 9, 3);
-                        Audio.Play("place");
-                    }
-                    if (gnomePlacing == 2 && socks >= 6)
-                    {
-                        isPlacing = false;
-                        socks -= 6;
-                        SpawnGnight(laneSelecting, 9, 3);
-                        Audio.Play("place");
-                    }
-                    if (gnomePlacing == 3 && socks >= 10)
-                    {
-                        isPlacing = false;
-                        socks -= 10;
-                        SpawnGizard(laneSelecting, 9, 5);
-                        Audio.Play("gnome_laugh");
+                        isPlacing = true;
+                        gnomePlacing = 2;
                     }
                 }
-                if (key.Key == ConsoleKey.R)
-                {
-                    ResetGame();
+                        if (key.Key == ConsoleKey.D3 || key.Key == ConsoleKey.NumPad3)
+                        {
+                    if (cooldownReady)
+                    {
+                        isPlacing = true;
+                        gnomePlacing = 3;
+                    }
                 }
+                    
+                    
 
-                if (key.Key == ConsoleKey.LeftArrow && laneSelecting > 1)
-                {
-                    laneSelecting--;
-                    Row27[1] = ' ';
-                    Row27[2] = ' ';
-                    Row27[3] = ' ';
-                    Row26[1] = ' ';
-                    Row26[2] = ' ';
-                    Row26[3] = ' ';
-                    Row27[5] = ' ';
-                    Row27[6] = ' ';
-                    Row27[7] = ' ';
-                    Row26[5] = ' ';
-                    Row26[6] = ' ';
-                    Row26[7] = ' ';
-                    Row27[9] = ' ';
-                    Row27[10] = ' ';
-                    Row27[11] = ' ';
-                    Row26[9] = ' ';
-                    Row26[10] = ' ';
-                    Row26[11] = ' ';
-                    Row27[13] = ' ';
-                    Row27[14] = ' ';
-                    Row27[15] = ' ';
-                    Row26[13] = ' ';
-                    Row26[14] = ' ';
-                    Row26[15] = ' ';
-                    Row27[17] = ' ';
-                    Row27[18] = ' ';
-                    Row27[19] = ' ';
-                    Row26[17] = ' ';
-                    Row26[18] = ' ';
-                    Row26[19] = ' ';
-                }
+                    if (key.Key == ConsoleKey.Spacebar && isPlacing == true || key.Key == ConsoleKey.Enter && isPlacing == true)
+                    {
+                        if (gnomePlacing == 1 && socks >= 4)
+                        {
+                            isPlacing = false;
+                            socks -= 4;
+                            SpawnGnome(laneSelecting, 9, 3);
+                            Audio.Play("place");
+                            cooldownReady = false;
+                            cooldown = 0;
+                        }
+                        if (gnomePlacing == 2 && socks >= 6)
+                        {
+                            isPlacing = false;
+                            socks -= 6;
+                            SpawnGnight(laneSelecting, 9, 3);
+                            Audio.Play("place");
+                            cooldownReady = false;
+                            cooldown = 0;
+                        }
+                        if (gnomePlacing == 3 && socks >= 10)
+                        {
+                            isPlacing = false;
+                            socks -= 10;
+                            SpawnGizard(laneSelecting, 9, 5);
+                            Audio.Play("gnome_laugh");
+                            cooldownReady = false;
+                            cooldown = 0;
+                        }
+                    }
+                    if (key.Key == ConsoleKey.R)
+                    {
+                        ResetGame();
+                    }
 
-                if (key.Key == ConsoleKey.RightArrow && laneSelecting < 5)
-                {
-                    laneSelecting++;
-                    Row26[1] = ' ';
-                    Row26[2] = ' ';
-                    Row26[3] = ' ';
-                    Row27[1] = ' ';
-                    Row27[2] = ' ';
-                    Row27[3] = ' ';
-                    Row26[5] = ' ';
-                    Row26[6] = ' ';
-                    Row26[7] = ' ';
-                    Row27[5] = ' ';
-                    Row27[6] = ' ';
-                    Row27[7] = ' ';
-                    Row26[9] = ' ';
-                    Row26[10] = ' ';
-                    Row26[11] = ' ';
-                    Row27[9] = ' ';
-                    Row27[10] = ' ';
-                    Row27[11] = ' ';
-                    Row26[13] = ' ';
-                    Row26[14] = ' ';
-                    Row26[15] = ' ';
-                    Row27[13] = ' ';
-                    Row27[14] = ' ';
-                    Row27[15] = ' ';
-                    Row26[17] = ' ';
-                    Row26[18] = ' ';
-                    Row26[19] = ' ';
-                    Row27[17] = ' ';
-                    Row27[18] = ' ';
-                    Row27[19] = ' ';
+                    if (key.Key == ConsoleKey.LeftArrow && laneSelecting > 1)
+                    {
+                        laneSelecting--;
+                        Row27[1] = ' ';
+                        Row27[2] = ' ';
+                        Row27[3] = ' ';
+                        Row26[1] = ' ';
+                        Row26[2] = ' ';
+                        Row26[3] = ' ';
+                        Row27[5] = ' ';
+                        Row27[6] = ' ';
+                        Row27[7] = ' ';
+                        Row26[5] = ' ';
+                        Row26[6] = ' ';
+                        Row26[7] = ' ';
+                        Row27[9] = ' ';
+                        Row27[10] = ' ';
+                        Row27[11] = ' ';
+                        Row26[9] = ' ';
+                        Row26[10] = ' ';
+                        Row26[11] = ' ';
+                        Row27[13] = ' ';
+                        Row27[14] = ' ';
+                        Row27[15] = ' ';
+                        Row26[13] = ' ';
+                        Row26[14] = ' ';
+                        Row26[15] = ' ';
+                        Row27[17] = ' ';
+                        Row27[18] = ' ';
+                        Row27[19] = ' ';
+                        Row26[17] = ' ';
+                        Row26[18] = ' ';
+                        Row26[19] = ' ';
+                    }
+
+                    if (key.Key == ConsoleKey.RightArrow && laneSelecting < 5)
+                    {
+                        laneSelecting++;
+                        Row26[1] = ' ';
+                        Row26[2] = ' ';
+                        Row26[3] = ' ';
+                        Row27[1] = ' ';
+                        Row27[2] = ' ';
+                        Row27[3] = ' ';
+                        Row26[5] = ' ';
+                        Row26[6] = ' ';
+                        Row26[7] = ' ';
+                        Row27[5] = ' ';
+                        Row27[6] = ' ';
+                        Row27[7] = ' ';
+                        Row26[9] = ' ';
+                        Row26[10] = ' ';
+                        Row26[11] = ' ';
+                        Row27[9] = ' ';
+                        Row27[10] = ' ';
+                        Row27[11] = ' ';
+                        Row26[13] = ' ';
+                        Row26[14] = ' ';
+                        Row26[15] = ' ';
+                        Row27[13] = ' ';
+                        Row27[14] = ' ';
+                        Row27[15] = ' ';
+                        Row26[17] = ' ';
+                        Row26[18] = ' ';
+                        Row26[19] = ' ';
+                        Row27[17] = ' ';
+                        Row27[18] = ' ';
+                        Row27[19] = ' ';
+                    }
                 }
-            }
+            
+            
+            
 
             if (isPlacing)
             {
@@ -1178,14 +1199,14 @@ class GridShell
             Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row18)); Console.WriteLine("║▐▓▓▒░░ <██          ");
             Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row19)); Console.WriteLine("║▐▓▓▒░░ <██          ");
             Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
-            Console.Write("     C║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
-            Console.Write("     O║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
-            Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║Press  ↓Recruit║");
-            Console.Write("     L║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║╔|1|╗╔|2|╗╔|3|╗║");
-            Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ /\\,  /Σ,  /^\\ ║");
-            Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ouo  ò∩ó  0¬0 ║");
-            Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»4 «ß»6 «ß»10║");
+            Console.Write($"     C║{cooldownCharacters[0]}║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
+            Console.Write($"     O║{cooldownCharacters[1]}║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
+            Console.Write($"     O║{cooldownCharacters[2]}║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║PressTo↓Recruit║");
+            Console.Write($"     L║{cooldownCharacters[3]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║╔|1|╗╔|2|╗╔|3|╗║");
+            Console.Write($"     D║{cooldownCharacters[4]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ /\\,  /Σ,  /^\\ ║");
+            Console.Write($"     O║{cooldownCharacters[5]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ouo  ò∩ó  0¬0 ║");
+            Console.Write($"     W║{cooldownCharacters[6]}║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
+            Console.Write($"     N║{cooldownCharacters[7]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»4 «ß»6 «ß»10║");
             Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
         }
 
@@ -1311,38 +1332,102 @@ class GridShell
 
     static void DrawBar()
     { 
-        /*if (cooldown == 1)
+        if (cooldown == 1)
         {
-            Row28[] = '░';
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '░';
+            cooldownCharacters[2] = '░';
+            cooldownCharacters[3] = '░';
+            cooldownCharacters[4] = '░';
+            cooldownCharacters[5] = '░';
+            cooldownCharacters[6] = '░';
+            cooldownCharacters[7] = '█';
         }
         else if (cooldown == 2)
         {
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '░';
+            cooldownCharacters[2] = '░';
+            cooldownCharacters[3] = '░';
+            cooldownCharacters[4] = '░';
+            cooldownCharacters[5] = '░';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
         }
         else if (cooldown == 3)
         {
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '░';
+            cooldownCharacters[2] = '░';
+            cooldownCharacters[3] = '░';
+            cooldownCharacters[4] = '░';
+            cooldownCharacters[5] = '█';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
         }
         else if (cooldown == 4)
         {
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '░';
+            cooldownCharacters[2] = '░';
+            cooldownCharacters[3] = '░';
+            cooldownCharacters[4] = '█';
+            cooldownCharacters[5] = '█';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
         }
         else if (cooldown == 5)
         {
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '░';
+            cooldownCharacters[2] = '░';
+            cooldownCharacters[3] = '█';
+            cooldownCharacters[4] = '█';
+            cooldownCharacters[5] = '█';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
         }
         else if (cooldown == 6)
         {
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '░';
+            cooldownCharacters[2] = '█';
+            cooldownCharacters[3] = '█';
+            cooldownCharacters[4] = '█';
+            cooldownCharacters[5] = '█';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
         }
         else if (cooldown == 7)
         {
+            cooldownCharacters[0] = '░';
+            cooldownCharacters[1] = '█';
+            cooldownCharacters[2] = '█';
+            cooldownCharacters[3] = '█';
+            cooldownCharacters[4] = '█';
+            cooldownCharacters[5] = '█';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
         }
         else if (cooldown == 8)
         {
+            cooldownCharacters[0] = '█';
+            cooldownCharacters[1] = '█';
+            cooldownCharacters[2] = '█';
+            cooldownCharacters[3] = '█';
+            cooldownCharacters[4] = '█';
+            cooldownCharacters[5] = '█';
+            cooldownCharacters[6] = '█';
+            cooldownCharacters[7] = '█';
 
-        }*/
+            cooldownReady = true;
+        }
 
     }
 
