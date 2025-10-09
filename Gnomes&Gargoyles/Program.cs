@@ -12,8 +12,37 @@ class GridShell
     static int enemyCount = 0;
     static int level = 1;
     static int socks = 30;
+    // this sprite aint shit 
+    static string[] GargoyleSprite = new string[]
+    {
+        "/[/",
+        "ΘΘ£",
+    };
+
+    static List<Gargoyle> gargoyles = new List<Gargoyle>();
+
+    // Gargole ascii art support
+    class Gargoyle
+    {
+        public int Row;
+        public int Col;
+        public int Health = 1;
+        public int Damage = 1;
+
+        public string[] Sprite;
+
+        public Gargoyle(int r, int c, string[] sprite)
+        {
+            Row = r;
+            Col = c;
+            Sprite = sprite;
+        }
+    }
+
+
     static int score = 0;
     static float timer = 300;
+
     static float timerMax = timer;
 
 
@@ -31,6 +60,26 @@ class GridShell
     static char[] Row11 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row12 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row13 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
+    // Function to place Gargoyles in the first 2 rows, like classic PVZ
+    static void PlaceGargoyles(char[][] grid)
+    {
+        for (int row = 0; row < 2; row++)
+        {
+            for (int col = 0; col < grid[row].Length; col++)
+            {
+                if (grid[row][col] == '-')  // Only place on empty spots on the top
+                {
+                    if (col % 4 == 2)       // Even spacing 
+                    {
+                        grid[row][col] = 'G';
+                        gargoyles.Add(new Gargoyle(row, col, GargoyleSprite));
+
+                    }
+                }
+            }
+        }
+    }
+
     static char[] Row14 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row15 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row16 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
@@ -46,115 +95,152 @@ class GridShell
     static char[] Row26 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row27 = { '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|', ' ', ' ', ' ', '|' };
     static char[] Row28 = { '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+', '-', '-', '-', '+' };
-    //===========$$$$$$$=============
-    // Gargoyle "shells" as placeholder blocks (3x2 cells for our shortened art)
-    //===========$$$$$$$=============
-
-    // Each block is a 3x2 cell made for our Gargole ASCII art
-    static char[,] GargoyleShell1 = new char[2, 3]
+    static char[][] grid = new char[][]
     {
-        { ' ', ' ', ' ' },
-        { ' ', ' ', ' ' }
+    Row1, Row2, Row3, Row4, Row5, Row6, Row7, Row8, Row9, Row10,
+    Row11, Row12, Row13, Row14, Row15, Row16, Row17, Row18, Row19, Row20,
+    Row21, Row22, Row23, Row24, Row25, Row26, Row27, Row28
     };
-
-    static char[,] GargoyleShell2 = new char[2, 3]
+    static char[] GetRow(int rowIndex)
     {
-        { ' ', ' ', ' ' },
-        { ' ', ' ', ' ' }
-    };
+        return rowIndex switch
+        {
+            0 => Row1,
+            1 => Row2,
+            2 => Row3,
+            3 => Row4,
+            4 => Row5,
+            5 => Row6,
+            6 => Row7,
+            7 => Row8,
+            8 => Row9,
+            9 => Row10,
+            10 => Row11,
+            11 => Row12,
+            12 => Row13,
+            13 => Row14,
+            14 => Row15,
+            15 => Row16,
+            16 => Row17,
+            17 => Row18,
+            18 => Row19,
+            19 => Row20,
+            20 => Row21,
+            21 => Row22,
+            22 => Row23,
+            23 => Row24,
+            24 => Row25,
+            25 => Row26,
+            26 => Row27,
+            27 => Row28,
+            _ => Row1
+        };
+    }
 
-    static char[,] GargoyleShell3 = new char[2, 3]
-    {
-        { ' ', ' ', ' ' },
-        { ' ', ' ', ' ' }
-    };
 
 
     static readonly List<Gnome> gnomes = new();
 
-    //============$$$$$$$===========================
-    // Gargoyle shells being displayed(3 columns × 2 rows each)
-    //============$$$$$$$======================
     static void Start()
     {
 
-        //spawn Gargoyles here
+        PlaceGargoyles(grid);  // Spawn Gargoyles on top 2 rows
+    }
+    static void PrintGrid(char[][] grid)
+    {
+        for (int r = 0; r < grid.Length; r++)
+        {
+            for (int c = 0; c < grid[r].Length; c++)
+            {
+                Console.Write(grid[r][c]);
+            }
+            Console.WriteLine();
+        }
     }
 
     static void Main()
+
     {
-        Console.CursorVisible = false;
-        Console.OutputEncoding = new UTF8Encoding(false); //Emoji Enabler
-        Console.CursorVisible = false; //Curser bug Disabler
-        while (true)
+
+
+        Start();
+        PrintGrid(grid);
+
+
         {
-            Update();
-
-            // Press ESC to break out
-            if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
-                break;
-
-            Thread.Sleep(500); // 2 FPS
-        }
-    }
-
-    static void Update()
-    {
-        Console.SetCursorPosition(0, 0);
-
-        DrawGargoyles(); // Draws Gargoles first to set the stage
-        DrawGnomes();    // Then th
-                         // e gnomes
-
-
-        tickTimer++;
-        if (tickTimer >= 2)
-        {
-            tickTimer = 0;
-            timer--;
-        }
-
-        moveTimer++;
-        if (moveTimer >= movePeriod)
-        {
-            foreach (var g in gnomes.Where(x => x.IsAlive))
+            Console.CursorVisible = false;
+            Console.OutputEncoding = new UTF8Encoding(false); //Emoji Enabler
+            Console.CursorVisible = false; //Curser bug Disabler
+            while (true)
             {
-                moveTimer = 0;
-                g.Row++;
+                Update();
+
+                // Press ESC to break out
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
+                    break;
+
+                Thread.Sleep(500); // 2 FPS
             }
         }
 
+        static void Update()
+        {
+            Console.SetCursorPosition(0, 0);
 
-        { //Printing each line (Brackets solely so you can collapse it) 
-            Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
-            Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
-            Console.Write($"║  ░{socks}░   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
-            Console.Write("∙========<██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
-            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██░Enemies░║");
-            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
-            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row7)); Console.WriteLine($"║▐▓▓▒░░ <██  ░{enemyCount}/??░ ║");
-            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row8)); Console.WriteLine("║▐▓▓▒▒░ <██>========∙");
-            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row9)); Console.WriteLine("║▐▒▓▒▒░ <██          ");
-            Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row10)); Console.WriteLine("║▐▓▒▒░░ <██          ");
-            Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row11)); Console.WriteLine("║▐▓▒▒░░ <██          ");
-            Console.Write("          ██>  ░▒▓▓▌║"); Console.Write(new string(Row12)); Console.WriteLine("║▐▓▓▒░  <██          ");
-            Console.Write("          ██>  ░▒▒▓▌║"); Console.Write(new string(Row13)); Console.WriteLine("║▐▓▒▒░  <██          ");
-            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row14)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
-            Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row15)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
-            Console.Write("          ██> ░▒▒▓▒▌║"); Console.Write(new string(Row16)); Console.WriteLine("║▐▓▒▒▒░ <██          ");
-            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row17)); Console.WriteLine("║▐▓▒▒░░ <██          ");
-            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row18)); Console.WriteLine("║▐▓▓▒░░ <██          ");
-            Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row19)); Console.WriteLine("║▐▓▓▒░░ <██          ");
-            Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
-            Console.Write("     C║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
-            Console.Write("     O║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
-            Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║╔|1|╗╔|2|╗╔|3|╗║");
-            Console.Write("     L║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║ /\\,  /Σ,  /^\\ ║");
-            Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ σ σ  ò ó  u u ║");
-            Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ∙O∙  °O°  /:\\ ║");
-            Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-            Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
-            Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
+            DrawGargoyles(); // Draws Gargoles first to set the stage
+            DrawGnomes();    // Then th
+                             // e gnomes
+
+
+            tickTimer++;
+            if (tickTimer >= 2)
+            {
+                tickTimer = 0;
+                timer--;
+            }
+
+            moveTimer++;
+            if (moveTimer >= movePeriod)
+            {
+                foreach (var g in gnomes.Where(x => x.IsAlive))
+                {
+                    moveTimer = 0;
+                    g.Row++;
+                }
+            }
+
+
+            { //Printing each line (Brackets solely so you can collapse it) 
+                Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
+                Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
+                Console.Write($"║  ░{socks}░   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax} ║");
+                Console.Write("∙========<██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
+                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██░Enemies░║");
+                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
+                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row7)); Console.WriteLine($"║▐▓▓▒░░ <██  ░{enemyCount}/??░ ║");
+                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row8)); Console.WriteLine("║▐▓▓▒▒░ <██>========∙");
+                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row9)); Console.WriteLine("║▐▒▓▒▒░ <██          ");
+                Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row10)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+                Console.Write("          ██> ░░▒▒▓▌║"); Console.Write(new string(Row11)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+                Console.Write("          ██>  ░▒▓▓▌║"); Console.Write(new string(Row12)); Console.WriteLine("║▐▓▓▒░  <██          ");
+                Console.Write("          ██>  ░▒▒▓▌║"); Console.Write(new string(Row13)); Console.WriteLine("║▐▓▒▒░  <██          ");
+                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row14)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+                Console.Write("          ██> ░▒▒▓▓▌║"); Console.Write(new string(Row15)); Console.WriteLine("║▐▓▓▒▒░ <██          ");
+                Console.Write("          ██> ░▒▒▓▒▌║"); Console.Write(new string(Row16)); Console.WriteLine("║▐▓▒▒▒░ <██          ");
+                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row17)); Console.WriteLine("║▐▓▒▒░░ <██          ");
+                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row18)); Console.WriteLine("║▐▓▓▒░░ <██          ");
+                Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row19)); Console.WriteLine("║▐▓▓▒░░ <██          ");
+                Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
+                Console.Write("     C║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
+                Console.Write("     O║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
+                Console.Write("     O║█║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║╔|1|╗╔|2|╗╔|3|╗║");
+                Console.Write("     L║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║ /\\,  /Σ,  /^\\ ║");
+                Console.Write("     D║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ σ σ  ò ó  u u ║");
+                Console.Write("     O║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ∙O∙  °O°  /:\\ ║");
+                Console.Write("     W║█║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
+                Console.Write("     N║█║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»3 «ß»6 «ß»9 ║");
+                Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
+            }
         }
     }
 
@@ -166,9 +252,31 @@ class GridShell
     }
     static void DrawGargoyles()
     {
+        {
+            foreach (var g in gargoyles)
+            {
+                for (int r = 0; r < g.Sprite.Length; r++)
+                {
+                    for (int c = 0; c < g.Sprite[r].Length; c++)
+                    {
+                        int targetRow = g.Row + r;
+                        int targetCol = g.Col + c;
+
+                        // prevent drawing outside the grid
+                        if (targetRow < 28 && targetCol < Row1.Length)
+                        {
+                            // choose the correct row array
+                            char[] rowArray = GetRow(targetRow);
+                            rowArray[targetCol] = g.Sprite[r][c];
+                        }
+                    }
+                }
+            }
+        }
 
     }
     static void DrawGnomes()
+
     {
         foreach (var g in gnomes.Where(x => x.IsAlive))
         {
@@ -840,3 +948,5 @@ class GridShell
     }
 
 }
+         
+
