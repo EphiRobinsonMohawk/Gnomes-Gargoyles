@@ -12,7 +12,7 @@ namespace Gnomes_Gargoyles
         public int Row { get; set; }
         public int Health { get; set; }
 
-        public bool IsAlive => Health > 0;
+        public bool IsAlive = true;
 
         public Gnome(int lane, int row, int health)
         {
@@ -20,5 +20,6 @@ namespace Gnomes_Gargoyles
             Row = row;
             Health = health;
         }
+
     }
 }
