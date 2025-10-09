@@ -336,7 +336,7 @@ class GridShell
         }
         else if (socks >= 100)
         {
-            socksSpace = '\0';
+            socksSpace2 = '\0';
         }
         if(timer < 100)
         {
@@ -451,6 +451,7 @@ class GridShell
                 {
                     Audio.Play("gnome_laugh");
                     g.IsAlive = false;
+                    socks += 2;
                 }
             }
             foreach (var g in gnights.Where(x => x.IsAlive))
@@ -459,6 +460,7 @@ class GridShell
                 {
                     Audio.Play("gnome_laugh");
                     g.IsAlive = false;
+                    socks += 2;
                 }
             }
             foreach (var g in gizards.Where(x => x.IsAlive))
@@ -467,6 +469,7 @@ class GridShell
                 {
                     Audio.Play("gnome_laugh");
                     g.IsAlive = false;
+                    socks += 2;
                 }
             }
             DrawGrid();
@@ -1201,7 +1204,7 @@ class GridShell
             Console.Write("      ╔═╗║██> ░▒▒▓▓▌║"); Console.Write(new string(Row20)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░║");
             Console.Write($"     C║{cooldownCharacters[0]}║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row21)); Console.WriteLine("║▐▓▓▒▒░ <██║{  GNOMES  }║");
             Console.Write($"     O║{cooldownCharacters[1]}║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row22)); Console.WriteLine("║▐▓▓▒▒░ <██║░░░░░░░░░░░░░░░║");
-            Console.Write($"     O║{cooldownCharacters[2]}║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║PressTo↓Recruit║");
+            Console.Write($"     O║{cooldownCharacters[2]}║║██> ░▒▒▓▒▌║"); Console.Write(new string(Row23)); Console.WriteLine("║▐▓▒▒▒░ <██║Press↓Recruit║");
             Console.Write($"     L║{cooldownCharacters[3]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row24)); Console.WriteLine("║▐▓▒▒░░ <██║╔|1|╗╔|2|╗╔|3|╗║");
             Console.Write($"     D║{cooldownCharacters[4]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ /\\,  /Σ,  /^\\ ║");
             Console.Write($"     O║{cooldownCharacters[5]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ouo  ò∩ó  0¬0 ║");
