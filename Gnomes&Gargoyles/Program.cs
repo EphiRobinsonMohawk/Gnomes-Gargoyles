@@ -669,9 +669,52 @@ class GridShell
             gnightMoveTimer++;
             if (gnightMoveTimer >= gnightMovePeriod)
             {
+
                 foreach (var g in gnights.Where(x => x.IsAlive))
                 {
-                    if (g.Row >= 4)
+                    if (g.Row == 4 && g.Lane == 3)
+                    {
+                        if (sockPileCollected[2])
+                        {
+                            g.Row--;
+                        }
+                        else
+                        {
+                            gnightMoveTimer = 0;
+                            sockPileAmmounts[2] -= 8;
+                            socks += 8;
+                            Audio.Play("misc_sound");
+                        }
+                    }
+                    else if (g.Row == 2 && g.Lane == 2)
+                    {
+                        if (sockPileCollected[0])
+                        {
+                            g.Row--;
+                        }
+                        else
+                        {
+                            gnightMoveTimer = 0;
+                            sockPileAmmounts[0] -= 8;
+                            socks += 8;
+                            Audio.Play("misc_sound");
+                        }
+                    }
+                    else if (g.Row == 2 && g.Lane == 4)
+                    {
+                        if (sockPileCollected[1])
+                        {
+                            g.Row--;
+                        }
+                        else
+                        {
+                            gnightMoveTimer = 0;
+                            sockPileAmmounts[1] -= 8;
+                            socks += 8;
+                            Audio.Play("misc_sound");
+                        }
+                    }
+                    else if (g.Row >= 4)
                     {
                         gnightMoveTimer = 0;
                         g.Row--;
