@@ -44,6 +44,7 @@ class GridShell
     static readonly List<Gnome> gnomes = new();
     static readonly List<Gnight> gnights = new();
     static readonly List<Gizard> gizards = new();
+    static readonly List<Projectile> projectiles = new();
 
 
     //Character arrays for each line
@@ -193,6 +194,7 @@ class GridShell
             DrawGnomes();    // Draws the default GNOMES
             DrawGizards(); //Draws the Gizards
             DrawGnights(); //Draws the Gnights
+            DrawProjectiles(); //Draws the Projectiles
 
 
             tickTimer++;
@@ -350,32 +352,43 @@ class GridShell
                     }
                     else if (g.Row <= 4)
                     {
-                        //INSERT RANGED ATTACK CODE HERE
                         if (g.Lane == 1)
                         {
-                            if (gargIsAlive[6])
+                            if (gargIsAlive[6] || gargIsAlive[1])
                             {
-
-                            }
-                            else if (gargIsAlive[1])
-                            {
-
+                                SpawnProjectile(1, 1);
                             }
                         }
                         else if (g.Lane == 2)
                         {
+                            if (gargIsAlive[7] || gargIsAlive[2])
+                            {
+                                SpawnProjectile(2, 1);
+                            }
 
                         }
                         else if (g.Lane == 3)
                         {
+                            if (gargIsAlive[8] || gargIsAlive[3])
+                            {
+                                SpawnProjectile(3, 1);
+                            }
 
                         }
                         else if (g.Lane == 4)
                         {
+                            if (gargIsAlive[9] || gargIsAlive[4])
+                            {
+                                SpawnProjectile(4, 1);
+                            }
 
                         }
                         else if (g.Lane == 5)
                         {
+                            if (gargIsAlive[10] || gargIsAlive[5])
+                            {
+                                SpawnProjectile(5, 1);
+                            }
 
                         }
                     }
@@ -906,6 +919,12 @@ class GridShell
         return g;
     }
 
+    public static Projectile SpawnProjectile(int lane, int stage)
+    {
+        var p = new Projectile(lane, stage);
+        projectiles.Add(p);
+        return p;
+    }
 
 
 
@@ -933,6 +952,20 @@ class GridShell
 
     }
 
+    static void DrawProjectiles()
+    {
+        foreach (var p in projectiles)
+        {
+            p.Stage++;
+            if (p.Lane == 1)
+            {
+                if (p.Stage == 1)
+                {
+
+                }
+            }
+        }
+    }
 
 
 
