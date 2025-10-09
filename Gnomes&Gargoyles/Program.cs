@@ -10,11 +10,20 @@ class GridShell
     static bool isPlaying = false;
     static bool hasLost = false;
     static bool hasWon = false;
+    static bool isPlacing = false;
+    static bool isFlash = false;
+    
+    static int laneSelecting = 1;
+    static int laneFlashing;
 
     static int moveTimer;
+    static int gizardMoveTimer;
+    static int gnightMoveTimer;
     static int movePeriod = 4;
+    static int gizardMovePeriod = 2;
+    static int gnightMovePeriod = 6;
     static int tickTimer;
-    static int enemyCount = 0;
+    static int enemyCount = 10;
     static int level = 1;
     static int socks = 30;
     // this sprite aint shit 
@@ -145,6 +154,8 @@ class GridShell
 
 
     static readonly List<Gnome> gnomes = new();
+    static readonly List<Gnight> gnights = new();
+    static readonly List<Gizard> gizards = new();
 
     static void Start()
     {
@@ -191,7 +202,7 @@ class GridShell
     static void Update()
     {
         Console.SetCursorPosition(0, 0);
-        if (!isPlaying & !hasLost & !hasWon)
+        if (!isPlaying && !hasLost && !hasWon)
         {
             Console.WriteLine(@"██▓▓▓▓▓▓▓▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▓▓▓▓▓▓▓██");
             Console.WriteLine(@"█▓▓▓▓▓▓▒▒▒░░░░░░░░░░░░█▀▀░█▀█░█▀█░█▄█░█▀▀░█▀▀░░░░░░░░░░░░▒▒▒▓▓▓▓▓▓█");
@@ -232,13 +243,16 @@ class GridShell
         }
 
 
-        DrawGargoyles(); // Draws Gargoles first to set the stage
-        DrawGnomes();    // Then th
-                         // e gnomes
+        if (isPlaying && !hasLost && !hasWon)
+        {
+            DrawGargoyles(); // Draws Gargoles first to set the stage
+            DrawGnomes();    // Draws the GNOMES
+            DrawGizards();
+            DrawGnights();
 
 
             tickTimer++;
-            if (tickTimer >= 2 & timer > 0)
+            if (tickTimer >= 2 && timer > 0)
             {
                 tickTimer = 0;
                 timer--;
@@ -253,11 +267,31 @@ class GridShell
                     g.Row++;
                 }
             }
-            
+
+            gizardMoveTimer++;
+            if (gizardMoveTimer >= gizardMovePeriod)
+            {
+                foreach (var g in gizards.Where(x => x.IsAlive))
+                {
+                    gizardMoveTimer = 0;
+                    g.Row++;
+                }
+            }
+
+            gnightMoveTimer++;
+            if (gnightMoveTimer >= gnightMovePeriod)
+            {
+                foreach (var g in gnights.Where(x => x.IsAlive))
+                {
+                    gnightMoveTimer = 0;
+                    g.Row++;
+                }
+            }
+
             if (timer <= 0)
             {
                 hasLost = true;
-                
+
             }
 
             if (enemyCount <= 0)
@@ -265,6 +299,65 @@ class GridShell
                 hasWon = true;
 
             }
+
+            //Gnome spawning input
+            if (Console.KeyAvailable)
+            {
+                var key = Console.ReadKey(intercept: true);
+                if (key.Key == ConsoleKey.Spacebar)
+                {
+                    isPlacing = true;
+                }
+            }
+
+            if (isPlacing)
+            {
+                laneFlashing++;
+                if (laneFlashing == 2)
+                {
+                    isFlash = !isFlash;
+                    laneFlashing = 0;
+                }
+
+                if (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(intercept: true);
+                    if (key.Key == ConsoleKey.LeftArrow && laneSelecting > 1)
+                    {
+                        laneSelecting--;
+                    }
+
+                    if (key.Key == ConsoleKey.RightArrow && laneSelecting < 5)
+                    {
+                        laneSelecting++;
+                    }
+                }
+
+                if (laneSelecting == 1)
+                {
+
+
+                }
+                else if (laneSelecting == 2)
+                {
+
+                }
+                else if (laneSelecting == 3)
+                {
+
+                }
+                else if (laneSelecting == 4)
+                {
+
+                }
+                else if (laneSelecting == 5)
+                {
+
+                }
+
+            }
+
+
 
             //Printing each line (Brackets solely so you can collapse it) 
             Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
@@ -389,6 +482,19 @@ class GridShell
         gnomes.Add(g);
         return g;
     }
+    public static Gnight SpawnGnight(int lane, int row, int health)
+    {
+        var g = new Gnight (lane, row, health);
+        gnights.Add(g);
+        return g;
+    }
+    public static Gizard SpawnGizard(int lane, int row, int health)
+    {
+        var g = new Gizard (lane, row, health);
+        gizards.Add(g);
+        return g;
+    }
+
     static void DrawGargoyles()
     {
         {
@@ -414,6 +520,8 @@ class GridShell
         }
 
     }
+
+
     static void DrawGnomes()
 
     {
@@ -423,264 +531,264 @@ class GridShell
             {
                 if (g.Row == 1)
                 {
-                    Row2[2] = '/';
-                    Row2[3] = '\\';
-                    Row2[4] = ',';
-                    Row3[2] = 'o';
-                    Row3[3] = 'u';
-                    Row3[4] = '0';
+                    Row2[1] = '/';
+                    Row2[2] = '\\';
+                    Row2[3] = ',';
+                    Row3[1] = 'o';
+                    Row3[2] = 'u';
+                    Row3[3] = '0';
                 }
                 else if (g.Row == 2)
                 {
+                    Row2[1] = ' ';
                     Row2[2] = ' ';
                     Row2[3] = ' ';
-                    Row2[4] = ' ';
+                    Row3[1] = ' ';
                     Row3[2] = ' ';
                     Row3[3] = ' ';
-                    Row3[4] = ' ';
-                    Row5[2] = '/';
-                    Row5[3] = '\\';
-                    Row5[4] = ',';
-                    Row6[2] = 'o';
-                    Row6[3] = 'u';
-                    Row6[4] = '0';
+                    Row5[1] = '/';
+                    Row5[2] = '\\';
+                    Row5[3] = ',';
+                    Row6[1] = 'o';
+                    Row6[2] = 'u';
+                    Row6[3] = '0';
                 }
                 else if (g.Row == 3)
                 {
+                    Row5[1] = ' ';
                     Row5[2] = ' ';
                     Row5[3] = ' ';
-                    Row5[4] = ' ';
+                    Row6[1] = ' ';
                     Row6[2] = ' ';
                     Row6[3] = ' ';
-                    Row6[4] = ' ';
-                    Row8[2] = '/';
-                    Row8[3] = '\\';
-                    Row8[4] = ',';
-                    Row9[2] = 'o';
-                    Row9[3] = 'u';
-                    Row9[4] = '0';
+                    Row8[1] = '/';
+                    Row8[2] = '\\';
+                    Row8[3] = ',';
+                    Row9[1] = 'o';
+                    Row9[2] = 'u';
+                    Row9[3] = '0';
                 }
                 else if (g.Row == 4)
                 {
+                    Row8[1] = ' ';
                     Row8[2] = ' ';
                     Row8[3] = ' ';
-                    Row8[4] = ' ';
+                    Row9[1] = ' ';
                     Row9[2] = ' ';
                     Row9[3] = ' ';
-                    Row9[4] = ' ';
-                    Row11[2] = '/';
-                    Row11[3] = '\\';
-                    Row11[4] = ',';
-                    Row12[2] = 'o';
-                    Row12[3] = 'u';
-                    Row12[4] = '0';
+                    Row11[1] = '/';
+                    Row11[2] = '\\';
+                    Row11[3] = ',';
+                    Row12[1] = 'o';
+                    Row12[2] = 'u';
+                    Row12[3] = '0';
                 }
                 else if (g.Row == 5)
                 {
+                    Row11[1] = ' ';
                     Row11[2] = ' ';
                     Row11[3] = ' ';
-                    Row11[4] = ' ';
+                    Row12[1] = ' ';
                     Row12[2] = ' ';
                     Row12[3] = ' ';
-                    Row12[4] = ' ';
-                    Row14[2] = '/';
-                    Row14[3] = '\\';
-                    Row14[4] = ',';
-                    Row15[2] = 'o';
-                    Row15[3] = 'u';
-                    Row15[4] = '0';
+                    Row14[1] = '/';
+                    Row14[2] = '\\';
+                    Row14[3] = ',';
+                    Row15[1] = 'o';
+                    Row15[2] = 'u';
+                    Row15[3] = '0';
                 }
                 else if (g.Row == 6)
                 {
+                    Row14[1] = ' ';
                     Row14[2] = ' ';
                     Row14[3] = ' ';
-                    Row14[4] = ' ';
+                    Row15[1] = ' ';
                     Row15[2] = ' ';
                     Row15[3] = ' ';
-                    Row15[4] = ' ';
-                    Row17[2] = '/';
-                    Row17[3] = '\\';
-                    Row17[4] = ',';
-                    Row18[2] = 'o';
-                    Row18[3] = 'u';
-                    Row18[4] = '0';
+                    Row17[1] = '/';
+                    Row17[2] = '\\';
+                    Row17[3] = ',';
+                    Row18[1] = 'o';
+                    Row18[2] = 'u';
+                    Row18[3] = '0';
                 }
                 else if (g.Row == 7)
                 {
+                    Row17[1] = ' ';
                     Row17[2] = ' ';
                     Row17[3] = ' ';
-                    Row17[4] = ' ';
+                    Row18[1] = ' ';
                     Row18[2] = ' ';
                     Row18[3] = ' ';
-                    Row18[4] = ' ';
-                    Row20[2] = '/';
-                    Row20[3] = '\\';
-                    Row20[4] = ',';
-                    Row21[2] = 'o';
-                    Row21[3] = 'u';
-                    Row21[4] = '0';
+                    Row20[1] = '/';
+                    Row20[2] = '\\';
+                    Row20[3] = ',';
+                    Row21[1] = 'o';
+                    Row21[2] = 'u';
+                    Row21[3] = '0';
                 }
                 else if (g.Row == 8)
                 {
+                    Row20[1] = ' ';
                     Row20[2] = ' ';
                     Row20[3] = ' ';
-                    Row20[4] = ' ';
+                    Row21[1] = ' ';
                     Row21[2] = ' ';
                     Row21[3] = ' ';
-                    Row21[4] = ' ';
-                    Row23[2] = '/';
-                    Row23[3] = '\\';
-                    Row23[4] = ',';
-                    Row24[2] = 'o';
-                    Row24[3] = 'u';
-                    Row24[4] = '0';
+                    Row23[1] = '/';
+                    Row23[2] = '\\';
+                    Row23[3] = ',';
+                    Row24[1] = 'o';
+                    Row24[2] = 'u';
+                    Row24[3] = '0';
                 }
                 else if (g.Row == 9)
                 {
+                    Row23[1] = ' ';
                     Row23[2] = ' ';
                     Row23[3] = ' ';
-                    Row23[4] = ' ';
+                    Row24[1] = ' ';
                     Row24[2] = ' ';
                     Row24[3] = ' ';
-                    Row24[4] = ' ';
-                    Row26[2] = '/';
-                    Row26[3] = '\\';
-                    Row26[4] = ',';
-                    Row27[2] = 'o';
-                    Row27[3] = 'u';
-                    Row27[4] = '0';
+                    Row26[1] = '/';
+                    Row26[2] = '\\';
+                    Row26[3] = ',';
+                    Row27[1] = 'o';
+                    Row27[2] = 'u';
+                    Row27[3] = '0';
                 }
             }
             else if (g.Lane == 2)
             {
                 if (g.Row == 1)
                 {
-                    Row2[6] = '/';
-                    Row2[7] = '\\';
-                    Row2[8] = ',';
-                    Row3[6] = 'o';
-                    Row3[7] = 'u';
-                    Row3[8] = '0';
+                    Row2[5] = '/';
+                    Row2[6] = '\\';
+                    Row2[7] = ',';
+                    Row3[5] = 'o';
+                    Row3[6] = 'u';
+                    Row3[7] = '0';
                 }
                 else if (g.Row == 2)
                 {
+                    Row2[5] = ' ';
                     Row2[6] = ' ';
                     Row2[7] = ' ';
-                    Row2[8] = ' ';
+                    Row3[5] = ' ';
                     Row3[6] = ' ';
                     Row3[7] = ' ';
-                    Row3[8] = ' ';
-                    Row5[6] = '/';
-                    Row5[7] = '\\';
-                    Row5[8] = ',';
-                    Row6[6] = 'o';
-                    Row6[7] = 'u';
-                    Row6[8] = '0';
+                    Row5[5] = '/';
+                    Row5[6] = '\\';
+                    Row5[7] = ',';
+                    Row6[5] = 'o';
+                    Row6[6] = 'u';
+                    Row6[7] = '0';
                 }
                 else if (g.Row == 3)
                 {
+                    Row5[5] = ' ';
                     Row5[6] = ' ';
                     Row5[7] = ' ';
-                    Row5[8] = ' ';
+                    Row6[5] = ' ';
                     Row6[6] = ' ';
                     Row6[7] = ' ';
-                    Row6[8] = ' ';
-                    Row8[6] = '/';
-                    Row8[7] = '\\';
-                    Row8[8] = ',';
-                    Row9[6] = 'o';
-                    Row9[7] = 'u';
-                    Row9[8] = '0';
+                    Row8[5] = '/';
+                    Row8[6] = '\\';
+                    Row8[7] = ',';
+                    Row9[5] = 'o';
+                    Row9[6] = 'u';
+                    Row9[7] = '0';
                 }
                 else if (g.Row == 4)
                 {
+                    Row8[5] = ' ';
                     Row8[6] = ' ';
                     Row8[7] = ' ';
-                    Row8[8] = ' ';
+                    Row9[5] = ' ';
                     Row9[6] = ' ';
                     Row9[7] = ' ';
-                    Row9[8] = ' ';
-                    Row11[6] = '/';
-                    Row11[7] = '\\';
-                    Row11[8] = ',';
-                    Row12[6] = 'o';
-                    Row12[7] = 'u';
-                    Row12[8] = '0';
+                    Row11[5] = '/';
+                    Row11[6] = '\\';
+                    Row11[7] = ',';
+                    Row12[5] = 'o';
+                    Row12[6] = 'u';
+                    Row12[7] = '0';
                 }
                 else if (g.Row == 5)
                 {
+                    Row11[5] = ' ';
                     Row11[6] = ' ';
                     Row11[7] = ' ';
-                    Row11[8] = ' ';
+                    Row12[5] = ' ';
                     Row12[6] = ' ';
                     Row12[7] = ' ';
-                    Row12[8] = ' ';
-                    Row14[6] = '/';
-                    Row14[7] = '\\';
-                    Row14[8] = ',';
-                    Row15[6] = 'o';
-                    Row15[7] = 'u';
-                    Row15[8] = '0';
+                    Row14[5] = '/';
+                    Row14[6] = '\\';
+                    Row14[7] = ',';
+                    Row15[5] = 'o';
+                    Row15[6] = 'u';
+                    Row15[7] = '0';
                 }
                 else if (g.Row == 6)
                 {
+                    Row14[5] = ' ';
                     Row14[6] = ' ';
                     Row14[7] = ' ';
-                    Row14[8] = ' ';
+                    Row15[5] = ' ';
                     Row15[6] = ' ';
                     Row15[7] = ' ';
-                    Row15[8] = ' ';
-                    Row17[6] = '/';
-                    Row17[7] = '\\';
-                    Row17[8] = ',';
-                    Row18[6] = 'o';
-                    Row18[7] = 'u';
-                    Row18[8] = '0';
+                    Row17[5] = '/';
+                    Row17[6] = '\\';
+                    Row17[7] = ',';
+                    Row18[5] = 'o';
+                    Row18[6] = 'u';
+                    Row18[7] = '0';
                 }
                 else if (g.Row == 7)
                 {
+                    Row17[5] = ' ';
                     Row17[6] = ' ';
                     Row17[7] = ' ';
-                    Row17[8] = ' ';
+                    Row18[5] = ' ';
                     Row18[6] = ' ';
                     Row18[7] = ' ';
-                    Row18[8] = ' ';
-                    Row20[6] = '/';
-                    Row20[7] = '\\';
-                    Row20[8] = ',';
-                    Row21[6] = 'o';
-                    Row21[7] = 'u';
-                    Row21[8] = '0';
+                    Row20[5] = '/';
+                    Row20[6] = '\\';
+                    Row20[7] = ',';
+                    Row21[5] = 'o';
+                    Row21[6] = 'u';
+                    Row21[7] = '0';
                 }
                 else if (g.Row == 8)
                 {
+                    Row20[5] = ' ';
                     Row20[6] = ' ';
                     Row20[7] = ' ';
-                    Row20[8] = ' ';
+                    Row21[5] = ' ';
                     Row21[6] = ' ';
                     Row21[7] = ' ';
-                    Row21[8] = ' ';
-                    Row23[6] = '/';
-                    Row23[7] = '\\';
-                    Row23[8] = ',';
-                    Row24[6] = 'o';
-                    Row24[7] = 'u';
-                    Row24[8] = '0';
+                    Row23[5] = '/';
+                    Row23[6] = '\\';
+                    Row23[7] = ',';
+                    Row24[5] = 'o';
+                    Row24[6] = 'u';
+                    Row24[7] = '0';
                 }
                 else if (g.Row == 9)
                 {
+                    Row23[5] = ' ';
                     Row23[6] = ' ';
                     Row23[7] = ' ';
-                    Row23[8] = ' ';
+                    Row24[5] = ' ';
                     Row24[6] = ' ';
                     Row24[7] = ' ';
-                    Row24[8] = ' ';
-                    Row26[6] = '/';
-                    Row26[7] = '\\';
-                    Row26[8] = ',';
-                    Row27[6] = 'o';
-                    Row27[7] = 'u';
-                    Row27[8] = '0';
+                    Row26[5] = '/';
+                    Row26[6] = '\\';
+                    Row26[7] = ',';
+                    Row27[5] = 'o';
+                    Row27[6] = 'u';
+                    Row27[7] = '0';
                 }
 
             }
@@ -688,132 +796,132 @@ class GridShell
             {
                 if (g.Row == 1)
                 {
-                    Row2[10] = '/';
-                    Row2[11] = '\\';
-                    Row2[12] = ',';
-                    Row3[10] = 'o';
-                    Row3[11] = 'u';
-                    Row3[12] = '0';
+                    Row2[9] = '/';
+                    Row2[10] = '\\';
+                    Row2[11] = ',';
+                    Row3[9] = 'o';
+                    Row3[10] = 'u';
+                    Row3[11] = '0';
                 }
                 else if (g.Row == 2)
                 {
+                    Row2[9] = ' ';
                     Row2[10] = ' ';
                     Row2[11] = ' ';
-                    Row2[12] = ' ';
+                    Row3[9] = ' ';
                     Row3[10] = ' ';
                     Row3[11] = ' ';
-                    Row3[12] = ' ';
-                    Row5[10] = '/';
-                    Row5[11] = '\\';
-                    Row5[12] = ',';
-                    Row6[10] = 'o';
-                    Row6[11] = 'u';
-                    Row6[12] = '0';
+                    Row5[9] = '/';
+                    Row5[10] = '\\';
+                    Row5[11] = ',';
+                    Row6[9] = 'o';
+                    Row6[10] = 'u';
+                    Row6[11] = '0';
                 }
                 else if (g.Row == 3)
                 {
+                    Row5[9] = ' ';
                     Row5[10] = ' ';
                     Row5[11] = ' ';
-                    Row5[12] = ' ';
+                    Row6[9] = ' ';
                     Row6[10] = ' ';
                     Row6[11] = ' ';
-                    Row6[12] = ' ';
-                    Row8[10] = '/';
-                    Row8[11] = '\\';
-                    Row8[12] = ',';
-                    Row9[10] = 'o';
-                    Row9[11] = 'u';
-                    Row9[12] = '0';
+                    Row8[9] = '/';
+                    Row8[10] = '\\';
+                    Row8[11] = ',';
+                    Row9[9] = 'o';
+                    Row9[10] = 'u';
+                    Row9[11] = '0';
                 }
                 else if (g.Row == 4)
                 {
+                    Row8[9] = ' ';
                     Row8[10] = ' ';
                     Row8[11] = ' ';
-                    Row8[12] = ' ';
+                    Row9[9] = ' ';
                     Row9[10] = ' ';
                     Row9[11] = ' ';
-                    Row9[12] = ' ';
-                    Row11[10] = '/';
-                    Row11[11] = '\\';
-                    Row11[12] = ',';
-                    Row12[10] = 'o';
-                    Row12[11] = 'u';
-                    Row12[12] = '0';
+                    Row11[9] = '/';
+                    Row11[10] = '\\';
+                    Row11[11] = ',';
+                    Row12[9] = 'o';
+                    Row12[10] = 'u';
+                    Row12[11] = '0';
                 }
                 else if (g.Row == 5)
                 {
+                    Row11[9] = ' ';
                     Row11[10] = ' ';
                     Row11[11] = ' ';
-                    Row11[12] = ' ';
+                    Row12[9] = ' ';
                     Row12[10] = ' ';
                     Row12[11] = ' ';
-                    Row12[12] = ' ';
-                    Row14[10] = '/';
-                    Row14[11] = '\\';
-                    Row14[12] = ',';
-                    Row15[10] = 'o';
-                    Row15[11] = 'u';
-                    Row15[12] = '0';
+                    Row14[9] = '/';
+                    Row14[10] = '\\';
+                    Row14[11] = ',';
+                    Row15[9] = 'o';
+                    Row15[10] = 'u';
+                    Row15[11] = '0';
                 }
                 else if (g.Row == 6)
                 {
+                    Row14[9] = ' ';
                     Row14[10] = ' ';
                     Row14[11] = ' ';
-                    Row14[12] = ' ';
+                    Row15[9] = ' ';
                     Row15[10] = ' ';
                     Row15[11] = ' ';
-                    Row15[12] = ' ';
-                    Row17[10] = '/';
-                    Row17[11] = '\\';
-                    Row17[12] = ',';
-                    Row18[10] = 'o';
-                    Row18[11] = 'u';
-                    Row18[12] = '0';
+                    Row17[9] = '/';
+                    Row17[10] = '\\';
+                    Row17[11] = ',';
+                    Row18[9] = 'o';
+                    Row18[10] = 'u';
+                    Row18[11] = '0';
                 }
                 else if (g.Row == 7)
                 {
+                    Row17[9] = ' ';
                     Row17[10] = ' ';
                     Row17[11] = ' ';
-                    Row17[12] = ' ';
+                    Row18[9] = ' ';
                     Row18[10] = ' ';
                     Row18[11] = ' ';
-                    Row18[12] = ' ';
-                    Row20[10] = '/';
-                    Row20[11] = '\\';
-                    Row20[12] = ',';
-                    Row21[10] = 'o';
-                    Row21[11] = 'u';
-                    Row21[12] = '0';
+                    Row20[9] = '/';
+                    Row20[10] = '\\';
+                    Row20[11] = ',';
+                    Row21[9] = 'o';
+                    Row21[10] = 'u';
+                    Row21[11] = '0';
                 }
                 else if (g.Row == 8)
                 {
+                    Row20[9] = ' ';
                     Row20[10] = ' ';
                     Row20[11] = ' ';
-                    Row20[12] = ' ';
+                    Row21[9] = ' ';
                     Row21[10] = ' ';
                     Row21[11] = ' ';
-                    Row21[12] = ' ';
-                    Row23[10] = '/';
-                    Row23[11] = '\\';
-                    Row23[12] = ',';
-                    Row24[10] = 'o';
-                    Row24[11] = 'u';
-                    Row24[12] = '0';
+                    Row23[9] = '/';
+                    Row23[10] = '\\';
+                    Row23[11] = ',';
+                    Row24[9] = 'o';
+                    Row24[10] = 'u';
+                    Row24[11] = '0';
                 }
                 else if (g.Row == 9)
                 {
+                    Row23[9] = ' ';
                     Row23[10] = ' ';
                     Row23[11] = ' ';
-                    Row23[12] = ' ';
+                    Row24[9] = ' ';
                     Row24[10] = ' ';
                     Row24[11] = ' ';
-                    Row24[12] = ' ';
-                    Row26[10] = '/';
-                    Row26[11] = '\\';
-                    Row26[12] = ',';
-                    Row27[10] = 'o';
-                    Row27[11] = 'u';
-                    Row27[12] = '0';
+                    Row26[9] = '/';
+                    Row26[10] = '\\';
+                    Row26[11] = ',';
+                    Row27[9] = 'o';
+                    Row27[10] = 'u';
+                    Row27[11] = '0';
                 }
 
             }
@@ -821,271 +929,1615 @@ class GridShell
             {
                 if (g.Row == 1)
                 {
-                    Row2[14] = '/';
-                    Row2[15] = '\\';
-                    Row2[16] = ',';
-                    Row3[14] = 'o';
-                    Row3[15] = 'u';
-                    Row3[16] = '0';
+                    Row2[13] = '/';
+                    Row2[14] = '\\';
+                    Row2[15] = ',';
+                    Row3[13] = 'o';
+                    Row3[14] = 'u';
+                    Row3[15] = '0';
                 }
                 else if (g.Row == 2)
                 {
+                    Row2[13] = ' ';
                     Row2[14] = ' ';
                     Row2[15] = ' ';
-                    Row2[16] = ' ';
+                    Row3[13] = ' ';
                     Row3[14] = ' ';
                     Row3[15] = ' ';
-                    Row3[16] = ' ';
-                    Row5[14] = '/';
-                    Row5[15] = '\\';
-                    Row5[16] = ',';
-                    Row6[14] = 'o';
-                    Row6[15] = 'u';
-                    Row6[16] = '0';
+                    Row5[13] = '/';
+                    Row5[14] = '\\';
+                    Row5[15] = ',';
+                    Row6[13] = 'o';
+                    Row6[14] = 'u';
+                    Row6[15] = '0';
                 }
                 else if (g.Row == 3)
                 {
+                    Row5[13] = ' ';
                     Row5[14] = ' ';
                     Row5[15] = ' ';
-                    Row5[16] = ' ';
+                    Row6[13] = ' ';
                     Row6[14] = ' ';
                     Row6[15] = ' ';
-                    Row6[16] = ' ';
-                    Row8[14] = '/';
-                    Row8[15] = '\\';
-                    Row8[16] = ',';
-                    Row9[14] = 'o';
-                    Row9[15] = 'u';
-                    Row9[16] = '0';
+                    Row8[13] = '/';
+                    Row8[14] = '\\';
+                    Row8[15] = ',';
+                    Row9[13] = 'o';
+                    Row9[14] = 'u';
+                    Row9[15] = '0';
                 }
                 else if (g.Row == 4)
                 {
+                    Row8[13] = ' ';
                     Row8[14] = ' ';
                     Row8[15] = ' ';
-                    Row8[16] = ' ';
+                    Row9[13] = ' ';
                     Row9[14] = ' ';
                     Row9[15] = ' ';
-                    Row9[16] = ' ';
-                    Row11[14] = '/';
-                    Row11[15] = '\\';
-                    Row11[16] = ',';
-                    Row12[14] = 'o';
-                    Row12[15] = 'u';
-                    Row12[16] = '0';
+                    Row11[13] = '/';
+                    Row11[14] = '\\';
+                    Row11[15] = ',';
+                    Row12[13] = 'o';
+                    Row12[14] = 'u';
+                    Row12[15] = '0';
                 }
                 else if (g.Row == 5)
                 {
+                    Row11[13] = ' ';
                     Row11[14] = ' ';
                     Row11[15] = ' ';
-                    Row11[16] = ' ';
+                    Row12[13] = ' ';
                     Row12[14] = ' ';
                     Row12[15] = ' ';
-                    Row12[16] = ' ';
-                    Row14[14] = '/';
-                    Row14[15] = '\\';
-                    Row14[16] = ',';
-                    Row15[14] = 'o';
-                    Row15[15] = 'u';
-                    Row15[16] = '0';
+                    Row14[13] = '/';
+                    Row14[14] = '\\';
+                    Row14[15] = ',';
+                    Row15[13] = 'o';
+                    Row15[14] = 'u';
+                    Row15[15] = '0';
                 }
                 else if (g.Row == 6)
                 {
+                    Row14[13] = ' ';
                     Row14[14] = ' ';
                     Row14[15] = ' ';
-                    Row14[16] = ' ';
+                    Row15[13] = ' ';
                     Row15[14] = ' ';
                     Row15[15] = ' ';
-                    Row15[16] = ' ';
-                    Row17[14] = '/';
-                    Row17[15] = '\\';
-                    Row17[16] = ',';
-                    Row18[14] = 'o';
-                    Row18[15] = 'u';
-                    Row18[16] = '0';
+                    Row17[13] = '/';
+                    Row17[14] = '\\';
+                    Row17[15] = ',';
+                    Row18[13] = 'o';
+                    Row18[14] = 'u';
+                    Row18[15] = '0';
                 }
                 else if (g.Row == 7)
                 {
+                    Row17[13] = ' ';
                     Row17[14] = ' ';
                     Row17[15] = ' ';
-                    Row17[16] = ' ';
+                    Row18[13] = ' ';
                     Row18[14] = ' ';
                     Row18[15] = ' ';
-                    Row18[16] = ' ';
-                    Row20[14] = '/';
-                    Row20[15] = '\\';
-                    Row20[16] = ',';
-                    Row21[14] = 'o';
-                    Row21[15] = 'u';
-                    Row21[16] = '0';
+                    Row20[13] = '/';
+                    Row20[14] = '\\';
+                    Row20[15] = ',';
+                    Row21[13] = 'o';
+                    Row21[14] = 'u';
+                    Row21[15] = '0';
                 }
                 else if (g.Row == 8)
                 {
+                    Row20[13] = ' ';
                     Row20[14] = ' ';
                     Row20[15] = ' ';
-                    Row20[16] = ' ';
+                    Row21[13] = ' ';
                     Row21[14] = ' ';
                     Row21[15] = ' ';
-                    Row21[16] = ' ';
-                    Row23[14] = '/';
-                    Row23[15] = '\\';
-                    Row23[16] = ',';
-                    Row24[14] = 'o';
-                    Row24[15] = 'u';
-                    Row24[16] = '0';
+                    Row23[13] = '/';
+                    Row23[14] = '\\';
+                    Row23[15] = ',';
+                    Row24[13] = 'o';
+                    Row24[14] = 'u';
+                    Row24[15] = '0';
                 }
                 else if (g.Row == 9)
                 {
+                    Row23[13] = ' ';
                     Row23[14] = ' ';
                     Row23[15] = ' ';
-                    Row23[16] = ' ';
+                    Row24[13] = ' ';
                     Row24[14] = ' ';
                     Row24[15] = ' ';
-                    Row24[16] = ' ';
-                    Row26[14] = '/';
-                    Row26[15] = '\\';
-                    Row26[16] = ',';
-                    Row27[14] = 'o';
-                    Row27[15] = 'u';
-                    Row27[16] = '0';
+                    Row26[13] = '/';
+                    Row26[14] = '\\';
+                    Row26[15] = ',';
+                    Row27[13] = 'o';
+                    Row27[14] = 'u';
+                    Row27[15] = '0';
                 }
-            
+
             }
             else if (g.Lane == 5)
             {
                 if (g.Row == 1)
                 {
-                    Row2[18] = '/';
-                    Row2[19] = '\\';
-                    Row2[20] = ',';
-                    Row3[18] = 'o';
-                    Row3[19] = 'u';
-                    Row3[20] = '0';
+                    Row2[17] = '/';
+                    Row2[18] = '\\';
+                    Row2[19] = ',';
+                    Row3[17] = 'o';
+                    Row3[18] = 'u';
+                    Row3[19] = '0';
                 }
                 else if (g.Row == 2)
                 {
+                    Row2[17] = ' ';
                     Row2[18] = ' ';
                     Row2[19] = ' ';
-                    Row2[20] = ' ';
+                    Row3[17] = ' ';
                     Row3[18] = ' ';
                     Row3[19] = ' ';
-                    Row3[20] = ' ';
-                    Row5[18] = '/';
-                    Row5[19] = '\\';
-                    Row5[20] = ',';
-                    Row6[18] = 'o';
-                    Row6[19] = 'u';
-                    Row6[20] = '0';
+                    Row5[17] = '/';
+                    Row5[18] = '\\';
+                    Row5[19] = ',';
+                    Row6[17] = 'o';
+                    Row6[18] = 'u';
+                    Row6[19] = '0';
                 }
                 else if (g.Row == 3)
                 {
+                    Row5[17] = ' ';
                     Row5[18] = ' ';
                     Row5[19] = ' ';
-                    Row5[20] = ' ';
+                    Row6[17] = ' ';
                     Row6[18] = ' ';
                     Row6[19] = ' ';
-                    Row6[20] = ' ';
-                    Row8[18] = '/';
-                    Row8[19] = '\\';
-                    Row8[20] = ',';
-                    Row9[18] = 'o';
-                    Row9[19] = 'u';
-                    Row9[20] = '0';
+                    Row8[17] = '/';
+                    Row8[18] = '\\';
+                    Row8[19] = ',';
+                    Row9[17] = 'o';
+                    Row9[18] = 'u';
+                    Row9[19] = '0';
                 }
                 else if (g.Row == 4)
                 {
+                    Row8[17] = ' ';
                     Row8[18] = ' ';
                     Row8[19] = ' ';
-                    Row8[20] = ' ';
+                    Row9[17] = ' ';
                     Row9[18] = ' ';
                     Row9[19] = ' ';
-                    Row9[20] = ' ';
-                    Row11[18] = '/';
-                    Row11[19] = '\\';
-                    Row11[20] = ',';
-                    Row12[18] = 'o';
-                    Row12[19] = 'u';
-                    Row12[20] = '0';
+                    Row11[17] = '/';
+                    Row11[18] = '\\';
+                    Row11[19] = ',';
+                    Row12[17] = 'o';
+                    Row12[18] = 'u';
+                    Row12[19] = '0';
                 }
                 else if (g.Row == 5)
                 {
+                    Row11[17] = ' ';
                     Row11[18] = ' ';
                     Row11[19] = ' ';
-                    Row11[20] = ' ';
+                    Row12[17] = ' ';
                     Row12[18] = ' ';
                     Row12[19] = ' ';
-                    Row12[20] = ' ';
-                    Row14[18] = '/';
-                    Row14[19] = '\\';
-                    Row14[20] = ',';
-                    Row15[18] = 'o';
-                    Row15[19] = 'u';
-                    Row15[20] = '0';
+                    Row14[17] = '/';
+                    Row14[18] = '\\';
+                    Row14[19] = ',';
+                    Row15[17] = 'o';
+                    Row15[18] = 'u';
+                    Row15[19] = '0';
                 }
                 else if (g.Row == 6)
                 {
+                    Row14[17] = ' ';
                     Row14[18] = ' ';
                     Row14[19] = ' ';
-                    Row14[20] = ' ';
+                    Row15[17] = ' ';
                     Row15[18] = ' ';
                     Row15[19] = ' ';
-                    Row15[20] = ' ';
-                    Row17[18] = '/';
-                    Row17[19] = '\\';
-                    Row17[20] = ',';
-                    Row18[18] = 'o';
-                    Row18[19] = 'u';
-                    Row18[20] = '0';
+                    Row17[17] = '/';
+                    Row17[18] = '\\';
+                    Row17[19] = ',';
+                    Row18[17] = 'o';
+                    Row18[18] = 'u';
+                    Row18[19] = '0';
                 }
                 else if (g.Row == 7)
                 {
+                    Row17[17] = ' ';
                     Row17[18] = ' ';
                     Row17[19] = ' ';
-                    Row17[20] = ' ';
+                    Row18[17] = ' ';
                     Row18[18] = ' ';
                     Row18[19] = ' ';
-                    Row18[20] = ' ';
-                    Row20[18] = '/';
-                    Row20[19] = '\\';
-                    Row20[20] = ',';
-                    Row21[18] = 'o';
-                    Row21[19] = 'u';
-                    Row21[20] = '0';
+                    Row20[17] = '/';
+                    Row20[18] = '\\';
+                    Row20[19] = ',';
+                    Row21[17] = 'o';
+                    Row21[18] = 'u';
+                    Row21[19] = '0';
                 }
                 else if (g.Row == 8)
                 {
+                    Row20[17] = ' ';
                     Row20[18] = ' ';
                     Row20[19] = ' ';
-                    Row20[20] = ' ';
+                    Row21[17] = ' ';
                     Row21[18] = ' ';
                     Row21[19] = ' ';
-                    Row21[20] = ' ';
-                    Row23[18] = '/';
-                    Row23[19] = '\\';
-                    Row23[20] = ',';
-                    Row24[18] = 'o';
-                    Row24[19] = 'u';
-                    Row24[20] = '0';
+                    Row23[17] = '/';
+                    Row23[18] = '\\';
+                    Row23[19] = ',';
+                    Row24[17] = 'o';
+                    Row24[18] = 'u';
+                    Row24[19] = '0';
                 }
                 else if (g.Row == 9)
                 {
+                    Row23[17] = ' ';
                     Row23[18] = ' ';
                     Row23[19] = ' ';
-                    Row23[20] = ' ';
+                    Row24[17] = ' ';
                     Row24[18] = ' ';
                     Row24[19] = ' ';
-                    Row24[20] = ' ';
-                    Row26[18] = '/';
-                    Row26[19] = '\\';
-                    Row26[20] = ',';
-                    Row27[18] = 'o';
-                    Row27[19] = 'u';
-                    Row27[20] = '0';
+                    Row26[17] = '/';
+                    Row26[18] = '\\';
+                    Row26[19] = ',';
+                    Row27[17] = 'o';
+                    Row27[18] = 'u';
+                    Row27[19] = '0';
                 }
 
+            }
+
+        }
+    }
+
+
+    static void DrawGnights()
+    {
+        foreach (var g in gnights.Where(x => x.IsAlive))
+        {
+            if (g.Lane == 1)
+            {
+                if (g.Row == 1)
+                {
+                    Row2[1] = '/';
+                    Row2[2] = 'Σ';
+                    Row2[3] = ',';
+                    Row3[1] = 'ò';
+                    Row3[2] = '∩';
+                    Row3[3] = 'ó';
+                }
+                else if (g.Row == 2)
+                {
+                    Row2[1] = ' ';
+                    Row2[2] = ' ';
+                    Row2[3] = ' ';
+                    Row3[1] = ' ';
+                    Row3[2] = ' ';
+                    Row3[3] = ' ';
+                    Row5[1] = '/';
+                    Row5[2] = 'Σ';
+                    Row5[3] = ',';
+                    Row6[1] = 'ò';
+                    Row6[2] = '∩';
+                    Row6[3] = 'ó';
+                }
+                else if (g.Row == 3)
+                {
+                    Row5[1] = ' ';
+                    Row5[2] = ' ';
+                    Row5[3] = ' ';
+                    Row6[1] = ' ';
+                    Row6[2] = ' ';
+                    Row6[3] = ' ';
+                    Row8[1] = '/';
+                    Row8[2] = 'Σ';
+                    Row8[3] = ',';
+                    Row9[1] = 'ò';
+                    Row9[2] = '∩';
+                    Row9[3] = 'ó';
+                }
+                else if (g.Row == 4)
+                {
+                    Row8[1] = ' ';
+                    Row8[2] = ' ';
+                    Row8[3] = ' ';
+                    Row9[1] = ' ';
+                    Row9[2] = ' ';
+                    Row9[3] = ' ';
+                    Row11[1] = '/';
+                    Row11[2] = 'Σ';
+                    Row11[3] = ',';
+                    Row12[1] = 'ò';
+                    Row12[2] = '∩';
+                    Row12[3] = 'ó';
+                }
+                else if (g.Row == 5)
+                {
+                    Row11[1] = ' ';
+                    Row11[2] = ' ';
+                    Row11[3] = ' ';
+                    Row12[1] = ' ';
+                    Row12[2] = ' ';
+                    Row12[3] = ' ';
+                    Row14[1] = '/';
+                    Row14[2] = 'Σ';
+                    Row14[3] = ',';
+                    Row15[1] = 'ò';
+                    Row15[2] = '∩';
+                    Row15[3] = 'ó';
+                }
+                else if (g.Row == 6)
+                {
+                    Row14[1] = ' ';
+                    Row14[2] = ' ';
+                    Row14[3] = ' ';
+                    Row15[1] = ' ';
+                    Row15[2] = ' ';
+                    Row15[3] = ' ';
+                    Row17[1] = '/';
+                    Row17[2] = 'Σ';
+                    Row17[3] = ',';
+                    Row18[1] = 'ò';
+                    Row18[2] = '∩';
+                    Row18[3] = 'ó';
+                }
+                else if (g.Row == 7)
+                {
+                    Row17[1] = ' ';
+                    Row17[2] = ' ';
+                    Row17[3] = ' ';
+                    Row18[1] = ' ';
+                    Row18[2] = ' ';
+                    Row18[3] = ' ';
+                    Row20[1] = '/';
+                    Row20[2] = 'Σ';
+                    Row20[3] = ',';
+                    Row21[1] = 'ò';
+                    Row21[2] = '∩';
+                    Row21[3] = 'ó';
+                }
+                else if (g.Row == 8)
+                {
+                    Row20[1] = ' ';
+                    Row20[2] = ' ';
+                    Row20[3] = ' ';
+                    Row21[1] = ' ';
+                    Row21[2] = ' ';
+                    Row21[3] = ' ';
+                    Row23[1] = '/';
+                    Row23[2] = 'Σ';
+                    Row23[3] = ',';
+                    Row24[1] = 'ò';
+                    Row24[2] = '∩';
+                    Row24[3] = 'ó';
+                }
+                else if (g.Row == 9)
+                {
+                    Row23[1] = ' ';
+                    Row23[2] = ' ';
+                    Row23[3] = ' ';
+                    Row24[1] = ' ';
+                    Row24[2] = ' ';
+                    Row24[3] = ' ';
+                    Row26[1] = '/';
+                    Row26[2] = 'Σ';
+                    Row26[3] = ',';
+                    Row27[1] = 'ò';
+                    Row27[2] = '∩';
+                    Row27[3] = 'ó';
+                }
+            }
+            else if (g.Lane == 2)
+            {
+                if (g.Row == 1)
+                {
+                    Row2[5] = '/';
+                    Row2[6] = 'Σ';
+                    Row2[7] = ',';
+                    Row3[5] = 'ò';
+                    Row3[6] = '∩';
+                    Row3[7] = 'ó';
+                }
+                else if (g.Row == 2)
+                {
+                    Row2[5] = ' ';
+                    Row2[6] = ' ';
+                    Row2[7] = ' ';
+                    Row3[5] = ' ';
+                    Row3[6] = ' ';
+                    Row3[7] = ' ';
+                    Row5[5] = '/';
+                    Row5[6] = 'Σ';
+                    Row5[7] = ',';
+                    Row6[5] = 'ò';
+                    Row6[6] = '∩';
+                    Row6[7] = 'ó';
+                }
+                else if (g.Row == 3)
+                {
+                    Row5[5] = ' ';
+                    Row5[6] = ' ';
+                    Row5[7] = ' ';
+                    Row6[5] = ' ';
+                    Row6[6] = ' ';
+                    Row6[7] = ' ';
+                    Row8[5] = '/';
+                    Row8[6] = 'Σ';
+                    Row8[7] = ',';
+                    Row9[5] = 'ò';
+                    Row9[6] = '∩';
+                    Row9[7] = 'ó';
+                }
+                else if (g.Row == 4)
+                {
+                    Row8[5] = ' ';
+                    Row8[6] = ' ';
+                    Row8[7] = ' ';
+                    Row9[5] = ' ';
+                    Row9[6] = ' ';
+                    Row9[7] = ' ';
+                    Row11[5] = '/';
+                    Row11[6] = 'Σ';
+                    Row11[7] = ',';
+                    Row12[5] = 'ò';
+                    Row12[6] = '∩';
+                    Row12[7] = 'ó';
+                }
+                else if (g.Row == 5)
+                {
+                    Row11[5] = ' ';
+                    Row11[6] = ' ';
+                    Row11[7] = ' ';
+                    Row12[5] = ' ';
+                    Row12[6] = ' ';
+                    Row12[7] = ' ';
+                    Row14[5] = '/';
+                    Row14[6] = 'Σ';
+                    Row14[7] = ',';
+                    Row15[5] = 'ò';
+                    Row15[6] = '∩';
+                    Row15[7] = 'ó';
+                }
+                else if (g.Row == 6)
+                {
+                    Row14[5] = ' ';
+                    Row14[6] = ' ';
+                    Row14[7] = ' ';
+                    Row15[5] = ' ';
+                    Row15[6] = ' ';
+                    Row15[7] = ' ';
+                    Row17[5] = '/';
+                    Row17[6] = 'Σ';
+                    Row17[7] = ',';
+                    Row18[5] = 'ò';
+                    Row18[6] = '∩';
+                    Row18[7] = 'ó';
+                }
+                else if (g.Row == 7)
+                {
+                    Row17[5] = ' ';
+                    Row17[6] = ' ';
+                    Row17[7] = ' ';
+                    Row18[5] = ' ';
+                    Row18[6] = ' ';
+                    Row18[7] = ' ';
+                    Row20[5] = '/';
+                    Row20[6] = 'Σ';
+                    Row20[7] = ',';
+                    Row21[5] = 'ò';
+                    Row21[6] = '∩';
+                    Row21[7] = 'ó';
+                }
+                else if (g.Row == 8)
+                {
+                    Row20[5] = ' ';
+                    Row20[6] = ' ';
+                    Row20[7] = ' ';
+                    Row21[5] = ' ';
+                    Row21[6] = ' ';
+                    Row21[7] = ' ';
+                    Row23[5] = '/';
+                    Row23[6] = 'Σ';
+                    Row23[7] = ',';
+                    Row24[5] = 'ò';
+                    Row24[6] = '∩';
+                    Row24[7] = 'ó';
+                }
+                else if (g.Row == 9)
+                {
+                    Row23[5] = ' ';
+                    Row23[6] = ' ';
+                    Row23[7] = ' ';
+                    Row24[5] = ' ';
+                    Row24[6] = ' ';
+                    Row24[7] = ' ';
+                    Row26[5] = '/';
+                    Row26[6] = 'Σ';
+                    Row26[7] = ',';
+                    Row27[5] = 'ò';
+                    Row27[6] = '∩';
+                    Row27[7] = 'ó';
+                }
+
+            }
+            else if (g.Lane == 3)
+            {
+                if (g.Row == 1)
+                {
+                    Row2[9] = '/';
+                    Row2[10] = 'Σ';
+                    Row2[11] = ',';
+                    Row3[9] = 'ò';
+                    Row3[10] = '∩';
+                    Row3[11] = 'ó';
+                }
+                else if (g.Row == 2)
+                {
+                    Row2[9] = ' ';
+                    Row2[10] = ' ';
+                    Row2[11] = ' ';
+                    Row3[9] = ' ';
+                    Row3[10] = ' ';
+                    Row3[11] = ' ';
+                    Row5[9] = '/';
+                    Row5[10] = 'Σ';
+                    Row5[11] = ',';
+                    Row6[9] = 'ò';
+                    Row6[10] = '∩';
+                    Row6[11] = 'ó';
+                }
+                else if (g.Row == 3)
+                {
+                    Row5[9] = ' ';
+                    Row5[10] = ' ';
+                    Row5[11] = ' ';
+                    Row6[9] = ' ';
+                    Row6[10] = ' ';
+                    Row6[11] = ' ';
+                    Row8[9] = '/';
+                    Row8[10] = 'Σ';
+                    Row8[11] = ',';
+                    Row9[9] = 'ò';
+                    Row9[10] = '∩';
+                    Row9[11] = 'ó';
+                }
+                else if (g.Row == 4)
+                {
+                    Row8[9] = ' ';
+                    Row8[10] = ' ';
+                    Row8[11] = ' ';
+                    Row9[9] = ' ';
+                    Row9[10] = ' ';
+                    Row9[11] = ' ';
+                    Row11[9] = '/';
+                    Row11[10] = 'Σ';
+                    Row11[11] = ',';
+                    Row12[9] = 'ò';
+                    Row12[10] = '∩';
+                    Row12[11] = 'ó';
+                }
+                else if (g.Row == 5)
+                {
+                    Row11[9] = ' ';
+                    Row11[10] = ' ';
+                    Row11[11] = ' ';
+                    Row12[9] = ' ';
+                    Row12[10] = ' ';
+                    Row12[11] = ' ';
+                    Row14[9] = '/';
+                    Row14[10] = 'Σ';
+                    Row14[11] = ',';
+                    Row15[9] = 'ò';
+                    Row15[10] = '∩';
+                    Row15[11] = 'ó';
+                }
+                else if (g.Row == 6)
+                {
+                    Row14[9] = ' ';
+                    Row14[10] = ' ';
+                    Row14[11] = ' ';
+                    Row15[9] = ' ';
+                    Row15[10] = ' ';
+                    Row15[11] = ' ';
+                    Row17[9] = '/';
+                    Row17[10] = 'Σ';
+                    Row17[11] = ',';
+                    Row18[9] = 'ò';
+                    Row18[10] = '∩';
+                    Row18[11] = 'ó';
+                }
+                else if (g.Row == 7)
+                {
+                    Row17[9] = ' ';
+                    Row17[10] = ' ';
+                    Row17[11] = ' ';
+                    Row18[9] = ' ';
+                    Row18[10] = ' ';
+                    Row18[11] = ' ';
+                    Row20[9] = '/';
+                    Row20[10] = 'Σ';
+                    Row20[11] = ',';
+                    Row21[9] = 'ò';
+                    Row21[10] = '∩';
+                    Row21[11] = 'ó';
+                }
+                else if (g.Row == 8)
+                {
+                    Row20[9] = ' ';
+                    Row20[10] = ' ';
+                    Row20[11] = ' ';
+                    Row21[9] = ' ';
+                    Row21[10] = ' ';
+                    Row21[11] = ' ';
+                    Row23[9] = '/';
+                    Row23[10] = 'Σ';
+                    Row23[11] = ',';
+                    Row24[9] = 'ò';
+                    Row24[10] = '∩';
+                    Row24[11] = 'ó';
+                }
+                else if (g.Row == 9)
+                {
+                    Row23[9] = ' ';
+                    Row23[10] = ' ';
+                    Row23[11] = ' ';
+                    Row24[9] = ' ';
+                    Row24[10] = ' ';
+                    Row24[11] = ' ';
+                    Row26[9] = '/';
+                    Row26[10] = 'Σ';
+                    Row26[11] = ',';
+                    Row27[9] = 'ò';
+                    Row27[10] = '∩';
+                    Row27[11] = 'ó';
+                }
+
+            }
+            else if (g.Lane == 4)
+            {
+                if (g.Row == 1)
+                {
+                    Row2[13] = '/';
+                    Row2[14] = 'Σ';
+                    Row2[15] = ',';
+                    Row3[13] = 'ò';
+                    Row3[14] = '∩';
+                    Row3[15] = 'ó';
+                }
+                else if (g.Row == 2)
+                {
+                    Row2[13] = ' ';
+                    Row2[14] = ' ';
+                    Row2[15] = ' ';
+                    Row3[13] = ' ';
+                    Row3[14] = ' ';
+                    Row3[15] = ' ';
+                    Row5[13] = '/';
+                    Row5[14] = 'Σ';
+                    Row5[15] = ',';
+                    Row6[13] = 'ò';
+                    Row6[14] = '∩';
+                    Row6[15] = 'ó';
+                }
+                else if (g.Row == 3)
+                {
+                    Row5[13] = ' ';
+                    Row5[14] = ' ';
+                    Row5[15] = ' ';
+                    Row6[13] = ' ';
+                    Row6[14] = ' ';
+                    Row6[15] = ' ';
+                    Row8[13] = '/';
+                    Row8[14] = 'Σ';
+                    Row8[15] = ',';
+                    Row9[13] = 'ò';
+                    Row9[14] = '∩';
+                    Row9[15] = 'ó';
+                }
+                else if (g.Row == 4)
+                {
+                    Row8[13] = ' ';
+                    Row8[14] = ' ';
+                    Row8[15] = ' ';
+                    Row9[13] = ' ';
+                    Row9[14] = ' ';
+                    Row9[15] = ' ';
+                    Row11[13] = '/';
+                    Row11[14] = 'Σ';
+                    Row11[15] = ',';
+                    Row12[13] = 'ò';
+                    Row12[14] = '∩';
+                    Row12[15] = 'ó';
+                }
+                else if (g.Row == 5)
+                {
+                    Row11[13] = ' ';
+                    Row11[14] = ' ';
+                    Row11[15] = ' ';
+                    Row12[13] = ' ';
+                    Row12[14] = ' ';
+                    Row12[15] = ' ';
+                    Row14[13] = '/';
+                    Row14[14] = 'Σ';
+                    Row14[15] = ',';
+                    Row15[13] = 'ò';
+                    Row15[14] = '∩';
+                    Row15[15] = 'ó';
+                }
+                else if (g.Row == 6)
+                {
+                    Row14[13] = ' ';
+                    Row14[14] = ' ';
+                    Row14[15] = ' ';
+                    Row15[13] = ' ';
+                    Row15[14] = ' ';
+                    Row15[15] = ' ';
+                    Row17[13] = '/';
+                    Row17[14] = 'Σ';
+                    Row17[15] = ',';
+                    Row18[13] = 'ò';
+                    Row18[14] = '∩';
+                    Row18[15] = 'ó';
+                }
+                else if (g.Row == 7)
+                {
+                    Row17[13] = ' ';
+                    Row17[14] = ' ';
+                    Row17[15] = ' ';
+                    Row18[13] = ' ';
+                    Row18[14] = ' ';
+                    Row18[15] = ' ';
+                    Row20[13] = '/';
+                    Row20[14] = 'Σ';
+                    Row20[15] = ',';
+                    Row21[13] = 'ò';
+                    Row21[14] = '∩';
+                    Row21[15] = 'ó';
+                }
+                else if (g.Row == 8)
+                {
+                    Row20[13] = ' ';
+                    Row20[14] = ' ';
+                    Row20[15] = ' ';
+                    Row21[13] = ' ';
+                    Row21[14] = ' ';
+                    Row21[15] = ' ';
+                    Row23[13] = '/';
+                    Row23[14] = 'Σ';
+                    Row23[15] = ',';
+                    Row24[13] = 'ò';
+                    Row24[14] = '∩';
+                    Row24[15] = 'ó';
+                }
+                else if (g.Row == 9)
+                {
+                    Row23[13] = ' ';
+                    Row23[14] = ' ';
+                    Row23[15] = ' ';
+                    Row24[13] = ' ';
+                    Row24[14] = ' ';
+                    Row24[15] = ' ';
+                    Row26[13] = '/';
+                    Row26[14] = 'Σ';
+                    Row26[15] = ',';
+                    Row27[13] = 'ò';
+                    Row27[14] = '∩';
+                    Row27[15] = 'ó';
+                }
+
+            }
+            else if (g.Lane == 5)
+            {
+                if (g.Row == 1)
+                {
+                    Row2[17] = '/';
+                    Row2[18] = 'Σ';
+                    Row2[19] = ',';
+                    Row3[17] = 'ò';
+                    Row3[18] = '∩';
+                    Row3[19] = 'ó';
+                }
+                else if (g.Row == 2)
+                {
+                    Row2[17] = ' ';
+                    Row2[18] = ' ';
+                    Row2[19] = ' ';
+                    Row3[17] = ' ';
+                    Row3[18] = ' ';
+                    Row3[19] = ' ';
+                    Row5[17] = '/';
+                    Row5[18] = 'Σ';
+                    Row5[19] = ',';
+                    Row6[17] = 'ò';
+                    Row6[18] = '∩';
+                    Row6[19] = 'ó';
+                }
+                else if (g.Row == 3)
+                {
+                    Row5[17] = ' ';
+                    Row5[18] = ' ';
+                    Row5[19] = ' ';
+                    Row6[17] = ' ';
+                    Row6[18] = ' ';
+                    Row6[19] = ' ';
+                    Row8[17] = '/';
+                    Row8[18] = 'Σ';
+                    Row8[19] = ',';
+                    Row9[17] = 'ò';
+                    Row9[18] = '∩';
+                    Row9[19] = 'ó';
+                }
+                else if (g.Row == 4)
+                {
+                    Row8[17] = ' ';
+                    Row8[18] = ' ';
+                    Row8[19] = ' ';
+                    Row9[17] = ' ';
+                    Row9[18] = ' ';
+                    Row9[19] = ' ';
+                    Row11[17] = '/';
+                    Row11[18] = 'Σ';
+                    Row11[19] = ',';
+                    Row12[17] = 'ò';
+                    Row12[18] = '∩';
+                    Row12[19] = 'ó';
+                }
+                else if (g.Row == 5)
+                {
+                    Row11[17] = ' ';
+                    Row11[18] = ' ';
+                    Row11[19] = ' ';
+                    Row12[17] = ' ';
+                    Row12[18] = ' ';
+                    Row12[19] = ' ';
+                    Row14[17] = '/';
+                    Row14[18] = 'Σ';
+                    Row14[19] = ',';
+                    Row15[17] = 'ò';
+                    Row15[18] = '∩';
+                    Row15[19] = 'ó';
+                }
+                else if (g.Row == 6)
+                {
+                    Row14[17] = ' ';
+                    Row14[18] = ' ';
+                    Row14[19] = ' ';
+                    Row15[17] = ' ';
+                    Row15[18] = ' ';
+                    Row15[19] = ' ';
+                    Row17[17] = '/';
+                    Row17[18] = 'Σ';
+                    Row17[19] = ',';
+                    Row18[17] = 'ò';
+                    Row18[18] = '∩';
+                    Row18[19] = 'ó';
+                }
+                else if (g.Row == 7)
+                {
+                    Row17[17] = ' ';
+                    Row17[18] = ' ';
+                    Row17[19] = ' ';
+                    Row18[17] = ' ';
+                    Row18[18] = ' ';
+                    Row18[19] = ' ';
+                    Row20[17] = '/';
+                    Row20[18] = 'Σ';
+                    Row20[19] = ',';
+                    Row21[17] = 'ò';
+                    Row21[18] = '∩';
+                    Row21[19] = 'ó';
+                }
+                else if (g.Row == 8)
+                {
+                    Row20[17] = ' ';
+                    Row20[18] = ' ';
+                    Row20[19] = ' ';
+                    Row21[17] = ' ';
+                    Row21[18] = ' ';
+                    Row21[19] = ' ';
+                    Row23[17] = '/';
+                    Row23[18] = 'Σ';
+                    Row23[19] = ',';
+                    Row24[17] = 'ò';
+                    Row24[18] = '∩';
+                    Row24[19] = 'ó';
+                }
+                else if (g.Row == 9)
+                {
+                    Row23[17] = ' ';
+                    Row23[18] = ' ';
+                    Row23[19] = ' ';
+                    Row24[17] = ' ';
+                    Row24[18] = ' ';
+                    Row24[19] = ' ';
+                    Row26[17] = '/';
+                    Row26[18] = 'Σ';
+                    Row26[19] = ',';
+                    Row27[17] = 'ò';
+
+                }
             }
         }
     }
 
-}
-         
 
+    static void DrawGizards()
+    {
+        foreach (var g in gizards.Where(x => x.IsAlive))
+                {
+                    if (g.Lane == 1)
+                    {
+                        if (g.Row == 1)
+                        {
+                            Row2[1] = '/';
+                            Row2[2] = '^';
+                            Row2[3] = '\\';
+                            Row3[1] = '0';
+                            Row3[2] = '¬';
+                            Row3[3] = '0';
+                        }
+                        else if (g.Row == 2)
+                        {
+                            Row2[1] = ' ';
+                            Row2[2] = ' ';
+                            Row2[3] = ' ';
+                            Row3[1] = ' ';
+                            Row3[2] = ' ';
+                            Row3[3] = ' ';
+                            Row5[1] = '/';
+                            Row5[2] = '^';
+                            Row5[3] = '\\';
+                            Row6[1] = '0';
+                            Row6[2] = '¬';
+                            Row6[3] = '0';
+                        }
+                        else if (g.Row == 3)
+                        {
+                            Row5[1] = ' ';
+                            Row5[2] = ' ';
+                            Row5[3] = ' ';
+                            Row6[1] = ' ';
+                            Row6[2] = ' ';
+                            Row6[3] = ' ';
+                            Row8[1] = '/';
+                            Row8[2] = '^';
+                            Row8[3] = '\\';
+                            Row9[1] = '0';
+                            Row9[2] = '¬';
+                            Row9[3] = '0';
+                        }
+                        else if (g.Row == 4)
+                        {
+                            Row8[1] = ' ';
+                            Row8[2] = ' ';
+                            Row8[3] = ' ';
+                            Row9[1] = ' ';
+                            Row9[2] = ' ';
+                            Row9[3] = ' ';
+                            Row11[1] = '/';
+                            Row11[2] = '^';
+                            Row11[3] = '\\';
+                            Row12[1] = '0';
+                            Row12[2] = '¬';
+                            Row12[3] = '0';
+                        }
+                        else if (g.Row == 5)
+                        {
+                            Row11[1] = ' ';
+                            Row11[2] = ' ';
+                            Row11[3] = ' ';
+                            Row12[1] = ' ';
+                            Row12[2] = ' ';
+                            Row12[3] = ' ';
+                            Row14[1] = '/';
+                            Row14[2] = '^';
+                            Row14[3] = '\\';
+                            Row15[1] = '0';
+                            Row15[2] = '¬';
+                            Row15[3] = '0';
+                        }
+                        else if (g.Row == 6)
+                        {
+                            Row14[1] = ' ';
+                            Row14[2] = ' ';
+                            Row14[3] = ' ';
+                            Row15[1] = ' ';
+                            Row15[2] = ' ';
+                            Row15[3] = ' ';
+                            Row17[1] = '/';
+                            Row17[2] = '^';
+                            Row17[3] = '\\';
+                            Row18[1] = '0';
+                            Row18[2] = '¬';
+                            Row18[3] = '0';
+                        }
+                        else if (g.Row == 7)
+                        {
+                            Row17[1] = ' ';
+                            Row17[2] = ' ';
+                            Row17[3] = ' ';
+                            Row18[1] = ' ';
+                            Row18[2] = ' ';
+                            Row18[3] = ' ';
+                            Row20[1] = '/';
+                            Row20[2] = '^';
+                            Row20[3] = '\\';
+                            Row21[1] = '0';
+                            Row21[2] = '¬';
+                            Row21[3] = '0';
+                        }
+                        else if (g.Row == 8)
+                        {
+                            Row20[1] = ' ';
+                            Row20[2] = ' ';
+                            Row20[3] = ' ';
+                            Row21[1] = ' ';
+                            Row21[2] = ' ';
+                            Row21[3] = ' ';
+                            Row23[1] = '/';
+                            Row23[2] = '^';
+                            Row23[3] = '\\';
+                            Row24[1] = '0';
+                            Row24[2] = '¬';
+                            Row24[3] = '0';
+                        }
+                        else if (g.Row == 9)
+                        {
+                            Row23[1] = ' ';
+                            Row23[2] = ' ';
+                            Row23[3] = ' ';
+                            Row24[1] = ' ';
+                            Row24[2] = ' ';
+                            Row24[3] = ' ';
+                            Row26[1] = '/';
+                            Row26[2] = '^';
+                            Row26[3] = '\\';
+                            Row27[1] = '0';
+                            Row27[2] = '¬';
+                            Row27[3] = '0';
+                        }
+                    }
+                    else if (g.Lane == 2)
+                    {
+                        if (g.Row == 1)
+                        {
+                            Row2[5] = '/';
+                            Row2[6] = '^';
+                            Row2[7] = '\\';
+                            Row3[5] = '0';
+                            Row3[6] = '¬';
+                            Row3[7] = '0';
+                        }
+                        else if (g.Row == 2)
+                        {
+                            Row2[5] = ' ';
+                            Row2[6] = ' ';
+                            Row2[7] = ' ';
+                            Row3[5] = ' ';
+                            Row3[6] = ' ';
+                            Row3[7] = ' ';
+                            Row5[5] = '/';
+                            Row5[6] = '^';
+                            Row5[7] = '\\';
+                            Row6[5] = '0';
+                            Row6[6] = '¬';
+                            Row6[7] = '0';
+                        }
+                        else if (g.Row == 3)
+                        {
+                            Row5[5] = ' ';
+                            Row5[6] = ' ';
+                            Row5[7] = ' ';
+                            Row6[5] = ' ';
+                            Row6[6] = ' ';
+                            Row6[7] = ' ';
+                            Row8[5] = '/';
+                            Row8[6] = '^';
+                            Row8[7] = '\\';
+                            Row9[5] = '0';
+                            Row9[6] = '¬';
+                            Row9[7] = '0';
+                        }
+                        else if (g.Row == 4)
+                        {
+                            Row8[5] = ' ';
+                            Row8[6] = ' ';
+                            Row8[7] = ' ';
+                            Row9[5] = ' ';
+                            Row9[6] = ' ';
+                            Row9[7] = ' ';
+                            Row11[5] = '/';
+                            Row11[6] = '^';
+                            Row11[7] = '\\';
+                            Row12[5] = '0';
+                            Row12[6] = '¬';
+                            Row12[7] = '0';
+                        }
+                        else if (g.Row == 5)
+                        {
+                            Row11[5] = ' ';
+                            Row11[6] = ' ';
+                            Row11[7] = ' ';
+                            Row12[5] = ' ';
+                            Row12[6] = ' ';
+                            Row12[7] = ' ';
+                            Row14[5] = '/';
+                            Row14[6] = '^';
+                            Row14[7] = '\\';
+                            Row15[5] = '0';
+                            Row15[6] = '¬';
+                            Row15[7] = '0';
+                        }
+                        else if (g.Row == 6)
+                        {
+                            Row14[5] = ' ';
+                            Row14[6] = ' ';
+                            Row14[7] = ' ';
+                            Row15[5] = ' ';
+                            Row15[6] = ' ';
+                            Row15[7] = ' ';
+                            Row17[5] = '/';
+                            Row17[6] = '^';
+                            Row17[7] = '\\';
+                            Row18[5] = '0';
+                            Row18[6] = '¬';
+                            Row18[7] = '0';
+                        }
+                        else if (g.Row == 7)
+                        {
+                            Row17[5] = ' ';
+                            Row17[6] = ' ';
+                            Row17[7] = ' ';
+                            Row18[5] = ' ';
+                            Row18[6] = ' ';
+                            Row18[7] = ' ';
+                            Row20[5] = '/';
+                            Row20[6] = '^';
+                            Row20[7] = '\\';
+                            Row21[5] = '0';
+                            Row21[6] = '¬';
+                            Row21[7] = '0';
+                        }
+                        else if (g.Row == 8)
+                        {
+                            Row20[5] = ' ';
+                            Row20[6] = ' ';
+                            Row20[7] = ' ';
+                            Row21[5] = ' ';
+                            Row21[6] = ' ';
+                            Row21[7] = ' ';
+                            Row23[5] = '/';
+                            Row23[6] = '^';
+                            Row23[7] = '\\';
+                            Row24[5] = '0';
+                            Row24[6] = '¬';
+                            Row24[7] = '0';
+                        }
+                        else if (g.Row == 9)
+                        {
+                            Row23[5] = ' ';
+                            Row23[6] = ' ';
+                            Row23[7] = ' ';
+                            Row24[5] = ' ';
+                            Row24[6] = ' ';
+                            Row24[7] = ' ';
+                            Row26[5] = '/';
+                            Row26[6] = '^';
+                            Row26[7] = '\\';
+                            Row27[5] = '0';
+                            Row27[6] = '¬';
+                            Row27[7] = '0';
+                        }
+
+                    }
+                    else if (g.Lane == 3)
+                    {
+                        if (g.Row == 1)
+                        {
+                            Row2[9] = '/';
+                            Row2[10] = '^';
+                            Row2[11] = '\\';
+                            Row3[9] = '0';
+                            Row3[10] = '¬';
+                            Row3[11] = '0';
+                        }
+                        else if (g.Row == 2)
+                        {
+                            Row2[9] = ' ';
+                            Row2[10] = ' ';
+                            Row2[11] = ' ';
+                            Row3[9] = ' ';
+                            Row3[10] = ' ';
+                            Row3[11] = ' ';
+                            Row5[9] = '/';
+                            Row5[10] = '^';
+                            Row5[11] = '\\';
+                            Row6[9] = '0';
+                            Row6[10] = '¬';
+                            Row6[11] = '0';
+                        }
+                        else if (g.Row == 3)
+                        {
+                            Row5[9] = ' ';
+                            Row5[10] = ' ';
+                            Row5[11] = ' ';
+                            Row6[9] = ' ';
+                            Row6[10] = ' ';
+                            Row6[11] = ' ';
+                            Row8[9] = '/';
+                            Row8[10] = '^';
+                            Row8[11] = '\\';
+                            Row9[9] = '0';
+                            Row9[10] = '¬';
+                            Row9[11] = '0';
+                        }
+                        else if (g.Row == 4)
+                        {
+                            Row8[9] = ' ';
+                            Row8[10] = ' ';
+                            Row8[11] = ' ';
+                            Row9[9] = ' ';
+                            Row9[10] = ' ';
+                            Row9[11] = ' ';
+                            Row11[9] = '/';
+                            Row11[10] = '^';
+                            Row11[11] = '\\';
+                            Row12[9] = '0';
+                            Row12[10] = '¬';
+                            Row12[11] = '0';
+                        }
+                        else if (g.Row == 5)
+                        {
+                            Row11[9] = ' ';
+                            Row11[10] = ' ';
+                            Row11[11] = ' ';
+                            Row12[9] = ' ';
+                            Row12[10] = ' ';
+                            Row12[11] = ' ';
+                            Row14[9] = '/';
+                            Row14[10] = '^';
+                            Row14[11] = '\\';
+                            Row15[9] = '0';
+                            Row15[10] = '¬';
+                            Row15[11] = '0';
+                        }
+                        else if (g.Row == 6)
+                        {
+                            Row14[9] = ' ';
+                            Row14[10] = ' ';
+                            Row14[11] = ' ';
+                            Row15[9] = ' ';
+                            Row15[10] = ' ';
+                            Row15[11] = ' ';
+                            Row17[9] = '/';
+                            Row17[10] = '^';
+                            Row17[11] = '\\';
+                            Row18[9] = '0';
+                            Row18[10] = '¬';
+                            Row18[11] = '0';
+                        }
+                        else if (g.Row == 7)
+                        {
+                            Row17[9] = ' ';
+                            Row17[10] = ' ';
+                            Row17[11] = ' ';
+                            Row18[9] = ' ';
+                            Row18[10] = ' ';
+                            Row18[11] = ' ';
+                            Row20[9] = '/';
+                            Row20[10] = '^';
+                            Row20[11] = '\\';
+                            Row21[9] = '0';
+                            Row21[10] = '¬';
+                            Row21[11] = '0';
+                        }
+                        else if (g.Row == 8)
+                        {
+                            Row20[9] = ' ';
+                            Row20[10] = ' ';
+                            Row20[11] = ' ';
+                            Row21[9] = ' ';
+                            Row21[10] = ' ';
+                            Row21[11] = ' ';
+                            Row23[9] = '/';
+                            Row23[10] = '^';
+                            Row23[11] = '\\';
+                            Row24[9] = '0';
+                            Row24[10] = '¬';
+                            Row24[11] = '0';
+                        }
+                        else if (g.Row == 9)
+                        {
+                            Row23[9] = ' ';
+                            Row23[10] = ' ';
+                            Row23[11] = ' ';
+                            Row24[9] = ' ';
+                            Row24[10] = ' ';
+                            Row24[11] = ' ';
+                            Row26[9] = '/';
+                            Row26[10] = '^';
+                            Row26[11] = '\\';
+                            Row27[9] = '0';
+                            Row27[10] = '¬';
+                            Row27[11] = '0';
+                        }
+
+                    }
+                    else if (g.Lane == 4)
+                    {
+                        if (g.Row == 1)
+                        {
+                            Row2[13] = '/';
+                            Row2[14] = '^';
+                            Row2[15] = '\\';
+                            Row3[13] = '0';
+                            Row3[14] = '¬';
+                            Row3[15] = '0';
+                        }
+                        else if (g.Row == 2)
+                        {
+                            Row2[13] = ' ';
+                            Row2[14] = ' ';
+                            Row2[15] = ' ';
+                            Row3[13] = ' ';
+                            Row3[14] = ' ';
+                            Row3[15] = ' ';
+                            Row5[13] = '/';
+                            Row5[14] = '^';
+                            Row5[15] = '\\';
+                            Row6[13] = '0';
+                            Row6[14] = '¬';
+                            Row6[15] = '0';
+                        }
+                        else if (g.Row == 3)
+                        {
+                            Row5[13] = ' ';
+                            Row5[14] = ' ';
+                            Row5[15] = ' ';
+                            Row6[13] = ' ';
+                            Row6[14] = ' ';
+                            Row6[15] = ' ';
+                            Row8[13] = '/';
+                            Row8[14] = '^';
+                            Row8[15] = '\\';
+                            Row9[13] = '0';
+                            Row9[14] = '¬';
+                            Row9[15] = '0';
+                        }
+                        else if (g.Row == 4)
+                        {
+                            Row8[13] = ' ';
+                            Row8[14] = ' ';
+                            Row8[15] = ' ';
+                            Row9[13] = ' ';
+                            Row9[14] = ' ';
+                            Row9[15] = ' ';
+                            Row11[13] = '/';
+                            Row11[14] = '^';
+                            Row11[15] = '\\';
+                            Row12[13] = '0';
+                            Row12[14] = '¬';
+                            Row12[15] = '0';
+                        }
+                        else if (g.Row == 5)
+                        {
+                            Row11[13] = ' ';
+                            Row11[14] = ' ';
+                            Row11[15] = ' ';
+                            Row12[13] = ' ';
+                            Row12[14] = ' ';
+                            Row12[15] = ' ';
+                            Row14[13] = '/';
+                            Row14[14] = '^';
+                            Row14[15] = '\\';
+                            Row15[13] = '0';
+                            Row15[14] = '¬';
+                            Row15[15] = '0';
+                        }
+                        else if (g.Row == 6)
+                        {
+                            Row14[13] = ' ';
+                            Row14[14] = ' ';
+                            Row14[15] = ' ';
+                            Row15[13] = ' ';
+                            Row15[14] = ' ';
+                            Row15[15] = ' ';
+                            Row17[13] = '/';
+                            Row17[14] = '^';
+                            Row17[15] = '\\';
+                            Row18[13] = '0';
+                            Row18[14] = '¬';
+                            Row18[15] = '0';
+                        }
+                        else if (g.Row == 7)
+                        {
+                            Row17[13] = ' ';
+                            Row17[14] = ' ';
+                            Row17[15] = ' ';
+                            Row18[13] = ' ';
+                            Row18[14] = ' ';
+                            Row18[15] = ' ';
+                            Row20[13] = '/';
+                            Row20[14] = '^';
+                            Row20[15] = '\\';
+                            Row21[13] = '0';
+                            Row21[14] = '¬';
+                            Row21[15] = '0';
+                        }
+                        else if (g.Row == 8)
+                        {
+                            Row20[13] = ' ';
+                            Row20[14] = ' ';
+                            Row20[15] = ' ';
+                            Row21[13] = ' ';
+                            Row21[14] = ' ';
+                            Row21[15] = ' ';
+                            Row23[13] = '/';
+                            Row23[14] = '^';
+                            Row23[15] = '\\';
+                            Row24[13] = '0';
+                            Row24[14] = '¬';
+                            Row24[15] = '0';
+                        }
+                        else if (g.Row == 9)
+                        {
+                            Row23[13] = ' ';
+                            Row23[14] = ' ';
+                            Row23[15] = ' ';
+                            Row24[13] = ' ';
+                            Row24[14] = ' ';
+                            Row24[15] = ' ';
+                            Row26[13] = '/';
+                            Row26[14] = '^';
+                            Row26[15] = '\\';
+                            Row27[13] = '0';
+                            Row27[14] = '¬';
+                            Row27[15] = '0';
+                        }
+
+                    }
+                    else if (g.Lane == 5)
+                    {
+                        if (g.Row == 1)
+                        {
+                            Row2[17] = '/';
+                            Row2[18] = '^';
+                            Row2[19] = '\\';
+                            Row3[17] = '0';
+                            Row3[18] = '¬';
+                            Row3[19] = '0';
+                        }
+                        else if (g.Row == 2)
+                        {
+                            Row2[17] = ' ';
+                            Row2[18] = ' ';
+                            Row2[19] = ' ';
+                            Row3[17] = ' ';
+                            Row3[18] = ' ';
+                            Row3[19] = ' ';
+                            Row5[17] = '/';
+                            Row5[18] = '^';
+                            Row5[19] = '\\';
+                            Row6[17] = '0';
+                            Row6[18] = '¬';
+                            Row6[19] = '0';
+                        }
+                        else if (g.Row == 3)
+                        {
+                            Row5[17] = ' ';
+                            Row5[18] = ' ';
+                            Row5[19] = ' ';
+                            Row6[17] = ' ';
+                            Row6[18] = ' ';
+                            Row6[19] = ' ';
+                            Row8[17] = '/';
+                            Row8[18] = '^';
+                            Row8[19] = '\\';
+                            Row9[17] = '0';
+                            Row9[18] = '¬';
+                            Row9[19] = '0';
+                        }
+                        else if (g.Row == 4)
+                        {
+                            Row8[17] = ' ';
+                            Row8[18] = ' ';
+                            Row8[19] = ' ';
+                            Row9[17] = ' ';
+                            Row9[18] = ' ';
+                            Row9[19] = ' ';
+                            Row11[17] = '/';
+                            Row11[18] = '^';
+                            Row11[19] = '\\';
+                            Row12[17] = '0';
+                            Row12[18] = '¬';
+                            Row12[19] = '0';
+                        }
+                        else if (g.Row == 5)
+                        {
+                            Row11[17] = ' ';
+                            Row11[18] = ' ';
+                            Row11[19] = ' ';
+                            Row12[17] = ' ';
+                            Row12[18] = ' ';
+                            Row12[19] = ' ';
+                            Row14[17] = '/';
+                            Row14[18] = '^';
+                            Row14[19] = '\\';
+                            Row15[17] = '0';
+                            Row15[18] = '¬';
+                            Row15[19] = '0';
+                        }
+                        else if (g.Row == 6)
+                        {
+                            Row14[17] = ' ';
+                            Row14[18] = ' ';
+                            Row14[19] = ' ';
+                            Row15[17] = ' ';
+                            Row15[18] = ' ';
+                            Row15[19] = ' ';
+                            Row17[17] = '/';
+                            Row17[18] = '^';
+                            Row17[19] = '\\';
+                            Row18[17] = '0';
+                            Row18[18] = '¬';
+                            Row18[19] = '0';
+                        }
+                        else if (g.Row == 7)
+                        {
+                            Row17[17] = ' ';
+                            Row17[18] = ' ';
+                            Row17[19] = ' ';
+                            Row18[17] = ' ';
+                            Row18[18] = ' ';
+                            Row18[19] = ' ';
+                            Row20[17] = '/';
+                            Row20[18] = '^';
+                            Row20[19] = '\\';
+                            Row21[17] = '0';
+                            Row21[18] = '¬';
+                            Row21[19] = '0';
+                        }
+                        else if (g.Row == 8)
+                        {
+                            Row20[17] = ' ';
+                            Row20[18] = ' ';
+                            Row20[19] = ' ';
+                            Row21[17] = ' ';
+                            Row21[18] = ' ';
+                            Row21[19] = ' ';
+                            Row23[17] = '/';
+                            Row23[18] = '^';
+                            Row23[19] = '\\';
+                            Row24[17] = '0';
+                            Row24[18] = '¬';
+                            Row24[19] = '0';
+                        }
+                        else if (g.Row == 9)
+                        {
+                            Row23[17] = ' ';
+                            Row23[18] = ' ';
+                            Row23[19] = ' ';
+                            Row24[17] = ' ';
+                            Row24[18] = ' ';
+                            Row24[19] = ' ';
+                            Row26[17] = '/';
+                            Row26[18] = '^';
+                            Row26[19] = '\\';
+                            Row27[17] = '0';
+                            Row27[18] = '¬';
+                            Row27[19] = '0';
+                        }
+
+                    }
+
+
+
+        }
+    }
+}
+    
