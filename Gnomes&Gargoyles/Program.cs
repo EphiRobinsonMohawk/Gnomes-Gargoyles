@@ -2726,6 +2726,14 @@ class GridShell
         gnomeMoveTimer = 0;
         gizardMoveTimer = 0;
         gnightMoveTimer = 0;
+        cooldown = 8;
+        cooldownReady = true;
+
+        enemyProjectiles.Clear();
+        projectiles.Clear();
+        gnomes.Clear();
+        gizards.Clear();
+        gnights.Clear();
 
         gargAttackTimer[0] = 0; gargHealth[0] = 9; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
         gargAttackTimer[1] = 0; gargHealth[1] = 9; gargIsAlive[1] = false; gargDeathPlayed[1] = false;
