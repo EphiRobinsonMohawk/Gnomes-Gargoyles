@@ -418,17 +418,17 @@ class GridShell
             Console.WriteLine(@"░░░            ░▀▀▀▒▀░▀▒▀░▀▒▀▀▀▒▀▀▀▒▒▀▒▒▀▀▀▒▀▀▀▒▀▀▀░            ░░░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
             Console.WriteLine(@"▒░▒│ /\, Gnome: 4 socks ß       │▒│/|/ Gargoyle                │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ ouo (average melee unit)   │▒│ΘΘ£ (average melee unit)    │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ouo (average melee gnome)  │▒│ΘΘ£ (average melee unit)    │▒░▒               ");
             Console.WriteLine(@"▒░▒│ rr                         │▒│rr)                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
             Console.WriteLine(@"▒░▒│ /Σ, Gnight: 6 socks ß      │▒│◢║◣ Gardgoyle               │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee unit)      │▒│ΘxΘ (tanky melee unit)      │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ ò∩ó (fast melee gnome)     │▒│ΘxΘ (tanky melee unit)      │▒░▒               ");
             Console.WriteLine(@"▒░▒│ l l                        │▒│¿:¥                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
             Console.WriteLine(@"▒░▒│ /^\ Gnomagician: 6 socks ß │▒│\]\ Gargurgle               │▒░▒               ");
-            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│Θ⩌Θ (ranged unit)           │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged gnome)    │▒│Θ⩌Θ (ranged unit)           │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ¥:¥                        │▒│(+≡                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░░░                                                             ░░░               ");
@@ -474,8 +474,8 @@ class GridShell
             Console.WriteLine(@"         .     +                   ~Space To Begin~      °            .        x      ");
             Console.WriteLine(@"                                       Controls:                                      ");
             Console.WriteLine(@"                                1-2-3 to select a gnome                               ");
-            Console.WriteLine(@"                                 ←  → to move the gnome                               ");
-            Console.WriteLine(@"                               Space to place the gnome                               ");
+            Console.WriteLine(@"                                 ←  → to move the gnome          ßßß                  ");
+            Console.WriteLine(@"                               Space to place the gnome          ßßß = pile of socks  ");
 
             if (Console.KeyAvailable)
             {
@@ -737,6 +737,11 @@ class GridShell
                                 gizardMoveTimer = 0;
                                 SpawnProjectile(1, 0);
                             }
+                            else if (!gargIsAlive[5] && !gargIsAlive[0])
+                            {
+                                gizardMoveTimer = 0;
+                                g.Row--;
+                            }
                         }
                         else if (g.Lane == 2)
                         {
@@ -745,7 +750,11 @@ class GridShell
                                 gizardMoveTimer = 0;
                                 SpawnProjectile(2, 0);
                             }
-
+                            else if (!gargIsAlive[6] && !gargIsAlive[1])
+                            {
+                                gizardMoveTimer = 0;
+                                g.Row--;
+                            }
                         }
                         else if (g.Lane == 3)
                         {
@@ -753,6 +762,11 @@ class GridShell
                             {
                                 gizardMoveTimer = 0;
                                 SpawnProjectile(3, 0);
+                            }
+                            else if (!gargIsAlive[7] && !gargIsAlive[2])
+                            {
+                                gizardMoveTimer = 0;
+                                g.Row--;
                             }
 
                         }
@@ -763,6 +777,11 @@ class GridShell
                                 gizardMoveTimer = 0;
                                 SpawnProjectile(4, 0);
                             }
+                            else if (!gargIsAlive[8] && !gargIsAlive[3])
+                            {
+                                gizardMoveTimer = 0;
+                                g.Row--;
+                            }
 
                         }
                         else if (g.Lane == 5)
@@ -771,6 +790,11 @@ class GridShell
                             {
                                 gizardMoveTimer = 0;
                                 SpawnProjectile(5, 0);
+                            }
+                            else if (!gargIsAlive[9] && !gargIsAlive[4])
+                            {
+                                gizardMoveTimer = 0;
+                                g.Row--;
                             }
 
                         }
