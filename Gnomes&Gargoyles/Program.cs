@@ -1549,6 +1549,7 @@ class GridShell
                             g.Health -= gargDamage[5];
                         }
                     }
+                    p.hasHit = true;
 
                 }
 
@@ -1703,6 +1704,7 @@ class GridShell
                             g.Health -= gargDamage[9];
                         }
                     }
+                    p.hasHit = true;
 
                 }
             }
