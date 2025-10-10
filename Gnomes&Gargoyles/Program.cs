@@ -24,6 +24,7 @@ class GridShell
     static int cooldown = 8;
     static bool cooldownReady = true;
 
+    //one time use bools
     static bool winHasPlayed = false;
     static bool lossHasPlayed = false;
     static bool isPage2 = false;
@@ -151,31 +152,31 @@ class GridShell
             {
                 gargIsAlive[5] = true;
                 gargDeathPlayed[5] = false;
-                gargHealth[5] = 4;
+                gargHealth[5] = 3;
             }
             if (!gargIsAlive[6])
             {
                 gargIsAlive[6] = true;
                 gargDeathPlayed[6] = false;
-                gargHealth[6] = 5;
+                gargHealth[6] = 6;
             }
-            else if (!gargIsAlive[7])
+            if (!gargIsAlive[7])
             {
                 gargIsAlive[7] = true;
                 gargDeathPlayed[7] = false;
-                gargHealth[7] = 8;
+                gargHealth[7] = 9;
             }
-            else if (!gargIsAlive[8])
+            if (!gargIsAlive[8])
             {
                 gargIsAlive[8] = true;
                 gargDeathPlayed[8] = false;
-                gargHealth[8] = 5;
+                gargHealth[8] = 6;
             }
-            else if (!gargIsAlive[9])
+            if (!gargIsAlive[9])
             {
                 gargIsAlive[9] = true;
                 gargDeathPlayed[9] = false;
-                gargHealth[9] = 4;
+                gargHealth[9] = 3;
             }
 
         }
@@ -2720,6 +2721,7 @@ class GridShell
         timer = timerMax;
         hasLost = false;
         hasWon = false;
+        hasReinforced = false;
         isPlacing = false;
         tickTimer = 0;
         gnomeMoveTimer = 0;
@@ -2727,6 +2729,7 @@ class GridShell
         gnightMoveTimer = 0;
         cooldown = 8;
         cooldownReady = true;
+        socks = 8;
 
         enemyProjectiles.Clear();
         projectiles.Clear();
