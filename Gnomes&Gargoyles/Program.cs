@@ -38,14 +38,14 @@ class GridShell
     static int laneFlashing;
     static int gnomePlacing;
     static int gnomeDamage = 3;
-    static int gnightDamage = 3;
+    static int gnightDamage = 1;
     static int gizardDamage = 1;
     static int gnomeMoveTimer; 
     static int gizardMoveTimer;
     static int gnightMoveTimer;
     static int movePeriod = 3;
     static int gizardMovePeriod = 15;
-    static int gnightMovePeriod = 2;
+    static int gnightMovePeriod = 1;
 
     static int tickTimer;
     static int enemyCount = 10;
