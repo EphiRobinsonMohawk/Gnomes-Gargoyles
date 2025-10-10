@@ -8,14 +8,14 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-    static int[] sockPileAmmounts = { 12, 12, 8 };
+    static int[] sockPileAmmounts = { 10, 10, 6 };
     static bool[] sockPileCollected = { false, false, false };
     static float gargAttackMax = 4;
     static int[] enemyCounter = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static float[] gargAttackTimer = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     static int[] dropValue = { 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2 };
     static int[] gargDamage = { 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2};
-    static int[] gargHealth = { 10, 10, 10, 10, 10, 8, 10, 16, 10, 8, 10, 10, 10, 10, 10}; //Array of gargoyles health stats
+    static int[] gargHealth = { 9, 9, 9, 9, 9, 6, 9, 15, 9, 6, 9, 9, 9, 9, 9}; //Array of gargoyles health stats
     static bool[] gargIsAlive = { true, false, false, false, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
     static bool[] gargDeathPlayed = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
     //gargoyle    0, 1, 2, 3, 4
@@ -427,7 +427,7 @@ class GridShell
             Console.WriteLine(@"▒░▒│ l l                        │▒│¿:¥                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
             Console.WriteLine(@"░▒░┌────────────────────────────┐░┌────────────────────────────┐░▒░               ");
-            Console.WriteLine(@"▒░▒│ /^\ Gnomagician: 10 socks ß│▒│\]\ Gargurgle               │▒░▒               ");
+            Console.WriteLine(@"▒░▒│ /^\ Gnomagician: 6 socks ß │▒│\]\ Gargurgle               │▒░▒               ");
             Console.WriteLine(@"▒░▒│ 0¬0 (slow ranged unit)     │▒│Θ⩌Θ (ranged unit)           │▒░▒               ");
             Console.WriteLine(@"▒░▒│ ¥:¥                        │▒│(+≡                         │▒░▒               ");
             Console.WriteLine(@"░▒░└────────────────────────────┘░└────────────────────────────┘░▒░               ");
@@ -553,8 +553,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[2] -= 4;
-                                socks += 4;
+                                sockPileAmmounts[2] -= 3;
+                                socks += 3;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -567,8 +567,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[0] -= 6;
-                                socks += 6;
+                                sockPileAmmounts[0] -= 5;
+                                socks += 5;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -581,8 +581,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[1] -= 6;
-                                socks += 6;
+                                sockPileAmmounts[1] -= 5;
+                                socks += 5;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -793,8 +793,8 @@ class GridShell
                         else
                         {
                             gnightMoveTimer = 0;
-                            sockPileAmmounts[2] -= 8;
-                            socks += 8;
+                            sockPileAmmounts[2] -= 3;
+                            socks += 3;
                             Audio.Play("misc_sound");
                         }
                     }
@@ -807,8 +807,8 @@ class GridShell
                         else
                         {
                             gnightMoveTimer = 0;
-                            sockPileAmmounts[0] -= 8;
-                            socks += 8;
+                            sockPileAmmounts[0] -= 5;
+                            socks += 5;
                             Audio.Play("misc_sound");
                         }
                     }
@@ -821,8 +821,8 @@ class GridShell
                         else
                         {
                             gnightMoveTimer = 0;
-                            sockPileAmmounts[1] -= 8;
-                            socks += 8;
+                            sockPileAmmounts[1] -= 5;
+                            socks += 5;
                             Audio.Play("misc_sound");
                         }
                     }
@@ -1023,7 +1023,7 @@ class GridShell
                         if (gnomePlacing == 3 && socks >= 10)
                         {
                             isPlacing = false;
-                            socks -= 10;
+                            socks -= 6;
                             SpawnGizard(laneSelecting, 9, 5);
                             Audio.Play("gnome_laugh");
                             cooldownReady = false;
@@ -1258,7 +1258,7 @@ class GridShell
             Console.Write($"     D║{cooldownCharacters[4]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row25)); Console.WriteLine("║▐▓▓▒░░ <██║ /\\,  /Σ,  /^\\ ║");
             Console.Write($"     O║{cooldownCharacters[5]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row26)); Console.WriteLine("║▐▓▓▒░░ <██║ ouo  ò∩ó  0¬0 ║");
             Console.Write($"     W║{cooldownCharacters[6]}║║██> ░▒▒▓▓▌║"); Console.Write(new string(Row27)); Console.WriteLine("║▐▓▓▒▒░ <██║╚   ╝╚   ╝╚   ╝║");
-            Console.Write($"     N║{cooldownCharacters[7]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»4 «ß»6 «ß»10║");
+            Console.Write($"     N║{cooldownCharacters[7]}║║██> ░░▒▓▓▌║"); Console.Write(new string(Row28)); Console.WriteLine("║▐▓▓▒░░ <██║«ß»4 «ß»6 «ß»6 ║");
             Console.WriteLine("      ╚═╝║███████████████████████████████████████████║░░░░░░░░░░░░░░░║");
         }
 
@@ -2007,7 +2007,7 @@ class GridShell
             gargIsAlive[14] = false;
         }
         
-            if (gargIsAlive[0] && gargHealth[0] == 10)
+            if (gargIsAlive[0] && gargHealth[0] == 9)
             {
                 Row3[1] = 'Θ';
                 Row3[2] = 'Θ';
@@ -2017,7 +2017,7 @@ class GridShell
                 Row2[3] = '/';
             } 
 
-            else if (gargIsAlive[0] && gargHealth[0] < 10)
+            else if (gargIsAlive[0] && gargHealth[0] < 9)
             {
                 Row3[1] = 'Θ';
                 Row3[2] = 'Θ';
@@ -2027,7 +2027,7 @@ class GridShell
                 Row2[3] = '⸝';
             }
 
-            if (gargIsAlive[1] && gargHealth[1] == 10)
+            if (gargIsAlive[1] && gargHealth[1] == 9)
             {
                 Row3[5] = 'o';
                 Row3[6] = 'u';
@@ -2037,7 +2037,7 @@ class GridShell
                 Row2[7] = '/';
             }
 
-            else if (gargIsAlive[1] && gargHealth[1] < 10)
+            else if (gargIsAlive[1] && gargHealth[1] < 9)
             {
                 Row3[5] = 'o';
                 Row3[6] = 'u';
@@ -2046,7 +2046,7 @@ class GridShell
                 Row2[6] = '|';
                 Row2[7] = ' ';
             }
-            if (gargIsAlive[2] && gargHealth[2] == 10)
+            if (gargIsAlive[2] && gargHealth[2] == 9)
             {
                 Row3[9] = 'o';
                 Row3[10] = 'u';
@@ -2056,7 +2056,7 @@ class GridShell
                 Row2[11] = '/';
             }
 
-            else if (gargIsAlive[2] && gargHealth[2] < 10)
+            else if (gargIsAlive[2] && gargHealth[2] < 9)
             {
                 Row3[9] = 'o';
                 Row3[10] = 'u';
@@ -2066,7 +2066,7 @@ class GridShell
                 Row2[11] = ' ';
             }
 
-            if (gargIsAlive[3] && gargHealth[3] == 10)
+            if (gargIsAlive[3] && gargHealth[3] == 9)
             {
                 Row3[13] = 'o';
                 Row3[14] = 'u';
@@ -2076,7 +2076,7 @@ class GridShell
                 Row2[15] = '/';
             }
 
-            else if (gargIsAlive[3] && gargHealth[3] < 10)
+            else if (gargIsAlive[3] && gargHealth[3] < 9)
             {
                 Row3[13] = 'o';
                 Row3[14] = 'u';
@@ -2085,7 +2085,7 @@ class GridShell
                 Row2[14] = '|';
                 Row2[15] = ' ';
             }
-            if (gargIsAlive[4] && gargHealth[4] == 10)
+            if (gargIsAlive[4] && gargHealth[4] == 9)
             {
                 Row3[17] = 'Θ'; 
                 Row3[18] = 'Θ';
@@ -2095,7 +2095,7 @@ class GridShell
                 Row2[19] = '/';
             }
 
-            else if (gargIsAlive[4] && gargHealth[4] < 10)
+            else if (gargIsAlive[4] && gargHealth[4] < 9)
             {
                 Row3[17] = 'Θ'; 
                 Row3[18] = 'Θ';
@@ -2105,7 +2105,7 @@ class GridShell
                 Row2[19] = '⸝';
             }
 
-            if (gargIsAlive[5] && gargHealth[5] == 8)
+            if (gargIsAlive[5] && gargHealth[5] == 6)
             {
                 Row6[1] = 'Θ';
                 Row6[2] = '⩌';
@@ -2115,7 +2115,7 @@ class GridShell
                 Row5[3] = '\\';
             }
 
-            else if (gargIsAlive[5] && gargHealth[5] < 8)
+            else if (gargIsAlive[5] && gargHealth[5] < 6)
             {
                 Row6[1] = 'Θ';
                 Row6[2] = '⩌';
@@ -2125,7 +2125,7 @@ class GridShell
                 Row5[3] = '⸜';
             }
 
-            if (gargIsAlive[6] && gargHealth[6] == 10)
+            if (gargIsAlive[6] && gargHealth[6] == 9)
             {
                 Row6[5] = 'Θ'; 
                 Row6[6] = 'Θ';
@@ -2135,7 +2135,7 @@ class GridShell
                 Row5[7] = '/';
             }
 
-            else if (gargIsAlive[6] && gargHealth[6] < 10)
+            else if (gargIsAlive[6] && gargHealth[6] < 9)
             {
                 Row6[5] = 'Θ'; 
                 Row6[6] = 'Θ';
@@ -2145,7 +2145,7 @@ class GridShell
                 Row5[7] = '⸝';
             }
 
-            if (gargIsAlive[7] && gargHealth[7] >= 13)
+            if (gargIsAlive[7] && gargHealth[7] >= 12)
             {
                 Row6[9] = 'Θ';
                 Row6[10] = 'x';
@@ -2155,7 +2155,7 @@ class GridShell
                 Row5[11] = '◣';
             }
 
-            else if (gargIsAlive[7] && gargHealth[7] < 13)
+            else if (gargIsAlive[7] && gargHealth[7] < 12)
             {
                 Row6[9] = 'Θ';
                 Row6[10] = 'x';
@@ -2165,7 +2165,7 @@ class GridShell
                 Row5[11] = '⸜';
             }
 
-            if (gargIsAlive[8] && gargHealth[8] == 10)
+            if (gargIsAlive[8] && gargHealth[8] == 9)
             {
                 Row6[13] = 'Θ'; 
                 Row6[14] = 'Θ';
@@ -2175,7 +2175,7 @@ class GridShell
                 Row5[15] = '/';
             }
 
-            else if (gargIsAlive[8] && gargHealth[8] < 10)
+            else if (gargIsAlive[8] && gargHealth[8] < 9)
             {
                 Row6[13] = 'Θ';
                 Row6[14] = 'Θ';
@@ -2185,7 +2185,7 @@ class GridShell
                 Row5[15] = '⸝';
             }
 
-            if (gargIsAlive[9] && gargHealth[9] == 8)
+            if (gargIsAlive[9] && gargHealth[9] == 6)
             {
                 Row6[17] = 'Θ'; 
                 Row6[18] = '⩌';
@@ -2195,7 +2195,7 @@ class GridShell
                 Row5[19] = '\\';
             }
 
-            else if (gargIsAlive[9] && gargHealth[9] < 8)
+            else if (gargIsAlive[9] && gargHealth[9] < 6)
             {
                 Row6[17] = 'Θ'; 
                 Row6[18] = '⩌';
@@ -2691,6 +2691,7 @@ class GridShell
 
     static void ResetGame()
     {
+        level = 0;
         isPlaying = false;
         timer = timerMax;
         hasLost = false;
@@ -2701,23 +2702,23 @@ class GridShell
         gizardMoveTimer = 0;
         gnightMoveTimer = 0;
 
-        gargAttackTimer[0] = 0; gargHealth[0] = 10; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
-        gargAttackTimer[1] = 0; gargHealth[1] = 10; gargIsAlive[1] = false; gargDeathPlayed[1] = false;
-        gargAttackTimer[2] = 0; gargHealth[2] = 10; gargIsAlive[2] = false; gargDeathPlayed[2] = false;
-        gargAttackTimer[3] = 0; gargHealth[3] = 10; gargIsAlive[3] = false; gargDeathPlayed[3] = false;
-        gargAttackTimer[4] = 0; gargHealth[4] = 10; gargIsAlive[4] = true; gargDeathPlayed[4] = false;
+        gargAttackTimer[0] = 0; gargHealth[0] = 9; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
+        gargAttackTimer[1] = 0; gargHealth[1] = 9; gargIsAlive[1] = false; gargDeathPlayed[1] = false;
+        gargAttackTimer[2] = 0; gargHealth[2] = 9; gargIsAlive[2] = false; gargDeathPlayed[2] = false;
+        gargAttackTimer[3] = 0; gargHealth[3] = 9; gargIsAlive[3] = false; gargDeathPlayed[3] = false;
+        gargAttackTimer[4] = 0; gargHealth[4] = 9; gargIsAlive[4] = true; gargDeathPlayed[4] = false;
 
-        gargAttackTimer[5] = 0; gargHealth[5] = 8; gargIsAlive[5] = true; gargDeathPlayed[5] = false;
-        gargAttackTimer[6] = 0; gargHealth[6] = 10; gargIsAlive[6] = true; gargDeathPlayed[6] = false;
-        gargAttackTimer[7] = 0; gargHealth[7] = 16; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
-        gargAttackTimer[8] = 0; gargHealth[8] = 10; gargIsAlive[8] = true; gargDeathPlayed[8] = false;
-        gargAttackTimer[9] = 0; gargHealth[9] = 8; gargIsAlive[9] = true; gargDeathPlayed[9] = false;
+        gargAttackTimer[5] = 0; gargHealth[5] = 6; gargIsAlive[5] = true; gargDeathPlayed[5] = false;
+        gargAttackTimer[6] = 0; gargHealth[6] = 9; gargIsAlive[6] = true; gargDeathPlayed[6] = false;
+        gargAttackTimer[7] = 0; gargHealth[7] = 15; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
+        gargAttackTimer[8] = 0; gargHealth[8] = 9; gargIsAlive[8] = true; gargDeathPlayed[8] = false;
+        gargAttackTimer[9] = 0; gargHealth[9] = 6; gargIsAlive[9] = true; gargDeathPlayed[9] = false;
 
-        gargAttackTimer[10] = 0; gargHealth[10] = 10; gargIsAlive[10] = false; gargDeathPlayed[10] = false;
-        gargAttackTimer[11] = 0; gargHealth[11] = 10; gargIsAlive[11] = false; gargDeathPlayed[11] = false;
-        gargAttackTimer[12] = 0; gargHealth[12] = 10; gargIsAlive[12] = false; gargDeathPlayed[12] = false;
-        gargAttackTimer[13] = 0; gargHealth[13] = 10; gargIsAlive[13] = false; gargDeathPlayed[13] = false;
-        gargAttackTimer[14] = 0; gargHealth[14] = 10; gargIsAlive[14] = false; gargDeathPlayed[14] = false;
+        gargAttackTimer[10] = 0; gargHealth[10] = 9; gargIsAlive[10] = false; gargDeathPlayed[10] = false;
+        gargAttackTimer[11] = 0; gargHealth[11] = 9; gargIsAlive[11] = false; gargDeathPlayed[11] = false;
+        gargAttackTimer[12] = 0; gargHealth[12] = 9; gargIsAlive[12] = false; gargDeathPlayed[12] = false;
+        gargAttackTimer[13] = 0; gargHealth[13] = 9; gargIsAlive[13] = false; gargDeathPlayed[13] = false;
+        gargAttackTimer[14] = 0; gargHealth[14] = 9; gargIsAlive[14] = false; gargDeathPlayed[14] = false;
     }
 
 
