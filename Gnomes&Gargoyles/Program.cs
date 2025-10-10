@@ -15,7 +15,7 @@ class GridShell
     static float[] gargAttackTimer = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     static int[] dropValue = { 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2 };
     static int[] gargDamage = { 2, 2, 2, 2, 2, 1, 2, 1, 2, 1, 2, 2, 2, 2, 2};
-    static int[] gargHealth = { 9, 9, 9, 9, 9, 6, 9, 15, 9, 6, 9, 9, 9, 9, 9}; //Array of gargoyles health stats
+    static int[] gargHealth = { 9, 9, 9, 9, 9, 6, 9, 18, 9, 6, 9, 9, 9, 9, 9}; //Array of gargoyles health stats
     static bool[] gargIsAlive = { true, false, false, false, true, true, true, true, true, true, false, false, false, false ,false}; //First 10 gargoyles start as true, Last 5 start as false so they can be reinforcements
     static bool[] gargDeathPlayed = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
     //gargoyle    0, 1, 2, 3, 4
@@ -43,7 +43,7 @@ class GridShell
     static int gnomeMoveTimer; 
     static int gizardMoveTimer;
     static int gnightMoveTimer;
-    static int movePeriod = 4;
+    static int movePeriod = 3;
     static int gizardMovePeriod = 15;
     static int gnightMovePeriod = 2;
 
@@ -722,7 +722,7 @@ class GridShell
             {
                 foreach (var g in gizards.Where(x => x.IsAlive))
                 {
-                    if (g.Row >= 5)
+                   if (g.Row >= 5)
                     {
                         gizardMoveTimer = 0;
                         g.Row--;
@@ -732,6 +732,7 @@ class GridShell
                     {
                         if (g.Lane == 1)
                         {
+
                             if (gargIsAlive[5] || gargIsAlive[0])
                             {
                                 gizardMoveTimer = 0;
@@ -1044,7 +1045,7 @@ class GridShell
                             cooldownReady = false;
                             cooldown = 0;
                         }
-                        if (gnomePlacing == 3 && socks >= 10)
+                        if (gnomePlacing == 3 && socks >= 6)
                         {
                             isPlacing = false;
                             socks -= 6;
@@ -1257,7 +1258,7 @@ class GridShell
             //Printing each line (Brackets solely so you can collapse it) 
             Console.Write("║ ░Socks░ ██>  ░▒▒▓▌║"); Console.Write(new string(Row1)); Console.WriteLine("║▐▓▒▒░  <██ ░Timer░ ║");
             Console.Write("║   «ß»   ██> ░▒▒▓▓▌║"); Console.Write(new string(Row2)); Console.WriteLine("║▐▓▓▒▒░ <██   «ö»   ║");
-            Console.Write($"║  ░{socks}░{socksSpace}{socksSpace2}  ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax}{timerSpace} ║");
+            Console.Write($"║   ░{socks}░{socksSpace}{socksSpace2} ██> ░▒▒▓▓▌║"); Console.Write(new string(Row3)); Console.WriteLine($"║▐▓▓▒▒░ <██░{timer}/{timerMax}{timerSpace} ║");
             Console.Write("∙========<██> ░▒▒▓▒▌║"); Console.Write(new string(Row4)); Console.WriteLine("║▐▓▒▒▒░ <██         ║");
             Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row5)); Console.WriteLine("║▐▓▒▒░░ <██░Enemies░║");
             Console.Write("          ██> ░░▒▓▓▌║"); Console.Write(new string(Row6)); Console.WriteLine("║▐▓▓▒░░ <██   «φ»   ║");
@@ -2734,7 +2735,7 @@ class GridShell
 
         gargAttackTimer[5] = 0; gargHealth[5] = 6; gargIsAlive[5] = true; gargDeathPlayed[5] = false;
         gargAttackTimer[6] = 0; gargHealth[6] = 9; gargIsAlive[6] = true; gargDeathPlayed[6] = false;
-        gargAttackTimer[7] = 0; gargHealth[7] = 15; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
+        gargAttackTimer[7] = 0; gargHealth[7] = 18; gargIsAlive[7] = true; gargDeathPlayed[7] = false;
         gargAttackTimer[8] = 0; gargHealth[8] = 9; gargIsAlive[8] = true; gargDeathPlayed[8] = false;
         gargAttackTimer[9] = 0; gargHealth[9] = 6; gargIsAlive[9] = true; gargDeathPlayed[9] = false;
 
