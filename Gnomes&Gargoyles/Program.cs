@@ -8,7 +8,7 @@ using Gnomes_Gargoyles;
 
 class GridShell
 {
-    static int[] sockPileAmmounts = { 10, 10, 8 };
+    static int[] sockPileAmmounts = { 8, 8, 8 };
     static bool[] sockPileCollected = { false, false, false };
     static float gargAttackMax = 4;
     static int[] enemyCounter = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -567,8 +567,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[0] -= 5;
-                                socks += 5;
+                                sockPileAmmounts[0] -= 4;
+                                socks += 4;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -581,8 +581,8 @@ class GridShell
                             else
                             {
                                 gnomeMoveTimer = 0;
-                                sockPileAmmounts[1] -= 5;
-                                socks += 5;
+                                sockPileAmmounts[1] -= 4;
+                                socks += 4;
                                 Audio.Play("misc_sound");
                             }
                     }
@@ -832,8 +832,8 @@ class GridShell
                         else
                         {
                             gnightMoveTimer = 0;
-                            sockPileAmmounts[0] -= 5;
-                            socks += 5;
+                            sockPileAmmounts[0] -= 4;
+                            socks += 4;
                             Audio.Play("misc_sound");
                         }
                     }
@@ -846,8 +846,8 @@ class GridShell
                         else
                         {
                             gnightMoveTimer = 0;
-                            sockPileAmmounts[1] -= 5;
-                            socks += 5;
+                            sockPileAmmounts[1] -= 4;
+                            socks += 4;
                             Audio.Play("misc_sound");
                         }
                     }
@@ -2735,6 +2735,8 @@ class GridShell
         gizards.Clear();
         gnights.Clear();
 
+        sockPileCollected[0] = false; sockPileCollected[1] = false; sockPileCollected[2] = false;
+        sockPileAmmounts[0] = 8; sockPileAmmounts[1] = 8; sockPileAmmounts[2] = 8;
         gargAttackTimer[0] = 0; gargHealth[0] = 9; gargIsAlive[0] = true; gargDeathPlayed[0] = false;
         gargAttackTimer[1] = 0; gargHealth[1] = 9; gargIsAlive[1] = false; gargDeathPlayed[1] = false;
         gargAttackTimer[2] = 0; gargHealth[2] = 9; gargIsAlive[2] = false; gargDeathPlayed[2] = false;
