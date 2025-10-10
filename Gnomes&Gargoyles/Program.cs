@@ -475,7 +475,7 @@ class GridShell
             Console.WriteLine(@"                                       Controls:                                      ");
             Console.WriteLine(@"                                1-2-3 to select a gnome                               ");
             Console.WriteLine(@"                                 ←  → to move the gnome          ßßß                  ");
-            Console.WriteLine(@"                               Space to place the gnome          ßßß = pile of socks  ");
+            Console.WriteLine(@"  R to Restart                 Space to place the gnome          ßßß = pile of socks  ");
 
             if (Console.KeyAvailable)
             {
@@ -489,7 +489,6 @@ class GridShell
 
             }
         }
-
 
         if (isPlaying && !hasLost && !hasWon)
         {
